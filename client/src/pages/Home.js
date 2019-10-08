@@ -7,6 +7,7 @@ class Home extends Component {
             <div>
                 <p>
                     BLUE BASKET HELLO!!!!
+                    TEST!
                 </p>
             </div>
         )
