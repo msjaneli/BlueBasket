@@ -1,0 +1,22 @@
+{
+  "name": "bluebasket",
+  "version": "1.0.0",
+  "description": "BlueBasket BackEnd",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/msjaneli/BlueBasket.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/msjaneli/BlueBasket/issues"
+  },
+  "homepage": "https://github.com/msjaneli/BlueBasket#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
