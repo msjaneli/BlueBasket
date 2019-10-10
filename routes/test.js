@@ -1,15 +1,8 @@
 const Router = require('express-promise-router')
-
-const db = require('../db');
-
 const router = new Router();
+
+var user_controller = require('../controllers/userController');
 
 module.exports = router;
 
-router.get('/', async (req, res) => {
-    const query = {
-        text: 'SELECT * FROM userstest',
-    }
-    const { rows } = await db.query(query)
-    res.send(rows[0]);
-})
+router.get('/', user_controller.user_list);

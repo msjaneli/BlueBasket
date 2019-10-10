@@ -5,6 +5,7 @@ const pool = new Pool({
     ssl: true
 })
 
+// Export a query function that takes in a query object
 module.exports = {
     query: query => pool.query(query)
 }
