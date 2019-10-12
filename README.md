@@ -13,7 +13,7 @@ Within the client folder you can run:
 This will start the react application on port 3000.
 
 Within the root directory you can run:
-``` node app.js ```
+``` node index.js ```
 This will start the server.
 
 # Structure
