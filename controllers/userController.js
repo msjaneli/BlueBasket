@@ -7,3 +7,7 @@ exports.user_list = async (req, res) => {
     const { rows } = await db.query(query);
     res.send(rows);
 } 
+
+exports.user_register = async (req, res) => {
+    
+}
