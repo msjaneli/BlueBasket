@@ -20,6 +20,7 @@ export default class Facebook extends Component {
       console.log(alreadyRegistered.data);
     } catch (err) {
       console.log(err);
+      return;
     }
     if (!alreadyRegistered.data) {
       try {
