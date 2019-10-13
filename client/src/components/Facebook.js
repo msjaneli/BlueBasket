@@ -34,6 +34,7 @@ export default class Facebook extends Component {
         console.log(res);
       } catch (err) {
         console.log(err);
+        return;
       }
     }
   }
