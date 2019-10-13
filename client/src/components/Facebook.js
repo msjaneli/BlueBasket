@@ -75,8 +75,8 @@ export default class Facebook extends Component {
     } else {
       fbContent = (
         <FacebookLogin
-          appId="2434779620071000"
-          autoLoad={true}
+          appId="674103499777392"
+          autoLoad={false}
           fields="name,email,picture"
           onClick={this.componentClicked}
           callback={this.responseFacebook}
