@@ -23,7 +23,7 @@ export default class Facebook extends Component {
   componentClicked = () => console.log("clicked");
 
   render() {
-    let fbContent
+    let fbContent;
     if (this.state.isLoggedIn) {
       fbContent = (
         <div
