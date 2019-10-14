@@ -21,12 +21,8 @@ exports.checkUserExists = async (req, res) => {
         values: [email]
     }
 
-    try {
-        const { rows } = await db.query(checkEmailExists);
-        res.send(!isEmpty(rows));
-    } catch (err) {
-        return res.status(400).json(err);
-    }
+    const { rows } = await db.query(checkEmailExists);
+    res.send(!isEmpty(rows));
 }
 
 exports.registerUser = async (req, res) => {
@@ -47,14 +43,10 @@ exports.registerUser = async (req, res) => {
         values: [email]
     }
 
-    try {
-        const { rows } = await db.query(checkEmailExists);
-        if (!isEmpty(rows)) {
-            return res.status(400).json({error: "There is already a user registered under this email address"});
-        } 
-    } catch(err) {
-        return res.status(400).json(err);
-    }
+    const { rows } = await db.query(checkEmailExists);
+    if (!isEmpty(rows)) {
+        return res.status(400).json({error: "There is already a user registered under this email address"});
+    } 
 
     const uid = Math.random().toString(36).substr(2, 9);
     const passwordHash = await bcrypt.hash(password, saltRounds);

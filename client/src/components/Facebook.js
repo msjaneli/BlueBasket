@@ -12,18 +12,12 @@ export default class Facebook extends Component {
   };
 
   register = async () => {
-    let alreadyRegistered = null;
-    try {
-      alreadyRegistered = await axios.post('/user/check-exists', {
-        email: this.state.email
-      });
-      console.log(alreadyRegistered.data);
-    } catch (err) {
-      console.log(err);
-      return;
-    }
+    let alreadyRegistered = await axios.post('/user/check-exists', {
+      email: this.state.email
+    });
+    console.log(alreadyRegistered.data);
+    
     if (!alreadyRegistered.data) {
-      try {
         var res = await axios.post('/user/register-facebook-user', {
           uid: this.state.userID,
           name: this.state.name,
@@ -33,10 +27,6 @@ export default class Facebook extends Component {
           restrictions: null,
         })
         console.log(res);
-      } catch (err) {
-        console.log(err);
-        return;
-      }
     }
   }
 
