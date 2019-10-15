@@ -5,4 +5,4 @@ var userController = require('../controllers/userController');
 
 module.exports = router;
 
-router.get('/', userController.listUsers);
+router.get('/', userController.getUsers);

@@ -1,8 +1,8 @@
 import { TEST_ACTION } from './actionTypes';
 
-export const testAction = () => (dispatch) => {
-    dispatch({
+export const testAction = payload => dispatch => {
+    return dispatch({
         type: TEST_ACTION,
-        payload: 'result_of_test_action'
+        payload
     })
 }

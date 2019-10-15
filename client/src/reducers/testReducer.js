@@ -1,9 +1,8 @@
-const test = (state = {}, action) => {
+const test = (state = {result: 'HELLO'}, action) => {
     switch (action.type) {
         case 'TEST_ACTION':
-         return {
-          result: action.payload
-         }
+         return action.payload
+         
         default:
          return state
     }

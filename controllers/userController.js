@@ -6,7 +6,7 @@ const saltRounds = 10;
 const validateRegistrationInput = require('../validation/validateRegistrationInput');
 const validateLoginInput = require('../validation/validateLoginInput');
 
-exports.listUsers = async (req, res) => {
+exports.getUsers = async (req, res) => {
     const query = {
         text: 'SELECT * FROM user_account'
     }
@@ -104,7 +104,7 @@ exports.login = async (req, res) => {
 
     const passwordHash = rows[0].password;
 
-    // Facebook user has no stored password
+    // Facebook user has no stored password, so this authentication route should not let them log in.
     if (isEmpty(passwordHash)) {
         return res.send(false);
     }
