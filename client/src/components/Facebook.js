@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import FacebookLogin from 'react-facebook-login'
+import axios from 'axios';
+
 export default class Facebook extends Component {
   state = {
     isLoggedIn: false,
@@ -9,9 +11,36 @@ export default class Facebook extends Component {
     picture: ""
   };
 
-  responseFacebook = response => {
-    // console.log(response);
+  register = async () => {
+    let alreadyRegistered = null;
+    try {
+      alreadyRegistered = await axios.post('/user/check-exists', {
+        email: this.state.email
+      });
+      console.log(alreadyRegistered.data);
+    } catch (err) {
+      console.log(err);
+      return;
+    }
+    if (!alreadyRegistered.data) {
+      try {
+        var res = await axios.post('/user/register-facebook-user', {
+          uid: this.state.userID,
+          name: this.state.name,
+          email: this.state.email,
+          password: null,
+          phone: null,
+          restrictions: null,
+        });
+        console.log(res);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
 
+  responseFacebook = async response => {
+    // console.log(response);
     this.setState({
       isLoggedIn: true,
       userID: response.userID,
@@ -19,7 +48,10 @@ export default class Facebook extends Component {
       email: response.email,
       picture: response.picture.data.url
     });
+
+    this.register();
   };
+
   componentClicked = () => console.log("clicked");
 
   render() {
@@ -43,7 +75,7 @@ export default class Facebook extends Component {
       fbContent = (
         <FacebookLogin
           appId="674103499777392"
-          autoLoad={true}
+          autoLoad={false}
           fields="name,email,picture"
           onClick={this.componentClicked}
           callback={this.responseFacebook}
