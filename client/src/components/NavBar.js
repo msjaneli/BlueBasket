@@ -1,9 +1,11 @@
-import React, { Component } from 'react';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import AppBar from 'material-ui/AppBar';
+import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -19,20 +21,23 @@ const useStyles = makeStyles(theme => ({
 
 export default function ButtonAppBar() {
   const classes = useStyles();
+
   return (
     <div className={classes.root}>
-      <MuiThemeProvider>
-        <AppBar position="static">
-          <Toolbar>
-            <Button href="/">Blue Basket</Button>
-            <Button href="/meals">Meals</Button>
-            <Button href="/donate">Donate</Button>
-            <Button color="inherit" href="/login">Login</Button>
-          </Toolbar>
-        </AppBar>
-      </MuiThemeProvider>
+      <AppBar position="static">
+        <Toolbar>
+          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+            <MenuIcon />
+          </IconButton>
+          <Button color="inherit" href="/">Blue Basket</Button>
+          <Button color="inherit" href="/meals">Meals</Button>
+          <Button color="inherit" href="/donate">Donate</Button>
+          <Typography variant="h6" className={classes.title}>
+          </Typography>
+          <Button color="inherit" href="/login">Login</Button>
+        </Toolbar>
+      </AppBar>
     </div>
   );
 }
-
 
