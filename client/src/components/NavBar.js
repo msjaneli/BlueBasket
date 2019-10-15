@@ -3,9 +3,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -19,30 +17,22 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-class NavBar extends Component{
-  render() {
-    return (
-      <div>
-        <MuiThemeProvider>
-          <AppBar position="static">
-            {/*<Toolbar>*/}
-            {/*  <Typography variant="h6" className={classes.title}>*/}
-            {/*    News*/}
-            {/*  </Typography>*/}
-            {/*  <Button color="inherit">Login</Button>*/}
-            {/*</Toolbar>*/}
-            <ul id="nav">
-              <li><a href="#">Meals</a></li>
-              <li><a href="#">Donate</a></li>
-              <li><a href="#">Cart</a></li>
-              <li><a href="/login">Login</a></li>
-            </ul>
-          </AppBar>
-        </MuiThemeProvider>MuiThemeProvider>
-      </div>
-    );
-  }
+export default function ButtonAppBar() {
+  const classes = useStyles();
+  return (
+    <div className={classes.root}>
+      <MuiThemeProvider>
+        <AppBar position="static">
+          <Toolbar>
+            <Button href="/">Blue Basket</Button>
+            <Button href="/meals">Meals</Button>
+            <Button href="/donate">Donate</Button>
+            <Button color="inherit" href="/login">Login</Button>
+          </Toolbar>
+        </AppBar>
+      </MuiThemeProvider>
+    </div>
+  );
 }
 
-export default NavBar;
 
