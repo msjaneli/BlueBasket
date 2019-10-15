@@ -3,14 +3,15 @@ const db = require('../db');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
-const validateRegistrationInput = require('../validation/validateRegistrationInput')
+const validateRegistrationInput = require('../validation/validateRegistrationInput');
+const validateLoginInput = require('../validation/validateLoginInput');
 
 exports.listUsers = async (req, res) => {
     const query = {
         text: 'SELECT * FROM user_account'
     }
     const { rows } = await db.query(query);
-    res.send(rows);
+    return res.send(rows);
 } 
 
 exports.checkUserExists = async (req, res) => {
@@ -22,7 +23,7 @@ exports.checkUserExists = async (req, res) => {
     }
 
     const { rows } = await db.query(checkEmailExists);
-    res.send(!isEmpty(rows));
+    return res.send(!isEmpty(rows));
 }
 
 exports.registerUser = async (req, res) => {
@@ -35,7 +36,7 @@ exports.registerUser = async (req, res) => {
     const { errors, isValid } = validateRegistrationInput(req.body);
 
     if (!isValid) {
-        return res.status(400).json(errors);
+        return res.send(errors);
     }
 
     const checkEmailExists = {
@@ -45,7 +46,8 @@ exports.registerUser = async (req, res) => {
 
     const { rows } = await db.query(checkEmailExists);
     if (!isEmpty(rows)) {
-        return res.status(400).json({error: "There is already a user registered under this email address"});
+        errors.email = "There is already a user registered under this email address";
+        return res.send(errors);
     } 
 
     const uid = Math.random().toString(36).substr(2, 9);
@@ -58,9 +60,9 @@ exports.registerUser = async (req, res) => {
 
     try {
         await db.query(createUser);
-        return res.status(200).json({success: "Successfully registered new user"});
+        return res.send({success: "Successfully registered new user"});
     } catch(err) {
-        return res.status(400).json(err);
+        return res.send(err);
     }
 }
 
@@ -76,13 +78,38 @@ exports.registerFacebookUser = async (req, res) => {
 
     try {
         await db.query(createUser);
-        return res.status(200).json({success: "Successfully registered new Facebook user"});
+        return res.send({success: "Successfully registered new Facebook user"});
     } catch(err) {
-        return res.status(400).json(err);
+        return res.send(err);
     }
 
 }
 
 exports.login = async (req, res) => {
+    var email = req.body.email;
+    var password = req.body.password;
 
+    const { errors, isValid } = validateLoginInput(req.body);
+
+    if (!isValid) {
+        return res.send(errors);
+    }
+
+    const getPasswordHash = {
+        text: 'SELECT password FROM user_account WHERE email = $1',
+        values: [email]
+    }
+
+    const { rows }  = await db.query(getPasswordHash);
+
+    const passwordHash = rows[0].password;
+
+    // Facebook user has no stored password
+    if (isEmpty(passwordHash)) {
+        return res.send(false);
+    }
+
+    const match = await bcrypt.compare(password, passwordHash);
+
+    return res.send(match);
 }
