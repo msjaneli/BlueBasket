@@ -16,19 +16,19 @@ export default class Facebook extends Component {
       email: this.state.email
     });
     console.log(alreadyRegistered.data);
-    
+
     if (!alreadyRegistered.data) {
-        var res = await axios.post('/user/register-facebook-user', {
-          uid: this.state.userID,
-          name: this.state.name,
-          email: this.state.email,
-          password: null,
-          phone: null,
-          restrictions: null,
-        })
-        console.log(res);
+      var res = await axios.post('/user/register-facebook-user', {
+        uid: this.state.userID,
+        name: this.state.name,
+        email: this.state.email,
+        password: null,
+        phone: null,
+        restrictions: null,
+      });
+      console.log(res);
     }
-  }
+  };
 
   responseFacebook = async response => {
     this.setState({
@@ -45,12 +45,12 @@ export default class Facebook extends Component {
   componentClicked = () => console.log("clicked");
 
   render() {
-    let fbContent
+    let fbContent;
     if (this.state.isLoggedIn) {
       fbContent = (
         <div
           style={{
-            width: "400px",
+            width: "200px",
             margin: "auto",
             background: "#f4f4f4",
             padding: "20px"
