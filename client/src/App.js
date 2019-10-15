@@ -5,6 +5,7 @@ import './App.css';
 // Pages
 import Test from '../src/pages/Test';
 import Home from '../src/pages/Home';
+import LoginScreen from '../src/pages/LoginScreen';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <div className="App">
         <Route exact path = '/test' component = {Test} />
         <Route exact path = '/' component = { Home } />
+        <Route exact path = '/login' component = { LoginScreen } />
       </div>
     </Router>
 

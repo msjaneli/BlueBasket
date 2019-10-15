@@ -12,35 +12,25 @@ export default class Facebook extends Component {
   };
 
   register = async () => {
-    let alreadyRegistered = null;
-    try {
-      alreadyRegistered = await axios.post('/user/check-exists', {
-        email: this.state.email
-      });
-      console.log(alreadyRegistered.data);
-    } catch (err) {
-      console.log(err);
-      return;
-    }
+    let alreadyRegistered = await axios.post('/user/check-exists', {
+      email: this.state.email
+    });
+    console.log(alreadyRegistered.data);
+
     if (!alreadyRegistered.data) {
-      try {
-        var res = await axios.post('/user/register-facebook-user', {
-          uid: this.state.userID,
-          name: this.state.name,
-          email: this.state.email,
-          password: null,
-          phone: null,
-          restrictions: null,
-        });
-        console.log(res);
-      } catch (err) {
-        console.log(err);
-      }
+      var res = await axios.post('/user/register-facebook-user', {
+        uid: this.state.userID,
+        name: this.state.name,
+        email: this.state.email,
+        password: null,
+        phone: null,
+        restrictions: null,
+      })
+      console.log(res);
     }
-  };
+  }
 
   responseFacebook = async response => {
-    // console.log(response);
     this.setState({
       isLoggedIn: true,
       userID: response.userID,
@@ -55,7 +45,7 @@ export default class Facebook extends Component {
   componentClicked = () => console.log("clicked");
 
   render() {
-    let fbContent;
+    let fbContent
     if (this.state.isLoggedIn) {
       fbContent = (
         <div

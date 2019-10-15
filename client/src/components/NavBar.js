@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class NavBar extends React.Component{
+class NavBar extends Component{
   render() {
     return (
       <div>
@@ -8,7 +8,7 @@ class NavBar extends React.Component{
           <li><a href="#">Meals</a></li>
           <li><a href="#">Donate</a></li>
           <li><a href="#">Cart</a></li>
-          <li><a href="#">Login</a></li>
+          <li><a href="/login">Login</a></li>
         </ul>
       </div>
     );
