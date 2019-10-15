@@ -10,3 +10,5 @@ router.post('/register', userController.registerUser);
 router.post('/check-exists', userController.checkUserExists);
 
 router.post('/register-facebook-user', userController.registerFacebookUser);
+
+router.post('/login', userController.login);

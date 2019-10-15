@@ -31,7 +31,6 @@ export default class Facebook extends Component {
   }
 
   responseFacebook = async response => {
-    // console.log(response);
     this.setState({
       isLoggedIn: true,
       userID: response.userID,
