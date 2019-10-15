@@ -4,32 +4,28 @@ import { connect } from 'react-redux';
 import { testAction } from '../actions/testAction';
 
 const mapStateToProps = state => ({
-    storeState: state,
+    test: state.test,
 })
 
 const mapDispatchToProps = dispatch => ({
-    testAction: () => dispatch(testAction())
+    testAction: (payload) => dispatch(testAction(payload))
 })
 
 class Test extends Component {
-
-    testAction = () => {
-        this.props.testAction('result_of_test_action');
-    }
 
     render () {
         return (
             <div>
                 <pre>
                     {
-                        JSON.stringify(this.props.storeState)
+                        JSON.stringify(this.props.test)
                     }
                 </pre>
                 <h1>
                     BLUE BASKET HELLO!!!!
                     TEST!
                 </h1>
-                <button onClick={this.props.testAction}>Test redux action</button>
+                <button onClick={() => this.props.testAction('result_of_test_action')}>Test redux action</button>
             </div>
         )
     }

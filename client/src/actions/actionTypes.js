@@ -1,1 +1,9 @@
 export const TEST_ACTION = 'TEST_ACTION';
+
+export const LOGIN_USER = 'LOGIN_USER';
+
+export const LOGOUT_USER = 'LOGOUT_USER';
+
+export const LOGIN_RESTAURANT = 'LOGIN_RESTAURANT';
+
+export const LOGOUT_RESTAURANT = 'LOGOUT_RESTAURANT';
