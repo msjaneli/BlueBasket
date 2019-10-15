@@ -13,12 +13,12 @@ class LoginScreen extends Component {
       password:'',
       loginscreen:[],
       loginmessage:'',
+      facebookmessage:'',
       buttonLabel:'Register',
       isLogin:true
     }
   }
   handleClick(event){
-    // console.log("event",event);
     var loginmessage;
     if(this.state.isLogin){
       var loginscreen=[];
@@ -47,9 +47,11 @@ class LoginScreen extends Component {
     var loginscreen=[];
     loginscreen.push(<Login parentContext={this} appContext={this.props.parentContext}/>);
     var loginmessage = "Not registered yet, Register Now";
+    var facebookmessage = "Or login with facebook";
     this.setState({
       loginscreen:loginscreen,
-      loginmessage:loginmessage
+      loginmessage:loginmessage,
+      facebookmessage:facebookmessage
     })
   }
   render() {
@@ -61,6 +63,12 @@ class LoginScreen extends Component {
           <MuiThemeProvider>
             <div>
               <RaisedButton label={this.state.buttonLabel} primary={true} style={style} onClick={(event) => this.handleClick(event)}/>
+            </div>
+          </MuiThemeProvider>
+          {this.state.facebookmessage}
+          <MuiThemeProvider>
+            <div>
+              <FacebookLogin />
             </div>
           </MuiThemeProvider>
         </div>

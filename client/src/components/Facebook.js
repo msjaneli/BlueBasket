@@ -25,10 +25,10 @@ export default class Facebook extends Component {
         password: null,
         phone: null,
         restrictions: null,
-      })
+      });
       console.log(res);
     }
-  }
+  };
 
   responseFacebook = async response => {
     this.setState({
@@ -45,12 +45,12 @@ export default class Facebook extends Component {
   componentClicked = () => console.log("clicked");
 
   render() {
-    let fbContent
+    let fbContent;
     if (this.state.isLoggedIn) {
       fbContent = (
         <div
           style={{
-            width: "400px",
+            width: "200px",
             margin: "auto",
             background: "#f4f4f4",
             padding: "20px"

@@ -6,16 +6,20 @@ import './App.css';
 import Test from '../src/pages/Test';
 import Home from '../src/pages/Home';
 import LoginScreen from '../src/pages/LoginScreen';
+import NavBar from '../src/components/NavBar';
 
 function App() {
   return (
-    <Router>
-      <div className="App">
-        <Route exact path = '/test' component = {Test} />
-        <Route exact path = '/' component = { Home } />
-        <Route exact path = '/login' component = { LoginScreen } />
-      </div>
-    </Router>
+    <div>
+      <NavBar />
+      <Router>
+        <div className="App">
+          <Route exact path = '/test' component = {Test} />
+          <Route exact path = '/' component = { Home } />
+          <Route exact path = '/login' component = { LoginScreen } />
+        </div>
+      </Router>
+    </div>
 
   );
 }
