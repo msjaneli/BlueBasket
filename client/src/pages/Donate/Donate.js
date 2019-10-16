@@ -4,7 +4,7 @@ class Donate extends Component {
   render () {
     return (
       <div>
-        DONATE!!
+        DONATE!! please
       </div>
     )
   }
