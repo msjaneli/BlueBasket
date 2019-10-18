@@ -12,6 +12,7 @@ export const signup = (payload) => async dispatch => {
     dispatch({
         type: SIGNUP_USER_SUCCESS
     })
+
 }
 
 const signUpPromise = (payload, dispatch) => {
