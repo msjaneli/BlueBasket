@@ -3,9 +3,6 @@ const db = require('../db');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
-const validateRegistrationInput = require('../validation/validateRegistrationInput');
-const validateLoginInput = require('../validation/validateLoginInput');
-
 exports.getUsers = async (req, res) => {
     const query = {
         text: 'SELECT * FROM user_account'
@@ -13,6 +10,18 @@ exports.getUsers = async (req, res) => {
     const { rows } = await db.query(query);
     return res.send(rows);
 } 
+
+exports.getId = async (req, res) => {
+    var email = req.params.email
+
+    const query = {
+        text: 'SELECT uid FROM user_account WHERE email = $1',
+        values: [email]
+    }
+
+    const { rows } = await db.query(query);
+    return res.status(200).send(rows[0].uid);
+}
 
 exports.checkUserExists = async (req, res) => {
     var email = req.body.email;
@@ -23,7 +32,7 @@ exports.checkUserExists = async (req, res) => {
     }
 
     const { rows } = await db.query(checkEmailExists);
-    return res.send(!isEmpty(rows));
+    return res.status(200).send(!isEmpty(rows));
 }
 
 exports.registerUser = async (req, res) => {
@@ -33,12 +42,6 @@ exports.registerUser = async (req, res) => {
     var phone = req.body.phone;
     var restrictions = req.body.restrictions;
 
-    const { errors, isValid } = validateRegistrationInput(req.body);
-
-    if (!isValid) {
-        return res.send(errors);
-    }
-
     const checkEmailExists = {
         text: 'SELECT * FROM user_account WHERE email = $1',
         values: [email]
@@ -46,8 +49,7 @@ exports.registerUser = async (req, res) => {
 
     const { rows } = await db.query(checkEmailExists);
     if (!isEmpty(rows)) {
-        errors.email = "There is already a user registered under this email address";
-        return res.send(errors);
+        return res.status(400).json({error: "There is already a user registered under this email address"});
     } 
 
     const uid = Math.random().toString(36).substr(2, 9);
@@ -58,12 +60,8 @@ exports.registerUser = async (req, res) => {
         values: [uid, name, email, passwordHash, phone, restrictions]
     }
 
-    try {
-        await db.query(createUser);
-        return res.send({success: "Successfully registered new user"});
-    } catch(err) {
-        return res.send(err);
-    }
+    await db.query(createUser);
+    return res.status(200).send({success: "Successfully registered new user"});
 }
 
 exports.registerFacebookUser = async (req, res) => {
@@ -76,40 +74,51 @@ exports.registerFacebookUser = async (req, res) => {
         values: [uid, name, email]
     }
 
-    try {
-        await db.query(createUser);
-        return res.send({success: "Successfully registered new Facebook user"});
-    } catch(err) {
-        return res.send(err);
-    }
-
+    await db.query(createUser);
+    return res.status(200).send({success: "Successfully registered new Facebook user"});
 }
 
 exports.login = async (req, res) => {
     var email = req.body.email;
     var password = req.body.password;
 
-    const { errors, isValid } = validateLoginInput(req.body);
-
-    if (!isValid) {
-        return res.send(errors);
-    }
-
-    const getPasswordHash = {
-        text: 'SELECT password FROM user_account WHERE email = $1',
+    const getUserInfo = {
+        text: 'SELECT uid, password, name FROM user_account WHERE email = $1',
         values: [email]
     }
 
-    const { rows }  = await db.query(getPasswordHash);
+    const { rows }  = await db.query(getUserInfo);
 
-    const passwordHash = rows[0].password;
+    var passwordHash = "";
+    var name = "";
+    var uid = "";
 
-    // Facebook user has no stored password, so this authentication route should not let them log in.
-    if (isEmpty(passwordHash)) {
-        return res.send(false);
+    // Finding no user
+    if (!isEmpty(rows)) {
+        passwordHash = rows[0].password;
+        name = rows[0].name;
+        uid = rows[0].uid;
+    }
+
+    // Facebook user has no stored password or no user found, so this authentication route should not let them log in.
+    if (isEmpty(passwordHash) || isEmpty(rows)) {
+        return res.status(400).json({error: "Email or Password is Invalid"})
     }
 
     const match = await bcrypt.compare(password, passwordHash);
 
-    return res.send(match);
+    if (match) {
+        const loginResult = {
+            token: uid,
+            data: {
+                id: uid,
+                email,
+                name,
+            }
+        }
+        return res.status(200).send(loginResult);
+    } else {
+        res.status(400).json({error: "Email or Password is Invalid"})
+    }
+
 }
