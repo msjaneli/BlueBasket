@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { logoutUser } from '../actions/logout';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import RaisedButton from 'material-ui/RaisedButton';
+import { Button } from 'react-bootstrap';
+import chooseNavbar from '../components/NavBar/chooseNavBar'
 
-const mapStateToProps = ({ session }) => ({
-    user: session.user,
-    authenticated: session.authenticated
+const mapStateToProps = ( state ) => ({
+    user: state.session.user,
+    authenticated: state.session.authenticated,
+    type: state.type
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -21,14 +22,13 @@ class Profile extends Component {
 
     render() {
         return (
-            <MuiThemeProvider>
                 <div>
+                    {chooseNavbar(this.props.user, this.props.authenticated, this.props.type)}
                     <h3>Welcome {this.props.user.name}</h3>
                     <h4> UserID: {this.props.user.id}</h4>
                     <h5>{this.props.authenticated ? 'You are authenticated': 'Error'}</h5>
-                    <RaisedButton label = "Logout" onClick={() => this.props.logout()}/>
+                    <Button variant="outline-primary" onClick={() => this.props.logout()}>Logout</Button>
                 </div>
-            </MuiThemeProvider>
         )
     }
 }

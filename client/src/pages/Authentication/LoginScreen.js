@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Card } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import Login from './Login';
 import SignUp from './SignUp';
 import FacebookLogin from '../../components/Facebook';
@@ -7,6 +7,7 @@ import isEmpty from '../../validation/isEmpty';
 import { connect } from 'react-redux';
 import { setAuthRedirect } from '../../actions/setRedirect'
 import { resetAuthStatus } from '../../actions/resetStatus';
+import chooseNavbar from '../../components/NavBar/chooseNavBar'
 import '../../styles/auth.css';
 
 const mapStateToProps = state => ({
@@ -87,9 +88,9 @@ class LoginScreen extends Component {
   }
 
   render = () => {
-
     return (
       <div className="loginscreen">
+        {chooseNavbar(null, false, null)}
         {this.state.loginscreen}
         <div className = 'col-md-3 ml-auto mr-auto'>
           <div className = "row">

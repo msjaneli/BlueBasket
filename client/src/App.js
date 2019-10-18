@@ -7,7 +7,6 @@ import Home from '../src/pages/Home';
 import LoginScreen from './pages/Authentication/LoginScreen';
 import Donate from '../src/pages/Donate/Donate'
 import Meals from '../src/pages/Meals/Meals'
-import NavBar from '../src/components/NavBar';
 import Profile from './pages/Profile';
 import TestProtected from './pages/TestProtected'
 
@@ -22,13 +21,12 @@ import { history } from './store';
 const mapStateToProps = (state) => ({
   checked: state.session.checked,
   authenticated: state.session.authenticated,
-  type: state.type
+  type: state.type,
 })
 
 const App = ({ authenticated, checked, type }) => {
   return (
     <div>
-      <NavBar />
       <ConnectedRouter history = { history }>
         { checked && 
           <div className="App">
