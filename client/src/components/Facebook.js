@@ -2,23 +2,39 @@ import React, { Component } from 'react'
 import FacebookLogin from 'react-facebook-login'
 import axios from 'axios';
 
-export default class Facebook extends Component {
-  state = {
-    isLoggedIn: false,
-    userID: "",
-    name: "",
-    email: "",
-    picture: ""
-  };
+import { connect } from 'react-redux';
+import { loginUserFacebook } from '../actions/login';
+import '../styles/auth.css'
+
+const mapStateToProps = (state) => ({
+  authRedirect: state.authRedirect,
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  login: (payload, redirectUrl) => dispatch(loginUserFacebook(payload, redirectUrl))
+})
+
+class Facebook extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isLoggedIn: false,
+      userID: "",
+      name: "",
+      email: "",
+      picture: ""
+    }
+  }
 
   register = async () => {
-    let alreadyRegistered = await axios.post('/user/check-exists', {
+    const alreadyRegistered = await axios.post('/user/check-exists', {
       email: this.state.email
     });
-    console.log(alreadyRegistered.data);
 
     if (!alreadyRegistered.data) {
-      var res = await axios.post('/user/register-facebook-user', {
+      // If not already registered, then register the user as a facebook user with a numerical id into the database
+      await axios.post('/user/register-facebook-user', {
         uid: this.state.userID,
         name: this.state.name,
         email: this.state.email,
@@ -26,7 +42,13 @@ export default class Facebook extends Component {
         phone: null,
         restrictions: null,
       });
-      console.log(res);
+    } else {
+      // Otherwise, get the original userID from the original account. 
+      const res = await axios.get('/user/' + this.state.email + '/uid');
+      const uid = res.data;
+      this.setState({
+        userID: uid
+      })
     }
   };
 
@@ -39,39 +61,42 @@ export default class Facebook extends Component {
       picture: response.picture.data.url
     });
 
-    this.register();
+    await this.register();
+
+    var loginPayload = {
+      token: this.state.userID,
+      data: {
+        id: this.state.userID,
+        email: this.state.email,
+        name: this.state.name
+      }
+    }
+
+    await this.props.login(loginPayload, this.props.authRedirect);
   };
 
-  componentClicked = () => console.log("clicked");
+  componentClicked = () =>  {
+    console.log("Empty Function For Facebook Callback");
+  }
 
   render() {
     let fbContent;
-    if (this.state.isLoggedIn) {
-      fbContent = (
-        <div
-          style={{
-            width: "200px",
-            margin: "auto",
-            background: "#f4f4f4",
-            padding: "20px"
-          }}
-        >
-          <img src={this.state.picture} alt={this.state.name} />
-          <h2>Welcome {this.state.name}</h2>
-          Email: {this.state.email}
-        </div>
-      );
-    } else {
+    
       fbContent = (
         <FacebookLogin
           appId="674103499777392"
+          cssClass="facebookLogin"
           autoLoad={false}
           fields="name,email,picture"
-          onClick={this.componentClicked}
+          textButton = {"\xa0\xa0\xa0\xa0\xa0" + "Continue With Facebook"}
+          onClick={() => this.componentClicked()}
           callback={this.responseFacebook}
+          icon="fa-facebook"
         />
       );
-    }
+    
     return <div>{fbContent}</div>;
   }
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(Facebook)
