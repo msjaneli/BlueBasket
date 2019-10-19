@@ -1,0 +1,14 @@
+#splash {
+  float: right;
+  margin-top: .3vh;
+  margin-right: 8vw;
+}
+
+#title {
+  float: left;
+  margin-top: 20vh;
+  margin-left: 5vw;
+  font-family: 'Muli', sans-serif;
+  font-weight: 700;
+  font-size: 3vw;
+}

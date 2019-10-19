@@ -1,0 +1,35 @@
+#brand {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+}
+#login-button {
+  background-color: #ffffff;
+  color: #5282FF;
+  border-color: #5282FF;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+}
+
+#nav-bar {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+#menu-item {
+  font-family: 'Muli', sans-serif;
+  font-weight: 700;
+  color: #AFAFAF;
+}
+
+#menu-item:hover {
+  color: #C9D8FE;
+}
+
+#blue-logo {
+  color: #5282FF;
+  display: inline;
+}
+
+#basket-logo {
+  color: #C9D8FE;
+  display: inline;
+}
