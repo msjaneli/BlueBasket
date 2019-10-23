@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router';
 
-const PrivateRouteUser = ({ component, exact = false, path, authenticated, type, redirectUrl, setAuthRedirect }) => {
+const PrivateRouteUser = ({ component, exact = false, path, authenticated, type }) => {
 
     const authenticatedUser = authenticated && type === 'USER';
 

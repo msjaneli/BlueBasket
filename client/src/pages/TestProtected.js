@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { logoutUser } from '../actions/logout';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import RaisedButton from 'material-ui/RaisedButton';
+import { Button } from 'react-bootstrap';
 
 const mapStateToProps = ({ session }) => ({
     authenticated: session.authenticated
@@ -19,13 +18,11 @@ class TestProtected extends Component {
 
     render (){
         return(
-            <MuiThemeProvider>
-                    <div>
-                        <h4>Hello, This is a protected route. Should redirect to login when not logged in, and when you log in, it should redirect back here</h4>
-                        <h5>{this.props.authenticated ? 'You are authenticated': 'Error'}</h5>
-                        <RaisedButton label = "Logout" onClick={() => this.props.logout()}/>
-                    </div>
-            </MuiThemeProvider>
+            <div>
+                <h4>Hello, This is a protected route. Should redirect to login when not logged in, and when you log in, it should redirect back here</h4>
+                <h5>{this.props.authenticated ? 'You are authenticated': 'Error'}</h5>
+                <Button onClick={() => this.props.logout()}>Logout</Button>
+            </div>
         )
     }
 }
