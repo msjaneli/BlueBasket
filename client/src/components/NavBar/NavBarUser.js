@@ -32,7 +32,7 @@ class NavBarUser extends Component {
                 </Nav>
                 <Nav className = "ml-auto">
                     <NavDropdown alignRight title={"Hi, " + this.props.name} >
-                        <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
+                        <NavDropdown.Item href="/profile/user">Profile</NavDropdown.Item>
                         <NavDropdown.Item href="/orders">Orders</NavDropdown.Item>
                         <NavDropdown.Divider />
                         <NavDropdown.Item onClick={() => this.props.logout()}>Logout</NavDropdown.Item>

@@ -13,7 +13,7 @@ import { persistStore } from 'redux-persist'
 const initialState = {
     session: {},
     auth: {
-        authRedirect: '/profile',
+        authRedirect: '/profile/user',
         signupStatus: '',
         loginStatus: '',
     }
