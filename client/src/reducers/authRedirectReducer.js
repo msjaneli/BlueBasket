@@ -1,10 +1,10 @@
-import { SET_AUTH_REDIRECT, LOGIN_USER_SUCCESS } from '../actions/actionTypes'
+import { SET_AUTH_REDIRECT, LOGIN_SUCCESS } from '../actions/actionTypes'
 
 const authRedirectReducer = (state = '/profile', action) => {
     switch (action.type) {
         case SET_AUTH_REDIRECT:
             return action.redirectUrl
-        case LOGIN_USER_SUCCESS:
+        case LOGIN_SUCCESS:
             return '/profile'
         default:
             return state

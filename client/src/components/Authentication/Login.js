@@ -9,7 +9,7 @@ import validateLoginInput from '../../validation/validateLoginInput';
 import * as authSelectors from '../../selectors/authSelectors'
 
 // Actions
-import { loginUser } from '../../actions/login';
+import { loginUser, loginRestaurant } from '../../actions/login';
 
 // Tools
 import { connect } from 'react-redux';
@@ -23,7 +23,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  loginUser: (payload, redirectUrl) => dispatch(loginUser(payload, redirectUrl))
+  loginUser: (payload, redirectUrl) => dispatch(loginUser(payload, redirectUrl)),
+  loginRestaurant: (payload, redirectUrl) => dispatch(loginRestaurant(payload, redirectUrl))
 })
 
 class Login extends Component {
@@ -116,7 +117,7 @@ class Login extends Component {
     if (this.props.isUser) {
       await this.props.loginUser(payload, this.props.authRedirect);
     } else {
-      // login restaurant
+      await this.props.loginRestaurant(payload, this.props.authRedirect);
     }
 
     this.setState({

@@ -1,4 +1,4 @@
-import { SIGNUP_USER_FAILURE, SIGNUP_USER_SUCCESS, RESET_AUTH_STATUS } from './actionTypes';
+import { SIGNUP_FAILURE, SIGNUP_SUCCESS, RESET_AUTH_STATUS } from './actionTypes';
 import axios from 'axios';
 import { push } from 'connected-react-router';
 
@@ -10,7 +10,7 @@ export const signup = (payload) => async dispatch => {
     await signUpPromise(payload, dispatch)
 
     dispatch({
-        type: SIGNUP_USER_SUCCESS
+        type: SIGNUP_SUCCESS
     })
 
 }
@@ -31,7 +31,7 @@ const signUpPromise = (payload, dispatch) => {
                 resolve("success");
             } catch (err) {
                 return dispatch({
-                    type: SIGNUP_USER_FAILURE,
+                    type: SIGNUP_FAILURE,
                     payload: err.response.data.error
                 })
             }
