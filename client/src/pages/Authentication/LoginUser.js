@@ -79,7 +79,7 @@ class LoginScreen extends Component {
 
   setRedirectUrl = () => {
     var redirectData = this.props.location.state;
-    var redirectUrl = "/profile";
+    var redirectUrl = "/profile/user";
     if(!isEmpty(redirectData)) {
       redirectUrl = redirectData.from.pathname
     }

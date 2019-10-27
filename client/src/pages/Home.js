@@ -27,28 +27,28 @@ class Home extends Component {
               <div id="page1">
                 {chooseNavbar(this.props.user, this.props.authenticated)}
               </div>
-              <div id="splash-page">
-                <Col>
-                  <div>
-                    <Row>
-                      <div id="title">
-                        Food reimagined.
-                      </div>
-                    </Row>
-                    <Row>
-                      <div id="caption">
-                        <hr id="hr"/>
-                        <div className="underline-text">Up to 40%</div> of all food in America is never eaten. Yet, <div className="e">1 in 8 households</div> worry about where their next meal is coming from. <div className="e">It's time to do our part.</div>
-                      </div>
-                    </Row>
-                  </div>
-                </Col>
-                <Col>
-                  <div id="splash" alt="splash" className="size">
-                    <Splash />
-                  </div>
-                </Col>
-              </div>
+                <div id="splash-page">
+                  <Col>
+                    <div>
+                      <Row>
+                        <div id="title">
+                          Food reimagined.
+                        </div>
+                      </Row>
+                      <Row>
+                        <div id="caption">
+                          <hr id="hr"/>
+                          <div className="underline-text">Up to 40%</div> of all food in America is never eaten. Yet, <div className="e">1 in 8 households</div> worry about where their next meal is coming from. <div className="e">It's time to do our part.</div>
+                        </div>
+                      </Row>
+                    </div>
+                  </Col>
+                  <Col>
+                    <div id="splash" alt="splash" className="size">
+                      <Splash />
+                    </div>
+                  </Col>
+                </div>
               <div id="page2">
                 <Container id="container">
                   <Row id="header">
@@ -69,9 +69,18 @@ class Home extends Component {
                   <Col>
                     <div><p className="col-text">We work with restaurants on Duke campus to provide alternative options for food waste. Towards closing time, restaurants pack their leftovers into prepped meal boxes and list them on our platform to sell for a discounted price. </p></div>
                     <div><p className="col-text">Meanwhile, we connect Duke students with local shelters by providing students with a quick solution to get rid of their extra food points in a way that they know they are supporting positive change.</p></div></Col>
-                    <Col><div id="role-one"><p><h2 className="role-header">As a Durhamite...</h2>
-                  If you're every feeling hungry towards the end of our night, consider one of our options. It's a win-win: the same delicious food at a fraction of the cost. So... what are you waiting for?</p></div>
-                  <p className="col-text"><h2 className="role-header">As a Duke student...</h2> Pay your extra food points forward. All food points donated go directly into funds that allow local shelters to redeem free meals for their residents.</p></Col>
+                    <Col>
+                      <div id="role-one">
+                        <p className="col-text">
+                          <h2 className="role-header">As a Durhamite...</h2>
+                            If you're every feeling hungry towards the end of our night, consider one of our options. It's a win-win: the same delicious food at a fraction of the cost. So... what are you waiting for?
+                        </p>
+                      </div>
+                        <p className="col-text">
+                          <h2 className="role-header">As a Duke student...</h2> 
+                            Pay your extra food points forward. All food points donated go directly into funds that allow local shelters to redeem free meals for their residents.
+                        </p>
+                    </Col>
                 </Row>
                 </Container>
               </div>

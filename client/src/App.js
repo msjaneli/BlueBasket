@@ -39,7 +39,7 @@ const App = ({ authenticated, checked, type }) => {
             <Route exact path = '/login/restaurant' component = { LoginRestaurant }/>
             <Route exact path = '/donate' component = { Donate } />
             <Route exact path = '/meals' component = { Meals } />
-            <PrivateRouteUser exact path = '/profile' component = { Profile } authenticated = { authenticated } type = { type }/>
+            <PrivateRouteUser exact path = '/profile/user' component = { Profile } authenticated = { authenticated } type = { type }/>
             <PrivateRouteUser exact path = '/protected' component = { TestProtected } authenticated = { authenticated } type = { type } />
           </div>
         }

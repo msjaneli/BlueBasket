@@ -1,9 +1,9 @@
 #splash {
   float: right;
-  margin-top: .3vh;
+  margin-top: -300px;
   margin-right: 8vw;
   height: 200px;
-  width: 50%;
+  width: 40%;
 }
 
 #title {
@@ -79,6 +79,10 @@ svg {
   font-size: 1vw;
   font-weight: 700;
   font-family: 'Lora', serif;
+}
+
+#role-one {
+  margin-bottom: 20px;
 }
 
 #hr {
