@@ -1,21 +1,30 @@
 import React, { Component } from 'react';
+import '../../styles/auth.css'
+
+// Components
 import { Alert, Button, Form } from 'react-bootstrap';
 import validateLoginInput from '../../validation/validateLoginInput';
+
+// Selectors
+import * as authSelectors from '../../selectors/authSelectors'
+
+// Actions
+import { loginUser, loginRestaurant } from '../../actions/login';
+
+// Tools
+import { connect } from 'react-redux';
 import isEmpty from '../../validation/isEmpty';
 import classnames from 'classnames';
 
-import { connect } from 'react-redux';
-import { loginUser } from '../../actions/login';
-import '../../styles/auth.css'
-
 const mapStateToProps = state => ({
-  signupStatus: state.signupStatus,
-  loginStatus: state.loginStatus,
-  authRedirect: state.authRedirect,
+  signupStatus: authSelectors.getSignupStatus(state),
+  loginStatus: authSelectors.getLoginStatus(state),
+  authRedirect: authSelectors.getAuthRedirect(state),
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  login: (payload, redirectUrl) => dispatch(loginUser(payload, redirectUrl))
+  loginUser: (payload, redirectUrl) => dispatch(loginUser(payload, redirectUrl)),
+  loginRestaurant: (payload, redirectUrl) => dispatch(loginRestaurant(payload, redirectUrl))
 })
 
 class Login extends Component {
@@ -44,7 +53,7 @@ class Login extends Component {
     return (
       <div className='col-md-3 ml-auto mr-auto'>
 
-        <h4 className = "loginText" > Login to continue </h4> 
+        <h4 className = "loginText" > {this.props.loginHeader} </h4> 
 
         { signupSuccessMessage }
 
@@ -104,7 +113,12 @@ class Login extends Component {
       });
       return;
     }
-    await this.props.login(payload, this.props.authRedirect);
+
+    if (this.props.isUser) {
+      await this.props.loginUser(payload, this.props.authRedirect);
+    } else {
+      await this.props.loginRestaurant(payload, this.props.authRedirect);
+    }
 
     this.setState({
       errors: {}

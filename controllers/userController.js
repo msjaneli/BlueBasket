@@ -110,10 +110,11 @@ exports.login = async (req, res) => {
     if (match) {
         const loginResult = {
             token: uid,
-            data: {
+            userData: {
                 id: uid,
                 email,
                 name,
+                type: "USER"
             }
         }
         return res.status(200).send(loginResult);

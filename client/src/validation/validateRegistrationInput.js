@@ -13,7 +13,7 @@ const validateRegistrationInput = (data) => {
     }
     
     if (!validator.isEmail(data.email)) {
-        errors.email = "Email is invalid";
+        errors.email = "Please enter a valid email";
     }
     
     if (validator.isEmpty(data.email)) {

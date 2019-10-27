@@ -1,10 +1,19 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { logoutUser } from '../actions/logout';
-import { Button } from 'react-bootstrap';
 
-const mapStateToProps = ({ session }) => ({
-    authenticated: session.authenticated
+// Components
+import chooseNavbar from '../components/NavBar/chooseNavBar'
+import { logoutUser } from '../actions/logout'
+import { Button } from 'react-bootstrap'
+
+// Selectors
+import * as sessionSelectors from '../selectors/sessionSelectors'
+
+// Tools
+import { connect } from 'react-redux';
+
+const mapStateToProps = (state) => ({
+  user: sessionSelectors.getUser(state),
+  authenticated: sessionSelectors.isAuthenticated(state),
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -19,6 +28,7 @@ class TestProtected extends Component {
     render (){
         return(
             <div>
+                {chooseNavbar(this.props.user, this.props.authenticated)}
                 <h4>Hello, This is a protected route. Should redirect to login when not logged in, and when you log in, it should redirect back here</h4>
                 <h5>{this.props.authenticated ? 'You are authenticated': 'Error'}</h5>
                 <Button onClick={() => this.props.logout()}>Logout</Button>
