@@ -7,8 +7,92 @@
 #title {
   float: left;
   margin-top: 20vh;
-  margin-left: 5vw;
+  margin-left: 8vw;
+  font-family: 'Lora', serif;
+  font-weight: 700;
+  font-size: 4vw;
+}
+
+svg {
+  pointer-events: none;
+}
+
+#page1 {
+  width: 100%;
+  height: 100%;
+}
+
+#caption {
+  float: left;
+  margin-left: 8vw;
+  width: 30vw;
+  text-align: left;
   font-family: 'Muli', sans-serif;
   font-weight: 700;
-  font-size: 3vw;
+}
+
+#page2{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 100%;
+}
+
+#container {
+  margin-top: 5vh;
+}
+
+#header {
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.2vw;
+    margin-bottom: 5vh;
+    color: #8A8A8A;
+}
+
+#image {
+  margin-bottom: 5vh;
+}
+
+.e {
+  display: inline;
+  color: #5282FF;
+}
+
+p{
+  width: 19vw;
+  text-align: center;
+  font-size: 1.2vw;
+  margin: auto;
+  font-family: 'Muli', sans-serif;
+}
+
+
+.role-header{
+  font-size: 1vw;
+  font-weight: 700;
+  font-family: 'Lora', serif;
+}
+
+#hr {
+  border: .4vh solid #C9D8FE;
+  border-radius: .4vh;
+}
+
+#col1-hr {
+  border: .4vh solid #5282FF;
+  width: 6vw;
+  border-radius: .4vh;
+}
+
+
+#col2-hr {
+  border: .4vh solid #C9D8FE;
+  width: 6vw;
+  border-radius: .4vh;
+}
+
+#col3-hr {
+  border: .4vh solid #5282FF;
+  width: 6vw;
+  border-radius: .4vh;
 }
