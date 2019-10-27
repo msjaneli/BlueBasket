@@ -1,12 +1,13 @@
 import React from 'react';
+
+// Components
 import NavBarStandard from './NavBarStandard';
 import NavBarUser from './NavBarUser';
-import { connect } from 'react-redux';
 
-const chooseNavbar = (user, authenticated, type) => {
+const chooseNavbar = (user, authenticated) => {
     if (!authenticated) {
         return(<NavBarStandard/>);
-    } else if (type === "USER") {
+    } else if (user.type === "USER") {
         return(<NavBarUser name = {user.name.split(" ")[0]}/>);
     } else {
         // Need restaurant nav bar

@@ -28,10 +28,10 @@ export const loginUser = (payload, redirectUrl) => async dispatch => {
         }
 
         var token = resultData.data.token;
-        var data = resultData.data.data;
+        var userData = resultData.data.userData;
 
         await sessionService.saveSession(token);
-        await sessionService.saveUser(data);
+        await sessionService.saveUser(userData);
 
         dispatch({
             type: LOGIN_USER_SUCCESS
@@ -44,7 +44,7 @@ export const loginUser = (payload, redirectUrl) => async dispatch => {
 export const loginUserFacebook = (payload, redirectUrl) => async dispatch => {
 
     await sessionService.saveSession(payload.token);
-    await sessionService.saveUser(payload.data)
+    await sessionService.saveUser(payload.userData)
 
     dispatch({
         type: RESET_AUTH_STATUS

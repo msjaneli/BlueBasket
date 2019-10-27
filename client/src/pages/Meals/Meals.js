@@ -1,18 +1,24 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+
+// Components
 import chooseNavbar from '../../components/NavBar/chooseNavBar'
 
+// Selectors
+import * as sessionSelectors from '../../selectors/sessionSelectors'
+
+// Tools
+import { connect } from 'react-redux';
+
 const mapStateToProps = (state) => ({
-  user: state.session.user,
-  authenticated: state.session.authenticated,
-  type: state.type
+  user: sessionSelectors.getUser(state),
+  authenticated: sessionSelectors.isAuthenticated(state),
 })
 
 class Meals extends Component {
   render () {
     return (
       <div>
-        {chooseNavbar(this.props.user, this.props.authenticated, this.props.type)}
+        {chooseNavbar(this.props.user, this.props.authenticated)}
         MEALS!!
       </div>
     )

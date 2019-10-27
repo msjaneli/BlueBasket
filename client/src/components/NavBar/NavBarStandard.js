@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import {Navbar, Nav} from 'react-bootstrap';
+
+// Components
+import {Navbar, Nav, NavDropdown} from 'react-bootstrap';
 
 class NavBarStandard extends Component {
     constructor(props) {
@@ -17,7 +19,10 @@ class NavBarStandard extends Component {
                         <Nav.Link href="/donate">Donate</Nav.Link>
                     </Nav>
                     <Nav>
-                        <Nav.Link href="/login">Login</Nav.Link>
+                        <NavDropdown alignRight title="Login" >
+                            <NavDropdown.Item href="/login/restaurant">Restaurant Login</NavDropdown.Item>
+                            <NavDropdown.Item  href="/login/user">User Login</NavDropdown.Item>
+                        </NavDropdown>
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>

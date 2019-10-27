@@ -1,13 +1,22 @@
 import React, { Component } from 'react'
+import '../../styles/auth.css'
+
+// Components
 import FacebookLogin from 'react-facebook-login'
+
+// Actions
+import { loginUserFacebook } from '../../actions/login';
+
+// Selectors
+import * as authSelectors from '../../selectors/authSelectors'
+
+// Tools
+import { connect } from 'react-redux';
 import axios from 'axios';
 
-import { connect } from 'react-redux';
-import { loginUserFacebook } from '../actions/login';
-import '../styles/auth.css'
 
 const mapStateToProps = (state) => ({
-  authRedirect: state.authRedirect,
+  authRedirect: authSelectors.getAuthRedirect(state),
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -65,10 +74,11 @@ class Facebook extends Component {
 
     var loginPayload = {
       token: this.state.userID,
-      data: {
+      userData: {
         id: this.state.userID,
         email: this.state.email,
-        name: this.state.name
+        name: this.state.name,
+        type: "USER"
       }
     }
 
@@ -88,7 +98,7 @@ class Facebook extends Component {
           cssClass="facebookLogin"
           autoLoad={false}
           fields="name,email,picture"
-          textButton = {"\xa0\xa0\xa0\xa0\xa0" + "Continue With Facebook"}
+          textButton = {"\xa0\xa0\xa0\xa0\xa0" + "Facebook Login"}
           onClick={() => this.componentClicked()}
           callback={this.responseFacebook}
           icon="fa-facebook"

@@ -1,16 +1,23 @@
 import React, { Component } from 'react';
-import { Alert, Button, Form } from 'react-bootstrap';
-import classnames from 'classnames';
-
-import validateRegistrationInput from '../../validation/validateRegistrationInput';
-
-import { connect } from 'react-redux';
-import { signup } from '../../actions/signup';
-import isEmpty from '../../validation/isEmpty';
 import '../../styles/auth.css';
 
+// Components
+import { Alert, Button, Form } from 'react-bootstrap';
+
+// Actions
+import { signup } from '../../actions/signup';
+
+// Selectors
+import * as authSelectors from '../../selectors/authSelectors'
+
+// Tools
+import { connect } from 'react-redux';
+import classnames from 'classnames';
+import validateRegistrationInput from '../../validation/validateRegistrationInput';
+import isEmpty from '../../validation/isEmpty';
+
 const mapStateToProps = state => ({
-  signupStatus: state.signupStatus,
+  signupStatus: authSelectors.getSignupStatus(state),
 })
 
 const mapDispatchToProps =  dispatch => ({
@@ -18,7 +25,7 @@ const mapDispatchToProps =  dispatch => ({
 })
 
 class SignUp extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
 
     this.state={
@@ -70,6 +77,7 @@ class SignUp extends Component {
             <Form.Control autoComplete="off" type="password" placeholder="Password" name = "password" onChange = {this.handleChange} className={"form-control", classnames({
               "is-invalid": errors.password,
             })}/>
+            <small id="emailHelp" class="form-text text-muted">Must be at least 8 characters long.</small>
             {errors.password && (
               <div className="invalid-feedback">{errors.password}</div>
             )}
