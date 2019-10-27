@@ -1,20 +1,33 @@
+// Reducers
+import auth from './authReducer';
 import { combineReducers } from 'redux';
+
+// Tools
 import { connectRouter } from 'connected-react-router';
-import signupStatus from './signupStatusReducer'
-import loginStatus from './loginStatusReducer'
-import type from './typeReducer';
-import authRedirect from './authRedirectReducer';
 import { sessionReducer as session } from 'redux-react-session';
+import { persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+
+const rootPersistConfig = {
+    key: 'root',
+    storage: storage,
+    blacklist: ['router', 'auth']
+}
+
+const authPersistConfig = {
+    key: 'auth',
+    storage: storage,
+    blacklist: ['signupStatus', 'loginStatus', 'authRedirect']
+
+}
 
 const createRootReducer = (history) => combineReducers({
     router: connectRouter(history),
-    authRedirect,
-    signupStatus,
-    loginStatus,
     session,
-    type,
+    auth: persistReducer(authPersistConfig, auth),
 })
 
+const createPersistedRootReducer = (history) => persistReducer(rootPersistConfig, createRootReducer(history))
 
-export default createRootReducer;
+export default createPersistedRootReducer;
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Navbar, Nav} from 'react-bootstrap';
+import {Navbar, Nav, NavDropdown} from 'react-bootstrap';
 import {Button} from 'react-bootstrap';
 import '../../styles/navbar.css';
 
@@ -19,7 +19,10 @@ class NavBarStandard extends Component {
                         <Nav.Link href="/donate" id="donate-menu-item">Donate</Nav.Link>
                     </Nav>
                     <Nav>
-                        <Nav.Link href="/login"><Button id="login-button">Login</Button></Nav.Link>
+                        <NavDropdown alignRight title="Login" >
+                            <NavDropdown.Item href="/login/restaurant">Restaurant Login</NavDropdown.Item>
+                            <NavDropdown.Item  href="/login/user">User Login</NavDropdown.Item>
+                        </NavDropdown>
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>

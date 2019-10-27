@@ -10,18 +10,23 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import '../styles/home.css';
 
+// Selectors
+import * as sessionSelectors from '../selectors/sessionSelectors'
+
+// Tools
+import { connect } from 'react-redux';
+
 const mapStateToProps = (state) => ({
-    user: state.session.user,
-    authenticated: state.session.authenticated,
-    type: state.type
+  user: sessionSelectors.getUser(state),
+  authenticated: sessionSelectors.isAuthenticated(state),
 })
 
 class Home extends Component {
     render () {
         return (
-          <div>
-            <div id="page1">
-                {chooseNavbar(this.props.user, this.props.authenticated, this.props.type)}
+            <div>
+              <div id="page1">
+                {chooseNavbar(this.props.user, this.props.authenticated)}
             </div>
             <div id="title">
               Food reimagined.

@@ -1,13 +1,21 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { logoutUser } from '../actions/logout';
-import { Button } from 'react-bootstrap';
-import chooseNavbar from '../components/NavBar/chooseNavBar'
 
-const mapStateToProps = ( state ) => ({
-    user: state.session.user,
-    authenticated: state.session.authenticated,
-    type: state.type
+// Components
+import chooseNavbar from '../components/NavBar/chooseNavBar'
+import { Button } from 'react-bootstrap';
+
+// Actions
+import { logoutUser } from '../actions/logout';
+
+// Selectors
+import * as sessionSelectors from '../selectors/sessionSelectors'
+
+// Tools
+import { connect } from 'react-redux';
+
+const mapStateToProps = (state) => ({
+  user: sessionSelectors.getUser(state),
+  authenticated: sessionSelectors.isAuthenticated(state),
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -23,7 +31,7 @@ class Profile extends Component {
     render() {
         return (
                 <div>
-                    {chooseNavbar(this.props.user, this.props.authenticated, this.props.type)}
+                    {chooseNavbar(this.props.user, this.props.authenticated)}
                     <h3>Welcome {this.props.user.name}</h3>
                     <h4> UserID: {this.props.user.id}</h4>
                     <h5>{this.props.authenticated ? 'You are authenticated': 'Error'}</h5>
