@@ -1,18 +1,26 @@
 import React, { Component } from 'react';
+
+// Components
 import { Button } from 'react-bootstrap';
-import Login from './Login';
-import SignUp from './SignUp';
-import FacebookLogin from '../../components/Facebook';
-import isEmpty from '../../validation/isEmpty';
-import { connect } from 'react-redux';
-import { setAuthRedirect } from '../../actions/setRedirect'
-import { resetAuthStatus } from '../../actions/resetStatus';
+import FacebookLogin from '../../components/Authentication/Facebook';
 import chooseNavbar from '../../components/NavBar/chooseNavBar'
 import '../../styles/auth.css';
 
+// Actions
+import Login from '../../components/Authentication/Login';
+import SignUp from '../../components/Authentication/SignUp';
+
+// Selectors
+import * as authSelectors from '../../selectors/authSelectors'
+import { setAuthRedirect } from '../../actions/setRedirect'
+import { resetAuthStatus } from '../../actions/resetStatus';
+
+// Tools 
+import isEmpty from '../../validation/isEmpty';
+import { connect } from 'react-redux';
+
 const mapStateToProps = state => ({
-  redirectUrl: state.router.location.pathname,
-  signupStatus: state.signupStatus,
+  signupStatus: authSelectors.getSignupStatus(state),
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -48,7 +56,7 @@ class LoginScreen extends Component {
     }
     else{
       var loginscreen=[];
-      loginscreen.push(<Login parentContext={this}/>);
+      loginscreen.push(<Login parentContext={this} loginHeader="Login to continue" isUser={true}/>);
       this.setState({
         loginscreen:loginscreen,
         questionLabel: 'Don\'t have an account?', 
@@ -60,7 +68,7 @@ class LoginScreen extends Component {
 
   goToLogin = () => {
     var loginscreen=[];
-      loginscreen.push(<Login parentContext={this}/>);
+      loginscreen.push(<Login parentContext={this} loginHeader="Login to continue" isUser={true}/>);
       this.setState({
         loginscreen:loginscreen,
         questionLabel: 'Don\'t have an account?', 
@@ -81,7 +89,7 @@ class LoginScreen extends Component {
   componentDidMount = () => {
     var loginscreen=[];
     this.setRedirectUrl();
-    loginscreen.push(<Login parentContext={this} appContext={this.props.parentContext} redirectUrl = {this.props.redirectUrl}/>);
+    loginscreen.push(<Login parentContext={this} appContext={this.props.parentContext} loginHeader="Login to continue" isUser={true}/>);
     this.setState({
       loginscreen:loginscreen,
     })
@@ -90,7 +98,7 @@ class LoginScreen extends Component {
   render = () => {
     return (
       <div className="loginscreen">
-        {chooseNavbar(null, false, null)}
+        {chooseNavbar(null, false)}
         {this.state.loginscreen}
         <div className = 'col-md-3 ml-auto mr-auto'>
           <div className = "row">

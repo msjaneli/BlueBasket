@@ -1,33 +1,28 @@
+// Reducers
+import createPersistedRootReducer from './reducers/index';
+
+// Tools
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { routerMiddleware } from 'connected-react-router'
 import { createBrowserHistory } from 'history'
-import createRootReducer from './reducers/index';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { sessionService } from 'redux-react-session';
-import { persistStore, persistReducer } from 'redux-persist'
-import storage from 'redux-persist/lib/storage'
+import { persistStore } from 'redux-persist'
 
 const initialState = {
-    authRedirect: '/',
-    signupStatus: '',
-    loginStatus: '',
     session: {},
-    type: '',
-}
-
-const persistConfig = {
-    key: 'root',
-    storage,
-    blacklist: ['signupStatus', 'loginStatus', 'router', 'authRedirect']
+    auth: {
+        authRedirect: '/profile',
+        signupStatus: '',
+        loginStatus: '',
+    }
 }
 
 export const history = createBrowserHistory()
 
-const persistedReducer = persistReducer(persistConfig, createRootReducer(history))
-
 export const store = createStore(
-    persistedReducer,
+    createPersistedRootReducer(history),
     initialState,
     composeWithDevTools(
         applyMiddleware(

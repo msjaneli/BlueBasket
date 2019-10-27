@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
+
+// Components 
 import {Navbar, Nav, NavDropdown} from 'react-bootstrap';
-import { connect } from 'react-redux';
+
+// Actions
 import { logoutUser } from '../../actions/logout';
+
+// Tools
+import { connect } from 'react-redux';
+
 
  const mapDispatchToProps = (dispatch) => ({
      logout: () => dispatch(logoutUser())
@@ -25,10 +32,10 @@ class NavBarUser extends Component {
                 </Nav>
                 <Nav className = "ml-auto">
                     <NavDropdown alignRight title={"Hi, " + this.props.name} >
-                    <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
-                    <NavDropdown.Item href="/orders">Orders</NavDropdown.Item>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item onClick={() => this.props.logout()}>Logout</NavDropdown.Item>
+                        <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
+                        <NavDropdown.Item href="/orders">Orders</NavDropdown.Item>
+                        <NavDropdown.Divider />
+                        <NavDropdown.Item onClick={() => this.props.logout()}>Logout</NavDropdown.Item>
                     </NavDropdown>
                 </Nav>
                 </Navbar.Collapse>
