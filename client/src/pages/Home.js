@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import chooseNavbar from '../components/NavBar/chooseNavBar';
 import {ReactComponent as Splash} from '../resources/splash.svg';
 import Trash from '../resources/trash.png';
