@@ -30,8 +30,8 @@ export const loginUser = (payload, redirectUrl) => async dispatch => {
         var token = resultData.data.token;
         var userData = resultData.data.userData;
 
-        await sessionService.saveSession(token);
         await sessionService.saveUser(userData);
+        await sessionService.saveSession(token);
 
         dispatch({
             type: LOGIN_SUCCESS
@@ -53,7 +53,7 @@ export const loginRestaurant = (payload, redirectUrl) => async dispatch => {
         var resultData = {};
 
         try {
-            resultData = await axios.post('/user/login', {
+            resultData = await axios.post('/restaurant/login', {
                 email: email,
                 password: password
             })
@@ -65,10 +65,10 @@ export const loginRestaurant = (payload, redirectUrl) => async dispatch => {
         }
 
         var token = resultData.data.token;
-        var userData = resultData.data.userData;
+        var restaurantData = resultData.data.restaurantData;
 
+        await sessionService.saveUser(restaurantData);
         await sessionService.saveSession(token);
-        await sessionService.saveUser(userData);
 
         dispatch({
             type: LOGIN_SUCCESS
@@ -80,12 +80,13 @@ export const loginRestaurant = (payload, redirectUrl) => async dispatch => {
 
 export const loginUserFacebook = (payload, redirectUrl) => async dispatch => {
 
-    await sessionService.saveSession(payload.token);
-    await sessionService.saveUser(payload.userData)
-
     dispatch({
         type: RESET_AUTH_STATUS
     })
+
+    await sessionService.saveUser(payload.userData);
+    await sessionService.saveSession(payload.token);
+
     dispatch({
         type: LOGIN_SUCCESS
     })

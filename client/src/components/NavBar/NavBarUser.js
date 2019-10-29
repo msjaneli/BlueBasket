@@ -14,7 +14,7 @@ import { connect } from 'react-redux';
      logout: () => dispatch(logoutUser())
  })
 
-class NavBarUser extends Component {
+class NavbarUser extends Component {
 
     constructor (props) {
         super(props);
@@ -44,4 +44,4 @@ class NavBarUser extends Component {
     }
 }
 
-export default connect(null, mapDispatchToProps)(NavBarUser);
+export default connect(null, mapDispatchToProps)(NavbarUser);

@@ -24,7 +24,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = (dispatch) => ({
   loginUser: (payload, redirectUrl) => dispatch(loginUser(payload, redirectUrl)),
-  loginRestaurant: (payload, redirectUrl) => dispatch(loginRestaurant(payload, redirectUrl))
+  loginRestaurant: (payload, redirectUrl) => dispatch(loginRestaurant(payload, redirectUrl)),
 })
 
 class Login extends Component {

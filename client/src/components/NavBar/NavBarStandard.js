@@ -3,7 +3,7 @@ import {Navbar, Nav, NavDropdown} from 'react-bootstrap';
 import {Button} from 'react-bootstrap';
 import '../../styles/navbar.css';
 
-class NavBarStandard extends Component {
+class NavbarStandard extends Component {
     constructor(props) {
         super(props);
     }
@@ -30,4 +30,4 @@ class NavBarStandard extends Component {
     }
 }
 
-export default NavBarStandard;
+export default NavbarStandard;
