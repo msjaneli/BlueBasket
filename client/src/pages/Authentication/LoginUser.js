@@ -3,17 +3,17 @@ import React, { Component } from 'react';
 // Components
 import { Button } from 'react-bootstrap';
 import FacebookLogin from '../../components/Authentication/Facebook';
-import chooseNavbar from '../../components/NavBar/chooseNavBar'
 import '../../styles/auth.css';
 
 // Actions
 import Login from '../../components/Authentication/Login';
 import SignUp from '../../components/Authentication/SignUp';
+import { setAuthRedirect } from '../../actions/setRedirect'
+import { resetAuthStatus } from '../../actions/resetStatus';
 
 // Selectors
 import * as authSelectors from '../../selectors/authSelectors'
-import { setAuthRedirect } from '../../actions/setRedirect'
-import { resetAuthStatus } from '../../actions/resetStatus';
+import * as sessionSelectors from '../../selectors/sessionSelectors'
 
 // Tools 
 import isEmpty from '../../validation/isEmpty';
@@ -21,6 +21,8 @@ import { connect } from 'react-redux';
 
 const mapStateToProps = state => ({
   signupStatus: authSelectors.getSignupStatus(state),
+  user: sessionSelectors.getUser(state),
+  authenticated: sessionSelectors.isAuthenticated(state)
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -98,7 +100,6 @@ class LoginScreen extends Component {
   render = () => {
     return (
       <div className="loginscreen">
-        {chooseNavbar(null, false)}
         {this.state.loginscreen}
         <div className = 'col-md-3 ml-auto mr-auto'>
           <div className = "row">

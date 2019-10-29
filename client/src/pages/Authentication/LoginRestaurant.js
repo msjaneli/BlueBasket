@@ -2,19 +2,25 @@ import React, { Component } from 'react';
 import '../../styles/auth.css'
 
 // Components
-import chooseNavbar from '../../components/NavBar/chooseNavBar'
-import Login from '../../components/Authentication/Login'
+import Login from '../../components/Authentication/Login';
 
-// Selectors
+// Actions
+import { setAuthRedirect } from '../../actions/setRedirect'
 import * as sessionSelectors from '../../selectors/sessionSelectors'
 
 // Tools
+import isEmpty from '../../validation/isEmpty';
 import { connect } from 'react-redux';
 
-const mapStateToProps = (state) => ({
-  user: sessionSelectors.getUser(state),
-  authenticated: sessionSelectors.isAuthenticated(state),
+const mapStateToProps = state => ({
+    user: sessionSelectors.getUser(state),
+    authenticated: sessionSelectors.isAuthenticated(state)
 })
+
+const mapDispatchToProps = dispatch => ({
+    setAuthRedirect: redirectUrl => dispatch(setAuthRedirect(redirectUrl)),
+})
+
 
 class LoginRestaurant extends Component {
     constructor(props) {
@@ -22,14 +28,26 @@ class LoginRestaurant extends Component {
 
     }
 
+    setRedirectUrl = () => {
+        var redirectData = this.props.location.state;
+        var redirectUrl = "/profile/restaurant";
+        if(!isEmpty(redirectData)) {
+          redirectUrl = redirectData.from.pathname
+        }
+        this.props.setAuthRedirect(redirectUrl);
+      }
+
+    componentDidMount = () => {
+        this.setRedirectUrl();
+    }
+
     render() {
         return (       
             <div>
-                {chooseNavbar(this.props.user, this.props.authenticated)}
                 <Login loginHeader="Restaurant login" isUser={false}/>
             </div>
         )
     }
 }
 
-export default connect(mapStateToProps)(LoginRestaurant);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginRestaurant);

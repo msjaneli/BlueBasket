@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import chooseNavbar from '../components/NavBar/chooseNavBar';
 import {ReactComponent as Splash} from '../resources/splash.svg';
 import Trash from '../resources/trash.png';
 import Rocket from '../resources/rocket.png';
@@ -9,23 +8,11 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import '../styles/home.css';
 
-// Selectors
-import * as sessionSelectors from '../selectors/sessionSelectors'
-
-// Tools
-import { connect } from 'react-redux';
-
-const mapStateToProps = (state) => ({
-  user: sessionSelectors.getUser(state),
-  authenticated: sessionSelectors.isAuthenticated(state),
-})
-
 class Home extends Component {
     render () {
         return (
             <div>
               <div id="page1">
-                {chooseNavbar(this.props.user, this.props.authenticated)}
               </div>
                 <div id="splash-page">
                   <Col>
@@ -89,4 +76,4 @@ class Home extends Component {
     }
 }
 
-export default connect(mapStateToProps)(Home);
+export default Home;

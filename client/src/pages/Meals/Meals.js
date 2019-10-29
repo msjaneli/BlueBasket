@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 // Components
-import chooseNavbar from '../../components/NavBar/chooseNavBar'
 
 // Selectors
 import * as sessionSelectors from '../../selectors/sessionSelectors'
@@ -18,7 +17,6 @@ class Meals extends Component {
   render () {
     return (
       <div>
-        {chooseNavbar(this.props.user, this.props.authenticated)}
         MEALS!!
       </div>
     )

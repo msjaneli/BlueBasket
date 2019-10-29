@@ -7,7 +7,7 @@ module.exports = router;
 
 router.get('/:email/uid', userController.getId);
 
-router.post('/register', userController.registerUser);
+router.post('/register', userController.register);
 
 router.post('/check-exists', userController.checkUserExists);
 

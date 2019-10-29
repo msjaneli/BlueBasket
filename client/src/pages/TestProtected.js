@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 // Components
-import chooseNavbar from '../components/NavBar/chooseNavBar'
 import { logoutUser } from '../actions/logout'
 import { Button } from 'react-bootstrap'
 
@@ -28,7 +27,6 @@ class TestProtected extends Component {
     render (){
         return(
             <div>
-                {chooseNavbar(this.props.user, this.props.authenticated)}
                 <h4>Hello, This is a protected route. Should redirect to login when not logged in, and when you log in, it should redirect back here</h4>
                 <h5>{this.props.authenticated ? 'You are authenticated': 'Error'}</h5>
                 <Button onClick={() => this.props.logout()}>Logout</Button>

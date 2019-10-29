@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 
 // Components
-import chooseNavbar from '../components/NavBar/chooseNavBar'
 import { Button } from 'react-bootstrap';
 
 // Actions
-import { logoutUser } from '../actions/logout';
+import { logoutUser } from '../../actions/logout';
 
 // Selectors
-import * as sessionSelectors from '../selectors/sessionSelectors'
+import * as sessionSelectors from '../../selectors/sessionSelectors'
 
 // Tools
 import { connect } from 'react-redux';
@@ -31,9 +30,8 @@ class Profile extends Component {
     render() {
         return (
                 <div>
-                    {chooseNavbar(this.props.user, this.props.authenticated)}
                     <h3>Welcome {this.props.user.name}</h3>
-                    <h4> UserID: {this.props.user.id}</h4>
+                    <h4> RestaurantID: {this.props.user.id}</h4>
                     <h5>{this.props.authenticated ? 'You are authenticated': 'Error'}</h5>
                     <Button variant="outline-primary" onClick={() => this.props.logout()}>Logout</Button>
                 </div>

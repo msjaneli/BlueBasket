@@ -35,7 +35,7 @@ exports.checkUserExists = async (req, res) => {
     return res.status(200).send(!isEmpty(rows));
 }
 
-exports.registerUser = async (req, res) => {
+exports.register = async (req, res) => {
     var name = req.body.name;
     var email = req.body.email;
     var password = req.body.password;
