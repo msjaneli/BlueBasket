@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
 // Components
-import NavBarStandard from './NavBarStandard';
-import NavBarUser from './NavBarUser';
-import NavBarRestaurant from './NavBarRestaurant';
+import NavbarStandard from './NavbarStandard';
+import NavbarUser from './NavbarUser';
+import NavbarRestaurant from './NavbarRestaurant';
 
 // Selectors
 import * as sessionSelectors from '../../selectors/sessionSelectors';
@@ -24,13 +24,13 @@ class Navbar extends Component {
 
     render() {
         if (!this.props.authenticated) {
-            return(<NavBarStandard/>)
+            return(<NavbarStandard/>)
         } else {
             var name = this.props.user.name.split(" ")[0]
             if (this.props.user.type === "USER") {
-                return(<NavBarUser name = {name}/>);
+                return(<NavbarUser name = {name}/>);
             } else {
-                return(<NavBarRestaurant name = {name}/>);
+                return(<NavbarRestaurant name = {name}/>);
             }
         }
     }
