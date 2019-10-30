@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
 // Components
-import NavBarStandard from './NavbarStandard';
-import NavBarUser from './NavbarUser';
-import NavBarRestaurant from './NavbarRestaurant';
+import NavBarStandard from './NavBarStandard';
+import NavBarUser from './NavBarUser';
+import NavBarRestaurant from './NavBarRestaurant';
 
 // Selectors
 import * as sessionSelectors from '../../selectors/sessionSelectors';

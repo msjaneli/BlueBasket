@@ -3,7 +3,7 @@ import { Route} from 'react-router';
 import './App.css';
 
 // Components
-import Navbar from './components/Navbar/Navbar'
+import Navbar from './components/NavBar/Navbar'
 
 // Pages
 import Home from '../src/pages/Home';
@@ -37,7 +37,7 @@ const App = ({ authenticated, checked, type }) => {
   return (
     <div>
       <ConnectedRouter history = { history }>
-        { checked && 
+        { checked &&
           <div className="App">
             <Navbar/>
             <Route exact path = '/' component = { Home } />
