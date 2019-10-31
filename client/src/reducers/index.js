@@ -17,7 +17,7 @@ const rootPersistConfig = {
 const authPersistConfig = {
     key: 'auth',
     storage: storage,
-    blacklist: ['signupStatus', 'loginStatus', 'authRedirect']
+    blacklist: ['signupStatus', 'loginStatus', 'authRedirect', 'isLoading']
 
 }
 

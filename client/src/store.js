@@ -16,6 +16,7 @@ const initialState = {
         authRedirect: '',
         signupStatus: '',
         loginStatus: '',
+        isLoading: false,
     }
 }
 
