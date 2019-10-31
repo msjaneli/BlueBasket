@@ -22,7 +22,7 @@ import { connect } from 'react-redux';
 const mapStateToProps = state => ({
   signupStatus: authSelectors.getSignupStatus(state),
   user: sessionSelectors.getUser(state),
-  authenticated: sessionSelectors.isAuthenticated(state)
+  authenticated: sessionSelectors.isAuthenticated(state),
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -98,48 +98,50 @@ class LoginScreen extends Component {
   }
 
   render = () => {
-    return (
-      <div className="loginscreen">
-        {this.state.loginscreen}
-        <div className = 'col-md-3 ml-auto mr-auto'>
-          <div className = "row">
-            <div className = "col-4">
-                <hr/>
-              </div>
+
+      return (
+        <div className="loginscreen">
+          {this.state.loginscreen}
+          <div className = 'col-md-3 ml-auto mr-auto'>
+            <div className = "row">
               <div className = "col-4">
-                <p className = "continue">or continue with</p>
-              </div>
-              <div className = "col-4">
-                <hr/>
-              </div>
+                  <hr/>
+                </div>
+                <div className = "col-4">
+                  <p className = "continue">or continue with</p>
+                </div>
+                <div className = "col-4">
+                  <hr/>
+                </div>
+            </div>
+              <FacebookLogin />
+              <p className = "switchText">{this.state.questionLabel}<Button variant = "authLink" className="changeAuthMode" onClick={() => this.handleClick()}> { this.state.buttonLabel } </Button> </p>  
+  
+              <style type="text/css">
+              {`
+                .btn-authLink {
+                  font-weight: bold;
+                  text-decoration: none;
+                  font-size: 15px;
+                  color: cornflowerblue;
+                  border: white;
+                  border-decoration: none;
+                }
+  
+                .btn:focus,.btn:active {
+                  outline: none !important;
+                  box-shadow: none;
+                }
+  
+                .btn-authLink:hover {
+                  color: cornflowerblue;
+                }
+              `}
+          </style>             
           </div>
-            <FacebookLogin />
-            <p className = "switchText">{this.state.questionLabel}<Button variant = "authLink" className="changeAuthMode" onClick={() => this.handleClick()}> { this.state.buttonLabel } </Button> </p>  
-
-            <style type="text/css">
-            {`
-              .btn-authLink {
-                font-weight: bold;
-                text-decoration: none;
-                font-size: 15px;
-                color: cornflowerblue;
-                border: white;
-                border-decoration: none;
-              }
-
-              .btn:focus,.btn:active {
-                outline: none !important;
-                box-shadow: none;
-              }
-
-              .btn-authLink:hover {
-                color: cornflowerblue;
-              }
-            `}
-        </style>             
         </div>
-      </div>
-    );
+      );
+    }
+
   }
-}
 export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);
