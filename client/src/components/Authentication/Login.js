@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../../styles/auth.css'
 
 // Components
-import { Alert, Button, Form, Row, Col } from 'react-bootstrap';
+import { Alert, Button, Form, Col } from 'react-bootstrap';
 
 // Selectors
 import * as authSelectors from '../../selectors/authSelectors'
@@ -68,7 +68,7 @@ class Login extends Component {
 
     let loadingAnimation = this.props.isLoading ? <Lottie style={{"margin-bottom": "10px"}} options = {animationOptionsLoading} width = {56}  height = {56} /> : null
 
-    let checkAnimation = this.props.signupStatus === 'SIGNUP_SUCCESS' ? <Lottie style = {{"margin-bottom": "9px", "margin-top": "-6px"}}options = {animationOptionsCheck} width = {38} height = {38} /> : null
+    let checkAnimation = this.props.signupStatus === 'SIGNUP_SUCCESS' ? <Lottie style = {{"margin-bottom": "9px", "margin-top": "-6px"}} options = {animationOptionsCheck} width = {38} height = {38} /> : null
 
     let signupSuccessMessage = this.props.signupStatus === 'SIGNUP_SUCCESS' ? <Alert className = "signUpSuccessAlert" variant = 'success'>You signed up! Login below</Alert> : null
 
@@ -79,54 +79,53 @@ class Login extends Component {
     const { errors } = this.state;
 
     return (
-      <div className='col-md-3 ml-auto mr-auto'>
+        <Col md={10} className = 'ml-auto mr-auto'>
 
-        <h4 className = "loginText" > {this.props.loginHeader} </h4> 
+          <h4 className = "loginText" > {this.props.loginHeader} </h4> 
 
-        { loadingAnimation }
+          { loadingAnimation }
 
-        { signupSuccessMessage }
+          { signupSuccessMessage }
 
-        { checkAnimation }
+          { checkAnimation }
 
-        { loginErrorMessage }
+          { loginErrorMessage }
 
-        <Form noValidate className='text-left' >
-          <Form.Group controlId="formBasicEmail">
-            <Form.Control autoComplete="off" type="email" placeholder="Email Address" name = "email" onChange = {this.handleChange} className={"form-control", classnames({
-              "is-invalid": errors.email,
-            })}/>
-            {errors.email && (
-              <div className="invalid-feedback">{errors.email}</div>
-            )}
-          </Form.Group>
-          <Form.Group controlId="formBasicPassword">
-            <Form.Control type="password" placeholder="Password" name = "password" onChange = {this.handleChange} className={"form-control", classnames({
-              "is-invalid": errors.password,
-            })}/>
-            {errors.password && (
-              <div className="invalid-feedback">{errors.password}</div>
-            )}
-          </Form.Group>
-        </Form>
+          <Form noValidate className='text-left' >
+            <Form.Group controlId="formBasicEmail">
+              <Form.Control autoComplete="off" type="email" placeholder="Email Address" name = "email" onChange = {this.handleChange} className={"form-control", classnames({
+                "is-invalid": errors.email,
+              })}/>
+              {errors.email && (
+                <div className="invalid-feedback">{errors.email}</div>
+              )}
+            </Form.Group>
+            <Form.Group controlId="formBasicPassword">
+              <Form.Control type="password" placeholder="Password" name = "password" onChange = {this.handleChange} className={"form-control", classnames({
+                "is-invalid": errors.password,
+              })}/>
+              {errors.password && (
+                <div className="invalid-feedback">{errors.password}</div>
+              )}
+            </Form.Group>
+          </Form>
 
-        <Button disabled = {this.props.isLoading} variant = "login"  onClick={() => this.validateInput()}>{loginButtonText}</Button>
+          <Button disabled = {this.props.isLoading} variant = "login"  onClick={() => this.validateInput()}>{loginButtonText}</Button>
 
-        <style type="text/css">
-            {`
-              .btn-login {
-                background-color: cornflowerblue;
-                color: white;
-                font-weight: bold;
-              }
+          <style type="text/css">
+              {`
+                .btn-login {
+                  background-color: cornflowerblue;
+                  color: white;
+                  font-weight: bold;
+                }
 
-              .btn-login:hover {
-                color: white;
-              }
-            `}
-        </style>
-
-      </div>
+                .btn-login:hover {
+                  color: white;
+                }
+              `}
+          </style>
+        </Col>
     );
   }
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../../styles/auth.css';
 
 // Components
-import { Alert, Button, Form } from 'react-bootstrap';
+import { Alert, Button, Form, Col} from 'react-bootstrap';
 
 // Actions
 import { signup } from '../../actions/signup';
@@ -66,7 +66,7 @@ class SignUp extends Component {
 
     return (
 
-      <div className='col-md-3 ml-auto mr-auto'>
+      <Col md={10} className='ml-auto mr-auto'>
 
         <h4 className = "loginText" > Sign up </h4> 
 
@@ -117,7 +117,7 @@ class SignUp extends Component {
               }
             `}
         </style>
-      </div>
+      </Col>
     );
   }
 

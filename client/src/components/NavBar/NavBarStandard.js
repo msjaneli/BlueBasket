@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import {Navbar, Nav, NavDropdown} from 'react-bootstrap';
-import {Button} from 'react-bootstrap';
 import '../../styles/navbar.css';
+
+// Components
+import {Navbar, Nav, NavDropdown} from 'react-bootstrap';
 
 class NavbarStandard extends Component {
     constructor(props) {
@@ -11,7 +12,7 @@ class NavbarStandard extends Component {
     render () {
         return (
             <Navbar id="nav-bar" expand="lg">
-                <Navbar.Brand href="/" id="brand"><div id="blue-logo">Blue</div><div id="basket-logo">Basket</div></Navbar.Brand>
+                <Navbar.Brand href="/" id="brand"><div id="blue-logo-nav">Blue</div><div id="basket-logo-nav">Basket</div></Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto" id="menu-item">
