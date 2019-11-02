@@ -1,12 +1,22 @@
 import React, { Component } from 'react';
+import '../styles/home.css';
+
+// Components
+import { Container, Row, Col, Button } from 'react-bootstrap'
+
+// Resources
 import {ReactComponent as Splash} from '../resources/splash.svg';
 import Trash from '../resources/trash.png';
 import Rocket from '../resources/rocket.png';
 import Pizza from '../resources/pizza.png';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import '../styles/home.css';
+
+// Tools
+import { connect } from 'react-redux';
+import { push } from 'connected-react-router'
+
+const mapDispatchToProps = dispatch => ({
+  goToMeals: () => dispatch(push('/meals'))
+})
 
 class Home extends Component {
     render () {
@@ -15,26 +25,43 @@ class Home extends Component {
               <div id="page1">
               </div>
               <div id="splash-page">
-                <Col>
-                  <div>
-                    <Row>
-                      <div id="title">
-                        Food reimagined.
+                    <Col>
+                        <Row>
+                          <div id="title">
+                            Food reimagined.
+                          </div>
+                        </Row>
+                        <Row>
+                          <div id="caption">
+                            <hr id="hr"/>
+                            <div style={{fontSize:"1.2vw"}}>
+                              <div className="underline-text">Up to 40%</div> of all food in America is never eaten. Yet, 1 in 8 households worry about where their next meal is coming from. It's time to do our part.
+                            </div>
+                            <Button variant = "meals" style ={{marginTop: '15px'}} onClick={() => this.props.goToMeals()}>Explore Meals</Button>
+                            <style type="text/css">
+                              {`
+                                .btn-meals {
+                                  background-color: cornflowerblue;
+                                  color: white;
+                                  font-weight: bold;
+                                  font-size: 1.2vw;
+                                  width: 40%;
+                                }
+
+                                .btn-meals:hover {
+                                  color: white;
+                                  background-color:#5288e7
+                                }
+                              `}
+                            </style>
+                          </div>
+                        </Row>
+                    </Col>
+                    <Col>
+                      <div id="splash" alt="splash" className="size">
+                        <Splash />
                       </div>
-                    </Row>
-                    <Row>
-                      <div id="caption">
-                        <hr id="hr"/>
-                        <div className="underline-text">Up to 40%</div> of all food in America is never eaten. <div className="e">Yet, <div className="underline-text">1 in 8 households</div> worry about where their next meal is coming from.</div> <div className="e">It's time to do our part.</div>
-                      </div>
-                    </Row>
-                  </div>
-                </Col>
-                <Col>
-                  <div id="splash" alt="splash" className="size">
-                    <Splash />
-                  </div>
-                </Col>
+                    </Col>
               </div>
               <div id="page2">
                 <Container id="container">
@@ -87,4 +114,4 @@ class Home extends Component {
     }
 }
 
-export default Home;
+export default connect(null, mapDispatchToProps)(Home);

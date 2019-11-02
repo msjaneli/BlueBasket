@@ -22,7 +22,7 @@ class NavbarUser extends Component {
 
     render() {
         return (
-            <Navbar bg="light" expand="lg">
+            <Navbar fixed="top" id="nav-bar" style={{borderBottom: '0.5px solid #e4e4e4', height: '4.9rem'}} expand="lg">
                 <Navbar.Brand href="/" id="brand"><div id="blue-logo-nav">Blue</div><div id="basket-logo-nav">Basket</div></Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">

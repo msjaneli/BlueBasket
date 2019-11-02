@@ -122,6 +122,7 @@ class Login extends Component {
 
                 .btn-login:hover {
                   color: white;
+                  background-color: #5288e7
                 }
               `}
           </style>

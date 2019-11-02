@@ -57,7 +57,7 @@ class LoginRestaurant extends Component {
             <div>
                     <div className = "authContainer" >
                         <Row className ="justify-content-center">
-                            <Card className = "shadow-lg p-3 mb-5 bg-white rounded" style = {{width: '55rem', marginTop: "11rem", marginBottom: "5rem"}}>
+                            <Card className = "shadow-lg p-3 mb-5 bg-white rounded" style = {{width: '55rem', marginTop: "9rem", marginBottom: "5rem"}}>
                                 <Card.Body>
                                 <Row>
                                     <Col md={5} className = "mt-auto mb-auto loginSplash" style ={{borderRight: '0.5px solid lightgray'}}>

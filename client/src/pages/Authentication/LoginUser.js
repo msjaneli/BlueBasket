@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 // Components
-import { Button, Card, Col, Row } from 'react-bootstrap';
+import { Button, Card, Col, Row, Nav } from 'react-bootstrap';
 import FacebookLogin from '../../components/Authentication/Facebook';
 import '../../styles/auth.css';
 
@@ -18,6 +18,7 @@ import * as sessionSelectors from '../../selectors/sessionSelectors'
 // Tools 
 import isEmpty from '../../validation/isEmpty';
 import { connect } from 'react-redux';
+import { push } from 'connected-react-router'
 import Lottie from 'react-lottie';
 import foodAnimationData from '../../resources/lotties/food/4762-food-carousel.json'
 
@@ -30,6 +31,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   setAuthRedirect: redirectUrl => dispatch(setAuthRedirect(redirectUrl)),
   resetAuthStatus: () => dispatch(resetAuthStatus()),
+  goToRestaurantLogin: () => dispatch(push('/login/restaurant'))
 })
 
 class LoginScreen extends Component {
@@ -111,7 +113,7 @@ class LoginScreen extends Component {
       return (
         <div className = "authContainer" >
           <Row className ="justify-content-center">
-            <Card className = "shadow-lg p-3 mb-5 bg-white rounded" style = {{width: '55rem', marginTop: "5rem", marginBottom: "5rem"}}>
+            <Card className = "shadow-lg p-3 mb-5 bg-white rounded" style = {{width: '55rem', marginTop: "3.5rem", marginBottom: "5rem"}}>
                 <Card.Body>
                   <Row>
                     <Col md={5} className = "mt-auto mb-auto loginSplash" style ={{borderRight: '0.5px solid lightgray'}}>
@@ -119,7 +121,10 @@ class LoginScreen extends Component {
                           <div id="blue-logo">Blue</div>
                           <div id="basket-logo">Basket</div>
                         </a>
-                        <Lottie style = {{marginTop: '1.5rem'}} options = {animationOptionsFood} width = {200} height = {200} />
+                        <Lottie style = {{marginTop: '2.3rem'}} options = {animationOptionsFood} width = {200} height = {200} />
+                    <Row className = "justify-content-center" style={{marginTop: '2.2rem'}}>
+                      <p className="switchText">Own a restaurant? Login<Button variant = "authLink" className="changeAuthMode" onClick={() => this.props.goToRestaurantLogin()}>here</Button></p>
+                    </Row>
                     </Col>
                     <Col md={7}>
                     {this.state.loginscreen}
@@ -147,6 +152,7 @@ class LoginScreen extends Component {
                             color: cornflowerblue;
                             border: white;
                             border-decoration: none;
+                            margin-top: 1px;
                           }
             
                           .btn:focus,.btn:active {
@@ -162,6 +168,7 @@ class LoginScreen extends Component {
                     </Col>
                     </Col>
                   </Row>
+
                 </Card.Body>
             </Card>
           </Row>

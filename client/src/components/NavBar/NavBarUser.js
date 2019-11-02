@@ -22,8 +22,11 @@ class NavbarUser extends Component {
     }
 
     render() {
+
+        let welcomeText = <div style={{display:'inline-block'}}><div style={{display:'inline-block'}}>Hi, </div> <div style={{display:'inline-block', color:'cornflowerblue'}}>{this.props.name}!</div></div>
+
         return (
-            <Navbar id="nav-bar" expand="lg">
+            <Navbar fixed = "top" id="nav-bar" style={{borderBottom: '0.5px solid #e4e4e4', height: '4.9rem'}} expand="lg">
                 <Navbar.Brand href="/" id ="brand"><div id="blue-logo-nav">Blue</div><div id="basket-logo-nav">Basket</div></Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
@@ -32,7 +35,7 @@ class NavbarUser extends Component {
                     <Nav.Link href="/donate" id="donate-menu-item">Donate</Nav.Link>
                 </Nav>
                 <Nav className = "ml-auto">
-                    <NavDropdown alignRight title={"Hi, " + this.props.name} >
+                    <NavDropdown alignRight title={welcomeText} >
                         <NavDropdown.Item href="/profile/user">Profile</NavDropdown.Item>
                         <NavDropdown.Item href="/orders">Orders</NavDropdown.Item>
                         <NavDropdown.Divider />

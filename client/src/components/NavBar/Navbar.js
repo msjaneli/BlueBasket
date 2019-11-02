@@ -25,11 +25,11 @@ class Navbar extends Component {
     }
 
     render() {
-        let hidden = this.props.url === "/login/user" || this.props.url === "/login/restaurant";
+        // let hidden = this.props.url === "/login/user" || this.props.url === "/login/restaurant";
 
-        if (hidden) {
-            return (<div></div>)
-        }
+        // if (hidden) {
+        //     return (<div></div>)
+        // }
 
         if (!this.props.authenticated) {
             return(<NavbarStandard/>)
