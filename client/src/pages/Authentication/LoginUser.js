@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 // Components
-import { Button } from 'react-bootstrap';
+import { Button, Card, Col, Row, Nav } from 'react-bootstrap';
 import FacebookLogin from '../../components/Authentication/Facebook';
 import '../../styles/auth.css';
 
@@ -18,16 +18,20 @@ import * as sessionSelectors from '../../selectors/sessionSelectors'
 // Tools 
 import isEmpty from '../../validation/isEmpty';
 import { connect } from 'react-redux';
+import { push } from 'connected-react-router'
+import Lottie from 'react-lottie';
+import foodAnimationData from '../../resources/lotties/food/4762-food-carousel.json'
 
 const mapStateToProps = state => ({
   signupStatus: authSelectors.getSignupStatus(state),
   user: sessionSelectors.getUser(state),
-  authenticated: sessionSelectors.isAuthenticated(state)
+  authenticated: sessionSelectors.isAuthenticated(state),
 })
 
 const mapDispatchToProps = dispatch => ({
   setAuthRedirect: redirectUrl => dispatch(setAuthRedirect(redirectUrl)),
   resetAuthStatus: () => dispatch(resetAuthStatus()),
+  goToRestaurantLogin: () => dispatch(push('/login/restaurant'))
 })
 
 class LoginScreen extends Component {
@@ -98,48 +102,79 @@ class LoginScreen extends Component {
   }
 
   render = () => {
-    return (
-      <div className="loginscreen">
-        {this.state.loginscreen}
-        <div className = 'col-md-3 ml-auto mr-auto'>
-          <div className = "row">
-            <div className = "col-4">
-                <hr/>
-              </div>
-              <div className = "col-4">
-                <p className = "continue">or continue with</p>
-              </div>
-              <div className = "col-4">
-                <hr/>
-              </div>
-          </div>
-            <FacebookLogin />
-            <p className = "switchText">{this.state.questionLabel}<Button variant = "authLink" className="changeAuthMode" onClick={() => this.handleClick()}> { this.state.buttonLabel } </Button> </p>  
 
-            <style type="text/css">
-            {`
-              .btn-authLink {
-                font-weight: bold;
-                text-decoration: none;
-                font-size: 15px;
-                color: cornflowerblue;
-                border: white;
-                border-decoration: none;
-              }
+    const animationOptionsFood = {
+      loop: true,
+      autoplay: true,
+      animationData: foodAnimationData,
+        preserveAspectRatio: 'xMidYMid slice'
+    }
 
-              .btn:focus,.btn:active {
-                outline: none !important;
-                box-shadow: none;
-              }
+      return (
+        <div className = "authContainer" >
+          <Row className ="justify-content-center">
+            <Card className = "shadow-lg p-3 mb-5 bg-white rounded" style = {{width: '55rem', marginTop: "3.5rem", marginBottom: "5rem"}}>
+                <Card.Body>
+                  <Row>
+                    <Col md={5} className = "mt-auto mb-auto loginSplash" style ={{borderRight: '0.5px solid lightgray'}}>
+                        <a id = "logo" href ="/" style = {{'margin-top': '40px'}}>
+                          <div id="blue-logo">Blue</div>
+                          <div id="basket-logo">Basket</div>
+                        </a>
+                        <Lottie style = {{marginTop: '2.3rem'}} options = {animationOptionsFood} width = {200} height = {200} />
+                    <Row className = "justify-content-center" style={{marginTop: '2.2rem'}}>
+                      <p className="switchText">Own a restaurant? Login<Button variant = "authLink" className="changeAuthMode" onClick={() => this.props.goToRestaurantLogin()}>here</Button></p>
+                    </Row>
+                    </Col>
+                    <Col md={7}>
+                    {this.state.loginscreen}
+                    <Col md={10} className = 'ml-auto mr-auto'>
+                      <div className = "row">
+                        <div className = "col-4">
+                            <hr/>
+                          </div>
+                          <div className = "col-4">
+                            <p className = "continue">or continue with</p>
+                          </div>
+                          <div className = "col-4">
+                            <hr/>
+                          </div>
+                      </div>
+                        <FacebookLogin />
+                        <p className = "switchText">{this.state.questionLabel}<Button variant = "authLink" className="changeAuthMode" onClick={() => this.handleClick()}> { this.state.buttonLabel } </Button> </p>  
+            
+                        <style type="text/css">
+                        {`
+                          .btn-authLink {
+                            font-weight: bold;
+                            text-decoration: none;
+                            font-size: 15px;
+                            color: cornflowerblue;
+                            border: white;
+                            border-decoration: none;
+                            margin-top: 1px;
+                          }
+            
+                          .btn:focus,.btn:active {
+                            outline: none !important;
+                            box-shadow: none;
+                          }
+            
+                          .btn-authLink:hover {
+                            color: cornflowerblue;
+                          }
+                        `}
+                    </style>             
+                    </Col>
+                    </Col>
+                  </Row>
 
-              .btn-authLink:hover {
-                color: cornflowerblue;
-              }
-            `}
-        </style>             
+                </Card.Body>
+            </Card>
+          </Row>
         </div>
-      </div>
-    );
+      );
+    }
+
   }
-}
 export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);

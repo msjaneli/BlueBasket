@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../../styles/auth.css';
 
 // Components
-import { Alert, Button, Form } from 'react-bootstrap';
+import { Alert, Button, Form, Col} from 'react-bootstrap';
 
 // Actions
 import { signup } from '../../actions/signup';
@@ -15,9 +15,12 @@ import { connect } from 'react-redux';
 import classnames from 'classnames';
 import validateRegistrationInput from '../../validation/validateRegistrationInput';
 import isEmpty from '../../validation/isEmpty';
+import Lottie from 'react-lottie';
+import animationData from '../../resources/lotties/loading/10564-loading-animation.json'
 
 const mapStateToProps = state => ({
   signupStatus: authSelectors.getSignupStatus(state),
+  isLoading: authSelectors.isLoading(state)
 })
 
 const mapDispatchToProps =  dispatch => ({
@@ -42,17 +45,32 @@ class SignUp extends Component {
 
   render() {
 
+    const animationOptions = {
+        loop: true,
+        autoplay: true,
+        animationData: animationData,
+        renderSettings: {
+          preserveAspectRatio: 'xMidYMid slice'
+      }
+    }
+
+    let loadingAnimation = this.props.isLoading ? <Lottie style={{"margin-bottom": "10px"}} options = {animationOptions} width = {56}  height = {56} /> : null
+
     let errorDisplay = (this.props.signupStatus !== 'SIGNUP_SUCCESS' 
-      && !isEmpty(this.props.signupStatus) 
-      && isEmpty(this.state.errors)) ? <Alert variant = 'danger'> {this.props.signupStatus} </Alert> : null
+      && !isEmpty(this.props.signupStatus)) ? <Alert variant = 'danger'> {this.props.signupStatus} </Alert> : null
+
+    let signupButtonText = this.props.isLoading ? "Loading..." : "Sign up"
+
 
     const { errors } = this.state
 
     return (
 
-      <div className='col-md-3 ml-auto mr-auto'>
+      <Col md={10} className='ml-auto mr-auto'>
 
         <h4 className = "loginText" > Sign up </h4> 
+
+        {loadingAnimation}
 
         {errorDisplay}
 
@@ -77,14 +95,14 @@ class SignUp extends Component {
             <Form.Control autoComplete="off" type="password" placeholder="Password" name = "password" onChange = {this.handleChange} className={"form-control", classnames({
               "is-invalid": errors.password,
             })}/>
-            <small id="emailHelp" class="form-text text-muted">Must be at least 8 characters long.</small>
+            <small id="emailHelp" className= "form-text text-muted">Must be at least 8 characters long.</small>
             {errors.password && (
               <div className="invalid-feedback">{errors.password}</div>
             )}
           </Form.Group>
         </Form>
 
-        <Button variant = "login"  onClick={() => this.validateInput()}>Sign Up</Button>
+        <Button disabled = {this.props.isLoading} variant = "login"  onClick={() => this.validateInput()}>{signupButtonText}</Button>
 
         <style type="text/css">
             {`
@@ -96,11 +114,11 @@ class SignUp extends Component {
 
               .btn-login:hover {
                 color: white;
+                background-color: #5288e7
               }
             `}
         </style>
-
-      </div>
+      </Col>
     );
   }
 
@@ -121,14 +139,14 @@ class SignUp extends Component {
       return;
     }
 
+    this.setState({
+      errors: {}
+    })
+
     await this.props.signup(payload);
     if (this.props.signupStatus === 'SIGNUP_SUCCESS') {
       this.props.goToLogin();
     }
-
-    this.setState({
-      errors: {}
-    })
 
   }
 

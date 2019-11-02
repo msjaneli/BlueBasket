@@ -30,7 +30,6 @@
 }
 
 .btn-login {
-    margin-top: 20px;
     margin-bottom: 10px;
     width: 100%;
     height: 44px;
@@ -38,11 +37,6 @@
     font-family: 'Muli', sans-serif;
 }
 
-.btn-login {
-    background-color: cornflowerblue;
-    color: white;
-    font-weight: bold;
-  }
 
 .btn-login:hover {
 color: white;
@@ -67,9 +61,29 @@ color: white;
 }
 
 .signUpSuccessAlert {
-    font-size: 14px;
+    font-size: 15px;
 }
 
-.restaurantLogin {
-    margin-top: 300px;
+.authContainer {
+    min-height: 100vh;
+    background: rgb(111,138,183);
+    background: linear-gradient(164deg, rgba(111,138,183,1) 0%, rgba(201,216,254,1) 100%);
+}
+
+#logo:hover {
+    text-decoration: none;
+}
+
+#blue-logo {
+    color: #5282FF;
+    display: inline;
+    font-weight: bold;
+    font-size: 45px;
+  }
+  
+#basket-logo {
+    color: #9eb9ff;
+    display: inline;
+    font-weight: bold;
+    font-size: 45px;
 }

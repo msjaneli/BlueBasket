@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route} from 'react-router';
+import { Route, Switch } from 'react-router';
 import './App.css';
 
 // Components
@@ -14,6 +14,7 @@ import Meals from '../src/pages/Meals/Meals'
 import UserProfile from './pages/Profiles/UserProfile';
 import RestaurantProfile from './pages/Profiles/RestaurantProfile';
 import TestProtected from './pages/TestProtected'
+import NotFound from './pages/NotFound'
 
 // Private routes
 import PrivateRouteUser from './private_routes/PrivateRouteUser';
@@ -40,15 +41,19 @@ const App = ({ authenticated, checked, type }) => {
         { checked &&
           <div className="App">
             <Navbar/>
-            <Route exact path = '/' component = { Home } />
-            <Route exact path = '/login/user' component = { LoginUser } />
-            <Route exact path = '/login/restaurant' component = { LoginRestaurant }/>
-            <Route exact path = '/donate' component = { Donate } />
-            <Route exact path = '/meals' component = { Meals } />
-            <PrivateRouteUser exact path = '/profile/user' component = { UserProfile } authenticated = { authenticated } type = { type }/>
-            <PrivateRouteRestaurant exact path = '/profile/restaurant' component = { RestaurantProfile } authenticated = { authenticated } type = { type }/>
-            <PrivateRouteUser exact path = '/protected/user' component = { TestProtected } authenticated = { authenticated } type = { type } />
-            <PrivateRouteRestaurant exact path = '/protected/restaurant' component = { TestProtected } authenticated = { authenticated } type = { type } />
+            <Switch>
+              <Route exact path = '/' component = { Home } />
+              <Route exact path = '/login/user' component = { LoginUser } />
+              <Route exact path = '/login/restaurant' component = { LoginRestaurant }/>
+              <Route exact path = '/donate' component = { Donate } />
+              <Route exact path = '/meals' component = { Meals } />
+              <PrivateRouteUser exact path = '/profile/user' component = { UserProfile } authenticated = { authenticated } type = { type }/>
+              <PrivateRouteUser exact path = '/protected/user' component = { TestProtected } authenticated = { authenticated } type = { type } />
+              <PrivateRouteRestaurant exact path = '/profile/restaurant' component = { RestaurantProfile } authenticated = { authenticated } type = { type }/>
+              <PrivateRouteRestaurant exact path = '/protected/restaurant' component = { TestProtected } authenticated = { authenticated } type = { type } />
+              <PrivateRouteRestaurant exact path = '/meals/restaurant' component={ Meals } authenticated = { authenticated } type = { type } />
+              <Route component = {NotFound} />
+            </Switch>
           </div>
         }
       </ConnectedRouter>

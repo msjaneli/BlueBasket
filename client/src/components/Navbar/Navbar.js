@@ -7,13 +7,15 @@ import NavbarRestaurant from './NavbarRestaurant';
 
 // Selectors
 import * as sessionSelectors from '../../selectors/sessionSelectors';
+import * as routerSelectors from '../../selectors/routerSelectors';
 
 // Tools
 import { connect } from 'react-redux';
 
 const mapStateToProps = (state) => ({
     authenticated: sessionSelectors.isAuthenticated(state),
-    user: sessionSelectors.getUser(state)
+    user: sessionSelectors.getUser(state),
+    url: routerSelectors.getUrl(state)
 })
 
 class Navbar extends Component {
@@ -23,14 +25,19 @@ class Navbar extends Component {
     }
 
     render() {
+        // let hidden = this.props.url === "/login/user" || this.props.url === "/login/restaurant";
+
+        // if (hidden) {
+        //     return (<div></div>)
+        // }
+
         if (!this.props.authenticated) {
             return(<NavbarStandard/>)
         } else {
-            var name = this.props.user.name.split(" ")[0]
             if (this.props.user.type === "USER") {
-                return(<NavbarUser name = {name}/>);
+                return(<NavbarUser name = {this.props.user.name.split(" ")[0]}/>);
             } else {
-                return(<NavbarRestaurant name = {name}/>);
+                return(<NavbarRestaurant name = {this.props.user.name}/>);
             }
         }
     }

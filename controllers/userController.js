@@ -101,10 +101,13 @@ exports.login = async (req, res) => {
     }
 
     // Facebook user has no stored password or no user found, so this authentication route should not let them log in.
-    if (isEmpty(passwordHash) || isEmpty(rows)) {
+    if (isEmpty(rows)) {
         return res.status(400).json({error: "Email or Password is Invalid"})
     }
 
+    if (isEmpty(passwordHash)) {
+        return res.status(400).json({error: "Email already registered under Facebook account"})
+    }
     const match = await bcrypt.compare(password, passwordHash);
 
     if (match) {

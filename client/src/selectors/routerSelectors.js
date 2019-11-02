@@ -1,0 +1,1 @@
+export const getUrl = (state) => state.router.location.pathname

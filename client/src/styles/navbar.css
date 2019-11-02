@@ -24,12 +24,18 @@
   color: #C9D8FE;
 }
 
-#blue-logo {
+#blue-logo-nav {
   color: #5282FF;
   display: inline;
 }
 
-#basket-logo {
-  color: #C9D8FE;
+#basket-logo-nav {
+  color: #9eb9ff;
   display: inline;
+}
+
+.btn-login-nav {
+  height: 44px;
+  font-weight: bold;
+  font-family: 'Muli', sans-serif;
 }

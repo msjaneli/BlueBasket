@@ -1,6 +1,6 @@
 #splash {
   float: right;
-  margin-top: -300px;
+  margin-top: -25vw;
   margin-right: 8vw;
   height: 200px;
   width: 40%;
@@ -24,11 +24,7 @@ svg {
   height: 100%;
 }
 
-#splash-page {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-}
+
 
 #caption {
   float: left;
@@ -63,15 +59,21 @@ svg {
 
 .underline-text {
   display: inline;
-  color: #5282FF;
+  color: #89BBFE;
+}
+
+.btn-meals {
+  height: 3rem;
+  font-family: 'Muli', sans-serif;
 }
 
 .col-text{
-  width: 19vw;
+  width: 21vw;
   text-align: center;
-  font-size: 1.2vw;
+  font-size: 1.3vw;
   margin: auto;
   font-family: 'Muli', sans-serif;
+  color: black;
 }
 
 
@@ -81,12 +83,17 @@ svg {
   font-family: 'Lora', serif;
 }
 
+.col-header{
+  font-weight: bold;
+  color: #615D6C
+}
+
 #role-one {
   margin-bottom: 20px;
 }
 
 #hr {
-  border: .4vh solid #C9D8FE;
+  border: .4vh solid #89BBFE;
   border-radius: .4vh;
 }
 
@@ -98,7 +105,7 @@ svg {
 
 
 #col2-hr {
-  border: .4vh solid #C9D8FE;
+  border: .4vh solid #89BBFE;
   width: 6vw;
   border-radius: .4vh;
 }
