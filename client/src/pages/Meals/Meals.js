@@ -9,7 +9,7 @@ import * as sessionSelectors from '../../selectors/sessionSelectors'
 
 // Tools
 import { connect } from 'react-redux';
-import { Container, Row, Col, Button, Card } from 'react-bootstrap'
+import { Row, Col} from 'react-bootstrap'
 
 const mapStateToProps = (state) => ({
   user: sessionSelectors.getUser(state),
@@ -30,6 +30,7 @@ class Meals extends Component {
         }]
     };
   }
+
   render () {
     return (
       <div>
@@ -39,7 +40,7 @@ class Meals extends Component {
         <Row>
           {this.state.restaurant_list.map(function (restaurant, i) {
             return <Col>
-              <RestaurantCard img = {restaurant.img} name = {restaurant.name} key = {i}/>
+              <RestaurantCard img = {restaurant.img} name = {restaurant.name} key = {i} />
             </Col>;
           })}
         </Row>
