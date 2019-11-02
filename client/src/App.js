@@ -10,6 +10,7 @@ import Home from '../src/pages/Home';
 import LoginUser from './pages/Authentication/LoginUser';
 import LoginRestaurant from './pages/Authentication/LoginRestaurant'
 import Donate from '../src/pages/Donate/Donate'
+import ThankYou from '../src/pages/Donate/ThankYou'
 import Meals from '../src/pages/Meals/Meals'
 import UserProfile from './pages/Profiles/UserProfile';
 import RestaurantProfile from './pages/Profiles/RestaurantProfile';
@@ -47,11 +48,13 @@ const App = ({ authenticated, checked, type }) => {
               <Route exact path = '/login/restaurant' component = { LoginRestaurant }/>
               <Route exact path = '/donate' component = { Donate } />
               <Route exact path = '/meals' component = { Meals } />
+              <Route exact path = '/thankyou' component = { ThankYou } />
               <PrivateRouteUser exact path = '/profile/user' component = { UserProfile } authenticated = { authenticated } type = { type }/>
               <PrivateRouteUser exact path = '/protected/user' component = { TestProtected } authenticated = { authenticated } type = { type } />
               <PrivateRouteRestaurant exact path = '/profile/restaurant' component = { RestaurantProfile } authenticated = { authenticated } type = { type }/>
               <PrivateRouteRestaurant exact path = '/protected/restaurant' component = { TestProtected } authenticated = { authenticated } type = { type } />
               <PrivateRouteRestaurant exact path = '/meals/restaurant' component={ Meals } authenticated = { authenticated } type = { type } />
+
               <Route component = {NotFound} />
             </Switch>
           </div>

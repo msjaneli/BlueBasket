@@ -1,0 +1,58 @@
+#donate-header {
+  font-family: 'Muli', sans-serif;
+  color: #414141;
+  font-weight: 700;
+  float: left;
+  font-size: 2vw;
+  display: block;
+}
+
+#donate-container {
+  margin-top: 8vh;
+  margin-left: 4vw;
+}
+
+#donate-caption {
+  float: left;
+  text-align: left;
+  width: 65vw;
+  margin-top: 3vh;
+  margin-left: 0;
+  font-size: 1.3vw;
+  color: #414141;
+  font-weight: 400;
+}
+
+#donation-title {
+  float:left;
+  display: inline-block;
+  position: absolute;
+  left: 4vw;
+  margin-top: 35vh;
+  font-family: 'Muli', sans-serif;
+  font-weight: 700;
+  font-size: 1.3vw;
+  color: #414141;
+}
+
+#donate-form {
+  float:left;
+  display: inline-block;
+  position: absolute;
+  left: 4vw;
+  margin-top: 40vh;
+  font-family: 'Muli', sans-serif;
+  font-weight: 700;
+  font-size: 1.3vw;
+  color: #414141;
+}
+
+
+#donate-submit-button {
+  position: absolute;
+  left: 4vw;
+  margin-top: 60vh;
+  background-color: #5282FF;
+  color: white;
+  border: 0px;
+}
