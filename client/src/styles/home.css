@@ -1,6 +1,6 @@
 #splash {
   float: right;
-  margin-top: -25vw;
+  margin-top: -26vw;
   margin-right: 8vw;
   height: 200px;
   width: 40%;
@@ -10,7 +10,7 @@
   float: left;
   margin-top: 20vh;
   margin-left: 8vw;
-  font-family: 'Lora', serif;
+  font-family: 'Muli', sans-serif;
   font-weight: 700;
   font-size: 4vw;
 }
@@ -43,7 +43,8 @@ svg {
 }
 
 #container {
-  margin-top: 5vh;
+  margin-top: 18vh;
+  margin-bottom: 0;
 }
 
 #header {
@@ -70,7 +71,7 @@ svg {
 .col-text{
   width: 21vw;
   text-align: center;
-  font-size: 1.3vw;
+  font-size: 1.2vw;
   margin: auto;
   font-family: 'Muli', sans-serif;
   color: black;
@@ -78,14 +79,15 @@ svg {
 
 
 .role-header{
-  font-size: 1vw;
+  font-size: 1.2vw;
   font-weight: 700;
-  font-family: 'Lora', serif;
+  font-family: 'Muli', sans-serif;
 }
 
 .col-header{
   font-weight: bold;
-  color: #615D6C
+  color: #615D6C;
+  font-size: 3vh;
 }
 
 #role-one {
@@ -93,7 +95,7 @@ svg {
 }
 
 #hr {
-  border: .4vh solid #89BBFE;
+  border: .3vh solid #f2f2f2;
   border-radius: .4vh;
 }
 

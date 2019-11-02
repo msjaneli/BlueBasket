@@ -1,0 +1,41 @@
+#thankyou-text {
+  margin-top: 8vh;
+  margin-left: 14vw;
+}
+
+#thankyou-header {
+  font-family: 'Muli', sans-serif;
+  color: #414141;
+  font-weight: 700;
+  float: left;
+  font-size: 2vw;
+  display: block;
+}
+
+#thankyou-descr {
+  float: left;
+  width: 80vw;
+  margin-top: 3vh;
+  margin-left: 0;
+  text-align: left;
+  font-size: 1.3vw;
+  color: #414141;
+  font-weight: 400;
+  display: block;
+}
+
+#txt {
+  width: 70vw;
+}
+
+#lottie {
+  position: absolute;
+  margin-top: 20vh;
+  margin-left: 38vw;
+}
+
+.highlight {
+  display: inline;
+  color: #89BBFE;
+  font-weight: 700;
+}

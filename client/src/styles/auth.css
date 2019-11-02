@@ -67,7 +67,7 @@ color: white;
 .authContainer {
     min-height: 100vh;
     background: rgb(111,138,183);
-    background: linear-gradient(164deg, rgba(111,138,183,1) 0%, rgba(201,216,254,1) 100%);
+    background: linear-gradient(164deg, rgba(201,216,254,1) 0%, rgba(136,191,254,1) 100%);
 }
 
 #logo:hover {
@@ -79,11 +79,13 @@ color: white;
     display: inline;
     font-weight: bold;
     font-size: 45px;
+    font-family: 'Nunito', sans-serif;
   }
-  
+
 #basket-logo {
     color: #9eb9ff;
     display: inline;
     font-weight: bold;
     font-size: 45px;
+    font-family: 'Nunito', sans-serif;
 }
