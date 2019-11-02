@@ -71,7 +71,8 @@ color: white;
 
 .authContainer {
     min-height: 100vh;
-    background-color: #6F8AB7;
+    background: rgb(111,138,183);
+    background: linear-gradient(164deg, rgba(111,138,183,1) 0%, rgba(201,216,254,1) 100%);
 }
 
 #logo:hover {
@@ -86,7 +87,7 @@ color: white;
   }
   
 #basket-logo {
-    color: #C9D8FE;
+    color: #9eb9ff;
     display: inline;
     font-weight: bold;
     font-size: 45px;
