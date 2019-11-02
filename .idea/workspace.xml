@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="bf8c2572-c655-49f1-84d3-9eca60b7a245" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/client/src/pages/Meals/ListingPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/Meals/ListingPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/pages/Meals/Meals.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/Meals/Meals.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/pages/Meals/RestaurantCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/Meals/RestaurantCard.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -57,8 +55,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/client/src/pages/Meals/ListingPage.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="77">
-              <caret line="23" column="17" lean-forward="true" selection-start-line="23" selection-start-column="17" selection-end-line="23" selection-end-column="17" />
+            <state relative-caret-position="95">
+              <caret line="16" column="25" selection-start-line="16" selection-start-column="25" selection-end-line="16" selection-end-column="25" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -288,11 +286,10 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="30114000" />
+    <option name="totallyTimeSpent" value="30436000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="9" y="35" width="1400" height="792" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24945612" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -560,8 +557,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/client/src/pages/Meals/ListingPage.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="77">
-          <caret line="23" column="17" lean-forward="true" selection-start-line="23" selection-start-column="17" selection-end-line="23" selection-end-column="17" />
+        <state relative-caret-position="95">
+          <caret line="16" column="25" selection-start-line="16" selection-start-column="25" selection-end-line="16" selection-end-column="25" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>

@@ -13,7 +13,9 @@ class ListingPage extends Component {
     return (
       <div>
         <Row>
-          <div id="back-page-button"></div>
+          <div id="back-page-button">
+            <a href="" />
+          </div>
         </Row>
         <Row>
           <Col>
