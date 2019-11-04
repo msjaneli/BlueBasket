@@ -2,14 +2,73 @@ const isEmpty = require('../validation/isEmpty');
 const db = require('../db');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
+require('dotenv').config();
+const cloudinary = require('cloudinary').v2;
+
+cloudinary.config({
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+})
 
 exports.getRestaurants = async (req, res) => {
     const query = {
         text: 'SELECT * FROM restaurant_account'
     }
     const { rows } = await db.query(query);
-    return res.send(rows);
+    return res.status(200).send(rows);
 } 
+
+exports.getRestaurantById = async (req, res) => {
+    var rid = req.params.rid;
+
+    const query = {
+        text: 'SELECT * FROM restaurant_account WHERE rid = $1',
+        values: [rid]
+    }
+    const { rows } = await db.query(query);
+    return res.status(200).send(rows[0])
+}
+
+exports.updateImage = async (req, res) => {
+    var rid = req.params.rid;
+    var image = req.body.image;
+
+    const query = {
+        text: 'SELECT name FROM restaurant_account WHERE rid = $1',
+        values: [rid]
+    }
+
+    const { rows } = await db.query(query);
+    var name = rows[0].name;
+
+    const uploadedImage = await cloudinary.uploader.upload(process.cwd() + image, {
+        resource_type: "image",
+        public_id: "restaurant_image/" + name,
+        overwrite: true,
+        format: 'jpg'
+    });
+
+    const version = uploadedImage.version;
+
+    const resizedImageUrl = await cloudinary.url("restaurant_image/" + name.split(' ').join('%20') + '.jpg', {
+        version: version,
+        quality: 100,
+        height: 400,
+        width: 400,
+        crop: 'scale'
+    })
+
+
+    const updateQuery = {
+        text: 'UPDATE restaurant_account SET image=$1 WHERE rid=$2',
+        values: [resizedImageUrl, rid]
+    }
+
+    await db.query(updateQuery);
+    res.status(200).send(resizedImageUrl);
+    
+}
 
 exports.register = async (req, res) => {
     var name = req.body.name;

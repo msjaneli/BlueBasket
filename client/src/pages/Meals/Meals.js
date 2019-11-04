@@ -3,13 +3,17 @@ import '../../styles/meals.css';
 
 // Components
 import RestaurantCard from '../Meals/RestaurantCard'
+import { Container, Row, Col} from 'react-bootstrap'
 
 // Selectors
 import * as sessionSelectors from '../../selectors/sessionSelectors'
 
 // Tools
+import axios from 'axios'
+import Lottie from 'react-lottie'
+import loadingAnimationData from '../../resources/lotties/loading/9965-loading-spinner.json'
+import isEmpty from '../../validation/isEmpty'
 import { connect } from 'react-redux';
-import { Row, Col} from 'react-bootstrap'
 
 const mapStateToProps = (state) => ({
   user: sessionSelectors.getUser(state),
@@ -20,31 +24,42 @@ class Meals extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      restaurant_list: [{
-        img: 'https://drive.google.com/uc?export=view&id=1YtkZEcg7djB2LgbeKvW9Ktgy9mP8oDRP',
-        name: 'test'
-      },
-        {
-          img: 'https://drive.google.com/uc?export=view&id=1YtkZEcg7djB2LgbeKvW9Ktgy9mP8oDRP',
-          name: 'test'
-        }]
-    };
+      restaurantList: []
+    }
+  }
+
+  componentDidMount = async () => {
+    const { data } = await axios.get('/restaurant');
+    this.setState({
+      restaurantList: data
+    })
   }
 
   render () {
+    if (isEmpty(this.state.restaurantList)) {
+      const animationOptionsLoading = {
+          loop: true,
+          autoplay: true,
+          animationData: loadingAnimationData,
+          renderSettings: {
+            preserveAspectRatio: 'xMidYMid slice'
+          }
+      }
+      return(<Lottie style= {{marginTop: '12rem'}}options={animationOptionsLoading} width={100} height={100}/>)
+    }
     return (
-      <div>
+      <Container>
         <Row>
-          <div id="title">Available Now</div>
+          <h1 id="title-available">Participating Restaurants</h1>
         </Row>
         <Row>
-          {this.state.restaurant_list.map(function (restaurant, i) {
+          {this.state.restaurantList.map((restaurant, i) =>  {
             return <Col>
-              <RestaurantCard img = {restaurant.img} name = {restaurant.name} key = {i} />
+              <RestaurantCard img = {restaurant.image} name = {restaurant.name} key = {i} />
             </Col>;
           })}
         </Row>
-      </div>
+      </Container>
     );
   }
 }
