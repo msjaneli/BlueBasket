@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../../styles/navbar.css';
 
 // Components
-import { Navbar, Nav, NavDropdown, Button } from 'react-bootstrap';
+import { Navbar, Nav, Button } from 'react-bootstrap';
 
 class NavbarStandard extends Component {
     constructor(props) {
@@ -32,7 +32,6 @@ class NavbarStandard extends Component {
                                   width: 6rem;
                                   margin-bottom: 0rem;
                                 }
-
                                 .btn-login-nav:hover {
                                   color: white;
                                   background-color:#5288e7
@@ -40,10 +39,6 @@ class NavbarStandard extends Component {
                               `}
                               </style>
                         </Nav.Link>
-                        {/* <NavDropdown alignRight title="Login" >
-                            <NavDropdown.Item href="/login/restaurant">Restaurant Login</NavDropdown.Item>
-                            <NavDropdown.Item  href="/login/user">User Login</NavDropdown.Item>
-                        </NavDropdown> */}
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>

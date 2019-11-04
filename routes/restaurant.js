@@ -5,6 +5,13 @@ var restaurantController = require('../controllers/restaurantController');
 
 module.exports = router;
 
+router.get('/', restaurantController.getRestaurants);
+
+router.get('/:rid', restaurantController.getRestaurantById);
+
+router.post('/:rid/image/update', restaurantController.updateImage);
+
 router.post('/register', restaurantController.register);
 
-router.post('/login', restaurantController.login)
+router.post('/login', restaurantController.login);
+

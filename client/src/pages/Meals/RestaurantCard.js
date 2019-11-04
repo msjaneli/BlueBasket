@@ -14,7 +14,7 @@ class RestaurantCard extends Component {
   render () {
     return (
       <Card>
-        <Card.Img variant="top" src= {this.props.img} />
+        <Card.Img style={{padding: '0.75rem'}}variant="top" src= {this.props.img} />
         <Card.Body>
           <Card.Title>{this.props.name}</Card.Title>
           <Button onClick={() => this.goToRestaurantPage()}>Explore!</Button>
