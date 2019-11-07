@@ -4,3 +4,48 @@
     font-weight: bold;
     margin-top: 8vh;
 }
+
+#subtitle-restaurant {
+    margin-left: 2.5vw;
+    font-family: 'Muli', sans-serif
+}
+
+.listing-card :hover {
+    transition: 0.5s;
+    background: whitesmoke;
+}
+
+.listing-name {
+    font-family: 'Muli' sans-serif;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.listing-type {
+    color: cornflowerblue;
+    margin-top: -0.75rem;
+    font-family: 'Nunito';
+    font-size: 0.9rem;
+}
+
+.listing-description {
+    font-size: 1rem;
+}
+
+.listing-quantity {
+    color: gray;
+    font-family: 'Nunito';
+    font-size: 0.9rem;
+}
+
+.allergens {
+    color: gray;
+    font-family: 'Nunito';
+    font-size: 0.9rem;
+}
+
+.price {
+    margin-top: 0.3rem;
+    font-family: 'Nunito';
+    font-size: 1rem;
+}
