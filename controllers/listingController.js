@@ -1,8 +1,21 @@
 const isEmpty = require('../validation/isEmpty');
 const db = require('../db');
 
+exports.getListingsByRestaurant = async (req, res) => {
+    var rid = req.params.rid
+
+    const getListings = {
+        text: 'SELECT * FROM live_listing WHERE rid = $1',
+        values: [rid]
+    }
+
+    const { rows } = await db.query(getListings);
+    res.status(200).send(rows);
+}
+
 exports.createListing = async (req, res) => {
     var rid = req.params.rid
+    var name = req.body.name;
     var type = req.body.type;
     var description = req.body.description;
     var allergens = req.body.allergens;
@@ -10,15 +23,15 @@ exports.createListing = async (req, res) => {
     var price = req.body.price;
 
     const checkTypeExists = {
-        text: 'SELECT * FROM listing_type WHERE type = $1 and description = $2',
-        values: [type, description]
+        text: 'SELECT * FROM listing_type WHERE rid = $1 and name = $2',
+        values: [rid, name]
     }
 
     const { rows } = await db.query(checkTypeExists);
     if (isEmpty(rows)) {
         const createNewType = {
-            text: 'INSERT INTO listing_type VALUES($1, $2, $3)',
-            values: [rid, type, description]
+            text: 'INSERT INTO listing_type VALUES($1, $2, $3, $4)',
+            values: [rid, name, type, description]
         }
         await db.query(createNewType);
     }
@@ -26,8 +39,8 @@ exports.createListing = async (req, res) => {
     const lid = Math.random().toString(36).substr(2, 15);
 
     const createLiveListing = {
-        text: 'INSERT INTO live_listing VALUES($1, $2, $3, $4, $5, $6, $7)',
-        values: [lid, rid, type, description, allergens, quantity, price]
+        text: 'INSERT INTO live_listing VALUES($1, $2, $3, $4, $5, $6, $7, $8)',
+        values: [lid, rid, name, type, description, allergens, quantity, price]
     }
 
     try {
@@ -35,6 +48,7 @@ exports.createListing = async (req, res) => {
         const listingData = {
             lid: lid,
             rid: rid,
+            name: name,
             type: type,
             description: description,
             allergens: allergens,
@@ -48,7 +62,20 @@ exports.createListing = async (req, res) => {
     }
 }
 
-exports.deleteListing = async (req, res) => {
+exports.deleteListingType = async (req, res) => {
+    var rid = req.params.rid
+    var name = req.body.name
+
+    const deleteListingType = {
+        text: 'DELETE FROM listing_type WHERE rid = $1 and name = $2',
+        values: [rid, name]
+    }
+
+    await db.query(deleteListingType);
+    res.status(200).send("Deleted listing type: " + rid + ", " + name)
+}
+
+exports.deleteLiveListing = async (req, res) => {
     var lid = req.params.lid;
 
     const deleteListing = {
@@ -56,6 +83,7 @@ exports.deleteListing = async (req, res) => {
         values: [lid]
     }
 
-    await db.query(deleteListing);
-    res.status(200).send("Deleted listing");
+    const { rows} = await db.query(deleteListing);
+    console.log(rows);
+    res.status(200).send("Deleted listing: " + lid);
 }

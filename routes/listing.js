@@ -5,6 +5,10 @@ var listingController = require('../controllers/listingController');
 
 module.exports = router;
 
+router.get('/:rid', listingController.getListingsByRestaurant);
+
 router.post('/:rid/create', listingController.createListing)
 
-router.post('/:lid/delete', listingController.deleteListing)
+router.post('/:rid/delete-type', listingController.deleteListingType)
+
+router.post('/:lid/delete', listingController.deleteLiveListing)

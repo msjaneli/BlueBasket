@@ -19,6 +19,22 @@ exports.getRestaurants = async (req, res) => {
     return res.status(200).send(rows);
 } 
 
+exports.getRestaurantsAvailableNow = async (req, res) => {
+    const query = {
+        text: 'SELECT * FROM restaurant_account WHERE EXISTS(SELECT * FROM live_listing WHERE live_listing.rid = restaurant_account.rid)'
+    }
+    const { rows } = await db.query(query);
+    return res.status(200).send(rows);
+}
+
+exports.getRestaurantsAvailableLater = async (req, res) => {
+    const query = {
+        text: 'SELECT * FROM restaurant_account WHERE NOT EXISTS(SELECT * FROM live_listing WHERE live_listing.rid = restaurant_account.rid)'
+    }
+    const { rows } = await db.query(query);
+    return res.status(200).send(rows);
+}
+
 exports.getRestaurantById = async (req, res) => {
     var rid = req.params.rid;
 
