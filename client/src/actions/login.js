@@ -115,4 +115,4 @@ export const loginUserFacebook = (payload, redirectUrl) => async dispatch => {
         type: LOGIN_SUCCESS
     })
     dispatch(push(redirectUrl))
-}  
+}
