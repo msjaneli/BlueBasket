@@ -35,9 +35,9 @@ class NavbarShelter extends Component {
                 </Nav>
                 <Nav className = "ml-auto">
                     <NavDropdown title={welcomeText} >
-                        <NavDropdown.Item href="/profile/user">Profile</NavDropdown.Item>
+                        <NavDropdown.Item href="/profile/shelter">Profile</NavDropdown.Item>
                         <NavDropdown.Item href="/orders">Orders</NavDropdown.Item>
-                        <NavDropdown.Item href="/balance:">Balance</NavDropdown.Item>
+                        <NavDropdown.Item href="/balance">Balance</NavDropdown.Item>
                         <NavDropdown.Divider />
                         <NavDropdown.Item onClick={() => this.props.logout()}>Logout</NavDropdown.Item>
                     </NavDropdown>

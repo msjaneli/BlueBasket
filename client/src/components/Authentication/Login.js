@@ -8,7 +8,7 @@ import { Alert, Button, Form, Col } from 'react-bootstrap';
 import * as authSelectors from '../../selectors/authSelectors'
 
 // Actions
-import { loginUser, loginRestaurant } from '../../actions/login';
+import { loginUser, loginRestaurant, loginShelter } from '../../actions/login';
 
 // Tools
 import validateLoginInput from '../../validation/validateLoginInput';
@@ -29,6 +29,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = (dispatch) => ({
   loginUser: (payload, redirectUrl) => dispatch(loginUser(payload, redirectUrl)),
   loginRestaurant: (payload, redirectUrl) => dispatch(loginRestaurant(payload, redirectUrl)),
+  loginShelter: (payload, redirectUrl) => dispatch(loginShelter(payload, redirectUrl)),
 })
 
 class Login extends Component {
@@ -81,7 +82,7 @@ class Login extends Component {
     return (
         <Col md={10} className = 'ml-auto mr-auto'>
 
-          <h4 className = "loginText" > {this.props.loginHeader} </h4> 
+          <h4 className = "loginText" > {this.props.loginHeader} </h4>
 
           { loadingAnimation }
 
@@ -131,7 +132,7 @@ class Login extends Component {
   }
 
   validateInput = async () => {
-      
+
     var payload = {
       email: this.state.email,
       password: this.state.password
@@ -152,7 +153,9 @@ class Login extends Component {
 
     if (this.props.isUser) {
       await this.props.loginUser(payload, this.props.authRedirect);
-    } else {
+    } else if (this.props.isShelter){
+      await this.props.loginUser(payload, this.props.isShelter);
+    }else {
       await this.props.loginRestaurant(payload, this.props.authRedirect);
     }
 
