@@ -36,7 +36,7 @@ exports.getAllOrdersByUser = async (req, res) => {
 };
 
 exports.submitOrder = async (req, res) => {
-  var uid = req.params.uid; //initialized when adding to an empty cart
+  var uid = req.params.uid;
   var cart = req.params.cart;
 
   var oid = Math.random()
