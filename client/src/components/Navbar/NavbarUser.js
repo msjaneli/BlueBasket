@@ -35,7 +35,7 @@ class NavbarUser extends Component {
                     <Nav.Link href="/donate" id="donate-menu-item">Donate</Nav.Link>
                 </Nav>
                 <Nav className = "ml-auto">
-                    <NavDropdown alignRight title={welcomeText} >
+                    <NavDropdown title={welcomeText} >
                         <NavDropdown.Item href="/profile/user">Profile</NavDropdown.Item>
                         <NavDropdown.Item href="/orders">Orders</NavDropdown.Item>
                         <NavDropdown.Divider />
