@@ -1,0 +1,30 @@
+.unselectable-card {
+   -moz-user-select: -moz-none;
+   -khtml-user-select: none;
+   -webkit-user-select: none;
+   -ms-user-select: none;
+   user-select: none;
+
+   margin: 3vh;
+   border: none;
+   border-radius: 0;
+   height: 50vh;
+   float: left;
+
+}
+
+.unselectable-card:hover {
+  cursor: pointer;
+}
+
+.restauraunt-card-title {
+  color: #5282FF;
+  text-align: left;
+  font-family: 'Nunito', sans-serif;
+  font-weight: bolder;
+}
+
+.restauraunt-card-descr {
+  color: black;
+  text-align: left;
+}

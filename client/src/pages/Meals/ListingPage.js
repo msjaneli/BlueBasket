@@ -50,7 +50,7 @@ class ListingPage extends Component {
               <h1 id="title-available">What's on Tonight</h1>
           </Row>
           <Row>
-              <h2 style={{display:"inline-block"}}id="subtitle-restaurant">Delicious meals from <p style={{display: "inline-block", color: "cornflowerblue"}}>{this.state.restaurant.name}</p></h2>
+              <h2 style={{display:"inline-block"}}id="subtitle-listing">Delicious meals from <p style={{display: "inline-block", color: "cornflowerblue"}}>{this.state.restaurant.name}</p></h2>
           </Row>
           <Row style={{marginTop: '4rem'}}>
             <Col>

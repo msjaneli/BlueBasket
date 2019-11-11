@@ -1,14 +1,28 @@
 #title-available {
-    margin-left: 2.5vw;
-    font-family: 'Lora';
-    font-weight: bold;
-    margin-top: 8vh;
+  margin-left: 2.5vw;
+  margin-top: 5vh;
+  font-family: 'Muli', sans-serif;
+  font-weight: 700;
+  font-size: 2vw;
 }
 
 #subtitle-restaurant {
     margin-left: 2.5vw;
-    font-family: 'Muli', sans-serif
+    font-family: 'Muli', sans-serif;
+    font-weight: 700;
+    font-size: 2vw;
+    margin-top: 5vh;
 }
+
+#subtitle-listing {
+    margin-left: 2.5vw;
+    font-family: 'Muli', sans-serif;
+    font-weight: 400;
+    font-size: 1.5vw;
+    margin-top: 5vh;
+    color: #AFAFAF;
+}
+
 
 .listing-card :hover {
     transition: 0.5s;

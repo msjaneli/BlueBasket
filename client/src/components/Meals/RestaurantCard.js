@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+
 // Components
 import { Card, Button } from 'react-bootstrap'
 
@@ -7,6 +8,7 @@ import { Card, Button } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { push } from 'connected-react-router'
 
+import '../../styles/restaurantcard.css';
 
 const mapDispatchToProps = (dispatch) => ({
   goToRestaurantPage: (restaurantUrl) => dispatch(push(restaurantUrl))
@@ -19,13 +21,12 @@ class RestaurantCard extends Component {
 
   render () {
     return (
-      <Card>
-        <Card.Img style={{padding: '0.75rem'}}variant="top" src= {this.props.restaurant.image} />
-        <Card.Body>
-          <Card.Title>{this.props.restaurant.name}</Card.Title>
-          <p>{this.props.restaurant.description}</p>
-          <Button onClick={() => this.props.goToRestaurantPage('/meals/' + this.props.restaurant.rid)}>Explore!</Button>
-        </Card.Body>
+      <Card className="unselectable-card" onClick={() => this.props.goToRestaurantPage('/meals/' + this.props.restaurant.rid)}>
+        <Card.Img className="img-rounded" src= {this.props.restaurant.image} />
+        <Card.ImgOverlay className="d-flex flex-column">
+          <Card.Title className="restauraunt-card-title">{this.props.restaurant.name}</Card.Title>
+          <Card.Text className="restauraunt-card-descr mt-auto">{this.props.restaurant.description}</Card.Text>
+        </Card.ImgOverlay>
       </Card>
     )
   }
