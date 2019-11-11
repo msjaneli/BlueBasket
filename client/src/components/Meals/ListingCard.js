@@ -55,7 +55,7 @@ class ListingCard extends Component {
                                         .btn-cart {
                                             background-color: cornflowerblue;
                                             color: white;
-                                            font-weight: bold;
+                                            font-weight: 400;
                                             width: 8rem;
                                         }
 
@@ -76,7 +76,7 @@ class ListingCard extends Component {
                 </Row>
             </Card>
         )
-        
+
     }
 }
 
