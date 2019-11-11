@@ -15,7 +15,7 @@ import { resetAuthStatus } from '../../actions/resetStatus';
 import * as authSelectors from '../../selectors/authSelectors'
 import * as sessionSelectors from '../../selectors/sessionSelectors'
 
-// Tools 
+// Tools
 import isEmpty from '../../validation/isEmpty';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router'
@@ -31,7 +31,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   setAuthRedirect: redirectUrl => dispatch(setAuthRedirect(redirectUrl)),
   resetAuthStatus: () => dispatch(resetAuthStatus()),
-  goToRestaurantLogin: () => dispatch(push('/login/restaurant'))
+  goToRestaurantLogin: () => dispatch(push('/login/restaurant')),
+  goToShelterLogin: () => dispatch(push('/login/shelter'))
 })
 
 class LoginScreen extends Component {
@@ -42,9 +43,10 @@ class LoginScreen extends Component {
       username:'',
       password:'',
       loginscreen:[],
-      questionLabel: 'Don\'t have an account?', 
+      questionLabel: 'Don\'t have an account?',
       buttonLabel:'Sign up',
-      isLogin:true
+      isLogin:true,
+      type:'USER'
     }
   }
 
@@ -62,10 +64,10 @@ class LoginScreen extends Component {
     }
     else{
       var loginscreen=[];
-      loginscreen.push(<Login parentContext={this} loginHeader="Login to continue" isUser={true}/>);
+      loginscreen.push(<Login parentContext={this} loginHeader="Login to continue" type={this.type}/>);
       this.setState({
         loginscreen:loginscreen,
-        questionLabel: 'Don\'t have an account?', 
+        questionLabel: 'Don\'t have an account?',
         buttonLabel:"Sign Up",
         isLogin:true
       })
@@ -74,10 +76,10 @@ class LoginScreen extends Component {
 
   goToLogin = () => {
     var loginscreen=[];
-      loginscreen.push(<Login parentContext={this} loginHeader="Login to continue" isUser={true}/>);
+      loginscreen.push(<Login parentContext={this} loginHeader="Login to continue" type={this.type}/>);
       this.setState({
         loginscreen:loginscreen,
-        questionLabel: 'Don\'t have an account?', 
+        questionLabel: 'Don\'t have an account?',
         buttonLabel:"Sign Up",
         isLogin:true
       })
@@ -95,7 +97,7 @@ class LoginScreen extends Component {
   componentDidMount = () => {
     var loginscreen=[];
     this.setRedirectUrl();
-    loginscreen.push(<Login parentContext={this} appContext={this.props.parentContext} loginHeader="Login to continue" isUser={true}/>);
+    loginscreen.push(<Login parentContext={this} appContext={this.props.parentContext} loginHeader="Login to continue" type={this.type}/>);
     this.setState({
       loginscreen:loginscreen,
     })
@@ -124,6 +126,7 @@ class LoginScreen extends Component {
                         <Lottie style = {{marginTop: '2.3rem'}} options = {animationOptionsFood} width = {200} height = {200} />
                     <Row className = "justify-content-center" style={{marginTop: '2.2rem'}}>
                       <p className="switchText">Own a restaurant? Login<Button variant = "authLink" className="changeAuthMode" onClick={() => this.props.goToRestaurantLogin()}>here</Button></p>
+                      <p className="switchText">Own a shelter? Login<Button variant = "authLink" className="changeAuthMode" onClick={() => this.props.goToShelterLogin()}>here</Button></p>
                     </Row>
                     </Col>
                     <Col md={7}>
@@ -141,8 +144,8 @@ class LoginScreen extends Component {
                           </div>
                       </div>
                         <FacebookLogin />
-                        <p className = "switchText">{this.state.questionLabel}<Button variant = "authLink" className="changeAuthMode" onClick={() => this.handleClick()}> { this.state.buttonLabel } </Button> </p>  
-            
+                        <p className = "switchText">{this.state.questionLabel}<Button variant = "authLink" className="changeAuthMode" onClick={() => this.handleClick()}> { this.state.buttonLabel } </Button> </p>
+
                         <style type="text/css">
                         {`
                           .btn-authLink {
@@ -154,17 +157,17 @@ class LoginScreen extends Component {
                             border-decoration: none;
                             margin-top: 1px;
                           }
-            
+
                           .btn:focus,.btn:active {
                             outline: none !important;
                             box-shadow: none;
                           }
-            
+
                           .btn-authLink:hover {
                             color: cornflowerblue;
                           }
                         `}
-                    </style>             
+                    </style>
                     </Col>
                     </Col>
                   </Row>

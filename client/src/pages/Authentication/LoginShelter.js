@@ -25,16 +25,16 @@ const mapDispatchToProps = dispatch => ({
 })
 
 
-class LoginRestaurant extends Component {
+class LoginShelter extends Component {
     constructor(props) {
         super(props);
-        this.type='RESTAURANT';
+        this.type='SHELTER';
 
     }
 
     setRedirectUrl = () => {
         var redirectData = this.props.location.state;
-        var redirectUrl = "/profile/restaurant";
+        var redirectUrl = "/profile/shelter";
         if(!isEmpty(redirectData)) {
           redirectUrl = redirectData.from.pathname
         }
@@ -69,7 +69,7 @@ class LoginRestaurant extends Component {
                                         <Lottie options = {animationOptionsFood} width = {225} height = {225} />
                                     </Col>
                                     <Col md={7}>
-                                        <Login loginHeader="Restaurant login" type={this.type}/>
+                                        <Login loginHeader="Shelter login" type={this.type}/>
                                     </Col>
                                 </Row>
                                 </Card.Body>
@@ -81,4 +81,4 @@ class LoginRestaurant extends Component {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginRestaurant);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginShelter);
