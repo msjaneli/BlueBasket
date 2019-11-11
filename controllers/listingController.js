@@ -62,6 +62,34 @@ exports.createListing = async (req, res) => {
     }
 }
 
+exports.updateListingQuantity = async (req, res) => {
+  var lid = req.params.lid;
+  var quantityChange = req.body.quantityChange;
+
+  const getListing = {
+    text: "SELECT * FROM live_listing WHERE lid = $1",
+    values: [lid]
+  };
+  const { rows } = await db.query(getListing);
+  if (rows[0].quantity + quantityChange < 0) {
+    //user ordering more than restaurant has
+    res.status(400).json({ error: "Invalid quantity" });
+    return;
+  }
+
+  const updateListing = {
+    text: "UPDATE live_listing SET quantity = quantity + $1 WHERE lid = $2",
+    values: [quantityChange, lid]
+  };
+
+  try {
+    await db.query(updateListing);
+    res.status(200).send(updateListing);
+  } catch (err) {
+    res.status(400).json({ error: "Could not update listing quantity" });
+  }
+};
+
 exports.deleteListingType = async (req, res) => {
     var rid = req.params.rid
     var name = req.body.name

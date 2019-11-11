@@ -1,42 +1,50 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 // Components
-import { Button } from 'react-bootstrap';
+import { Button } from "react-bootstrap";
 
 // Actions
-import { logoutUser } from '../../actions/logout';
+import { logoutUser } from "../../actions/logout";
 
 // Selectors
-import * as sessionSelectors from '../../selectors/sessionSelectors'
+import * as sessionSelectors from "../../selectors/sessionSelectors";
 
 // Tools
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   user: sessionSelectors.getUser(state),
-  authenticated: sessionSelectors.isAuthenticated(state),
-})
+  authenticated: sessionSelectors.isAuthenticated(state)
+});
 
-const mapDispatchToProps = (dispatch) => ({
-    logout: () => dispatch(logoutUser())
-})
+const mapDispatchToProps = dispatch => ({
+  logout: () => dispatch(logoutUser())
+});
 
 class Profile extends Component {
+  constructor(props) {
+    super(props);
+  }
 
-    constructor(props) {
-        super(props);
-    }
-
-    render() {
-        return (
-                <div>
-                    <h3>Welcome {this.props.user.name}</h3>
-                    <h4> RestaurantID: {this.props.user.id}</h4>
-                    <h5>{this.props.authenticated ? 'You are authenticated': 'Error'}</h5>
-                    <Button variant="outline-primary" onClick={() => this.props.logout()}>Logout</Button>
-                </div>
-        )
-    }
+  render() {
+    return (
+      <div>
+        <h3>Welcome {this.props.user.name} !</h3>
+        <h4> RestaurantID: {this.props.user.id}</h4>
+        <h5>{this.props.authenticated ? "You are authenticated" : "Error"}</h5>
+        <p>
+          Thank you for joining our movement to fight food waste and serve the
+          community!{" "}
+        </p>
+        <Button variant="outline-primary" onClick={() => this.props.logout()}>
+          Logout
+        </Button>
+      </div>
+    );
+  }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Profile);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Profile);
