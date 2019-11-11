@@ -6,6 +6,14 @@
   font-size: 2vw;
 }
 
+#subtitle-name {
+  margin-left: 2.5vw;
+  font-family: 'Muli', sans-serif;
+  font-weight: 700;
+  font-size: 2vw;
+  margin-top: 5vh;
+}
+
 #subtitle-restaurant {
     margin-left: 2.5vw;
     font-family: 'Muli', sans-serif;
@@ -21,6 +29,13 @@
     font-size: 1.5vw;
     margin-top: 5vh;
     color: #AFAFAF;
+}
+
+#subtitle-description{
+  font-family: 'Muli', sans-serif;
+  color: #AFAFAF;
+  margin-left: 2.5vw;
+  font-size: 1.3vw;
 }
 
 

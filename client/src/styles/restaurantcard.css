@@ -8,7 +8,7 @@
    margin: 3vh;
    border: none;
    border-radius: 0;
-   height: 50vh;
+   height: 500;
    float: left;
 
 }
@@ -18,13 +18,15 @@
 }
 
 .restauraunt-card-title {
-  color: #5282FF;
+  color: #FFFFFF;
   text-align: left;
   font-family: 'Nunito', sans-serif;
-  font-weight: bolder;
+  font-weight: 700;
 }
 
 .restauraunt-card-descr {
-  color: black;
+  color: #FFFFFF;
   text-align: left;
+  font-family: 'Muli', sans-serif;
+
 }
