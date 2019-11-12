@@ -6,7 +6,7 @@ import Login from '../../components/Authentication/Login';
 import { Card, Col, Row } from 'react-bootstrap';
 
 // Actions
-import { setAuthRedirect } from '../../actions/setRedirect'
+import { setAuthRedirect } from '../../actions/auth/setRedirect'
 import * as sessionSelectors from '../../selectors/sessionSelectors'
 
 // Tools

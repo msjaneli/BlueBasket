@@ -5,7 +5,7 @@ import '../../styles/auth.css'
 import FacebookLogin from 'react-facebook-login'
 
 // Actions
-import { loginUserFacebook } from '../../actions/login';
+import { loginUserFacebook } from '../../actions/auth/login';
 
 // Selectors
 import * as authSelectors from '../../selectors/authSelectors'

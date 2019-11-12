@@ -37,7 +37,7 @@ exports.getAllOrdersByUser = async (req, res) => {
 
 exports.submitOrder = async (req, res) => {
   var uid = req.params.uid;
-  var cart = req.params.cart;
+  var cart = req.body.cart;
 
   var oid = Math.random()
     .toString(36)
@@ -45,21 +45,21 @@ exports.submitOrder = async (req, res) => {
 
   var lids, quantities, notes, oid;
 
-  for (var rID in cart) {
+  cart.forEach(async restaurant => {
     lids = [];
     quantities = [];
     notes = [];
-    for (var listingOrder in rID.orders) {
-      lids.push(listingOrder.lid);
-      quantities.push(listingOrder.quantity);
-      notes.push(listingOrder.note);
-    }
+    restaurant.orders.forEach(order => {
+      lids.push(order.lid)
+      quantities.push(order.quantity);
+      notes.push(order.note);
+    })
     const postOrder = {
       text: "INSERT INTO orders VALUES($1, $2, $3, $4, $5, $6, $7)",
-      values: [oid, uid, rID, lids, quantities, notes, pending]
-    };
+      values: [oid, uid, restaurant.rid, lids, quantities, notes, pending]
+    }
     await db.query(postOrder);
-  }
+  })
   return res.status(200).send({ success: "Successfully submitted order" });
 };
 

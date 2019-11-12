@@ -71,9 +71,10 @@ exports.updateListingQuantity = async (req, res) => {
     values: [lid]
   };
   const { rows } = await db.query(getListing);
-  if (rows[0].quantity + quantityChange < 0) {
+  var quantityRemain = rows[0].quantity
+  if (quantityRemain + quantityChange < 0) {
     //user ordering more than restaurant has
-    res.status(400).json({ error: "Invalid quantity" });
+    res.status(400).json({ error: "Invalid Quantity: The restaurant only has " + quantityRemain + " left of this listing. Please add less to cart" });
     return;
   }
 

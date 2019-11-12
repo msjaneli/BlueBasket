@@ -1,14 +1,14 @@
 import { START_LOADING, END_LOADING } from '../actions/actionTypes'
 
-const isLoadingReducer = (state = 'false', action) => {
+const createIsLoadingWithNamedType = (loadingName = '') =>  (state = false, action) => {
     switch (action.type) {
-        case START_LOADING:
+        case START_LOADING + '_' + loadingName:
             return true
-        case END_LOADING:
+        case END_LOADING + '_' + loadingName:
             return false
         default: 
             return state
     }
 }
 
-export default isLoadingReducer;
+export default createIsLoadingWithNamedType;

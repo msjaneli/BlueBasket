@@ -4,8 +4,6 @@ import '../../styles/meals.css';
 // Components
 import { Row, Col, Card, Button } from 'react-bootstrap'
 
-// Tools
-
 class ListingCard extends Component {
     constructor(props) {
         super(props);

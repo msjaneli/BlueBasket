@@ -1,5 +1,6 @@
 // Reducers
-import auth from './authReducer';
+import auth from './auth/authReducer';
+import checkout from './checkout/checkoutReducer';
 import { combineReducers } from 'redux';
 
 // Tools
@@ -11,20 +12,26 @@ import storage from 'redux-persist/lib/storage';
 const rootPersistConfig = {
     key: 'root',
     storage: storage,
-    blacklist: ['router', 'auth']
+    blacklist: ['router', 'auth', 'checkout']
 }
 
 const authPersistConfig = {
     key: 'auth',
     storage: storage,
-    blacklist: ['signupStatus', 'loginStatus', 'authRedirect', 'isLoading']
+    whitelist: [],
+}
 
+const checkoutPersistConfig = {
+    key: 'checkout',
+    storage: storage,
+    whitelist: ['cart']
 }
 
 const createRootReducer = (history) => combineReducers({
     router: connectRouter(history),
     session,
     auth: persistReducer(authPersistConfig, auth),
+    checkout: persistReducer(checkoutPersistConfig, checkout)
 })
 
 const createPersistedRootReducer = (history) => persistReducer(rootPersistConfig, createRootReducer(history))

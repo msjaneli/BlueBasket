@@ -8,7 +8,7 @@ import { Alert, Button, Form, Col } from 'react-bootstrap';
 import * as authSelectors from '../../selectors/authSelectors'
 
 // Actions
-import { loginUser, loginRestaurant, loginShelter } from '../../actions/login';
+import { loginUser, loginRestaurant, loginShelter } from '../../actions/auth/login';
 
 // Tools
 import validateLoginInput from '../../validation/validateLoginInput';
