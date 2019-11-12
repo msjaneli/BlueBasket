@@ -1,4 +1,4 @@
-import { LOGIN_FAILURE, LOGIN_SUCCESS, RESET_AUTH_STATUS, START_LOADING, END_LOADING } from './actionTypes';
+import { LOGIN_FAILURE, LOGIN_SUCCESS, RESET_AUTH_STATUS, START_LOADING, END_LOADING } from '../actionTypes';
 import axios from 'axios';
 import { sessionService } from 'redux-react-session';
 import { push } from 'connected-react-router'
@@ -10,7 +10,7 @@ export const loginUser = (payload, redirectUrl) => async dispatch => {
     })
 
     dispatch({
-        type: START_LOADING
+        type: START_LOADING + "_AUTH"
     })
 
     setTimeout(async () => {
@@ -26,7 +26,7 @@ export const loginUser = (payload, redirectUrl) => async dispatch => {
             })
         } catch (err) {
             dispatch({
-                type: END_LOADING
+                type: END_LOADING + "_AUTH"
             })
 
             return dispatch({
@@ -42,11 +42,11 @@ export const loginUser = (payload, redirectUrl) => async dispatch => {
         await sessionService.saveSession(token);
 
         dispatch({
-            type: END_LOADING
+            type: END_LOADING + "_AUTH"
         })
 
         dispatch({
-            type: LOGIN_SUCCESS
+            type: LOGIN_SUCCESS 
         })
         dispatch(push(redirectUrl))
 
@@ -59,7 +59,7 @@ export const loginRestaurant = (payload, redirectUrl) => async dispatch => {
     })
 
     dispatch({
-        type: START_LOADING
+        type: START_LOADING + "_AUTH"
     })
 
     setTimeout(async () => {
@@ -75,7 +75,7 @@ export const loginRestaurant = (payload, redirectUrl) => async dispatch => {
             })
         } catch (err) {
             dispatch({
-                type: END_LOADING
+                type: END_LOADING + "_AUTH"
             })
 
             return dispatch({
@@ -91,7 +91,7 @@ export const loginRestaurant = (payload, redirectUrl) => async dispatch => {
         await sessionService.saveSession(token);
 
         dispatch({
-            type: END_LOADING
+            type: END_LOADING + "_AUTH"
         })
 
         dispatch({
@@ -109,7 +109,7 @@ export const loginShelter = (payload, redirectUrl) => async dispatch => {
     })
 
     dispatch({
-        type: START_LOADING
+        type: START_LOADING + "_AUTH"
     })
 
     setTimeout(async () => {
@@ -125,7 +125,7 @@ export const loginShelter = (payload, redirectUrl) => async dispatch => {
             })
         } catch (err) {
             dispatch({
-                type: END_LOADING
+                type: END_LOADING + "_AUTH"
             })
 
             return dispatch({

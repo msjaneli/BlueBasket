@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
+import '../../styles/auth.css';
 
 // Components
 import { Button, Card, Col, Row, Nav } from 'react-bootstrap';
 import FacebookLogin from '../../components/Authentication/Facebook';
-import '../../styles/auth.css';
-
-// Actions
 import Login from '../../components/Authentication/Login';
 import SignUp from '../../components/Authentication/SignUp';
-import { setAuthRedirect } from '../../actions/setRedirect'
-import { resetAuthStatus } from '../../actions/resetStatus';
+
+// Actions
+import { setAuthRedirect } from '../../actions/auth/setRedirect'
+import { resetAuthStatus } from '../../actions/auth/resetStatus';
 
 // Selectors
 import * as authSelectors from '../../selectors/authSelectors'
@@ -31,8 +31,14 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   setAuthRedirect: redirectUrl => dispatch(setAuthRedirect(redirectUrl)),
   resetAuthStatus: () => dispatch(resetAuthStatus()),
-  goToRestaurantLogin: () => dispatch(push('/login/restaurant')),
-  goToShelterLogin: () => dispatch(push('/login/shelter'))
+  goToRestaurantLogin: () => {
+    dispatch(resetAuthStatus());
+    dispatch(push('/login/restaurant'));
+  },
+  goToShelterLogin: () => {
+    dispatch(resetAuthStatus());
+    dispatch(push('/login/shelter'))
+  }
 })
 
 class LoginScreen extends Component {
@@ -64,7 +70,7 @@ class LoginScreen extends Component {
     }
     else{
       var loginscreen=[];
-      loginscreen.push(<Login parentContext={this} loginHeader="Login to continue" type={this.type}/>);
+      loginscreen.push(<Login parentContext={this} loginHeader="Login to continue" type={this.state.type}/>);
       this.setState({
         loginscreen:loginscreen,
         questionLabel: 'Don\'t have an account?',
@@ -76,7 +82,7 @@ class LoginScreen extends Component {
 
   goToLogin = () => {
     var loginscreen=[];
-      loginscreen.push(<Login parentContext={this} loginHeader="Login to continue" type={this.type}/>);
+      loginscreen.push(<Login parentContext={this} loginHeader="Login to continue" type={this.state.type}/>);
       this.setState({
         loginscreen:loginscreen,
         questionLabel: 'Don\'t have an account?',
@@ -97,7 +103,7 @@ class LoginScreen extends Component {
   componentDidMount = () => {
     var loginscreen=[];
     this.setRedirectUrl();
-    loginscreen.push(<Login parentContext={this} appContext={this.props.parentContext} loginHeader="Login to continue" type={this.type}/>);
+    loginscreen.push(<Login parentContext={this} appContext={this.props.parentContext} loginHeader="Login to continue" type={this.state.type}/>);
     this.setState({
       loginscreen:loginscreen,
     })
@@ -126,6 +132,8 @@ class LoginScreen extends Component {
                         <Lottie style = {{marginTop: '2.3rem'}} options = {animationOptionsFood} width = {200} height = {200} />
                     <Row className = "justify-content-center" style={{marginTop: '2.2rem'}}>
                       <p className="switchText">Own a restaurant? Login<Button variant = "authLink" className="changeAuthMode" onClick={() => this.props.goToRestaurantLogin()}>here</Button></p>
+                    </Row>
+                    <Row className="justify-content-center" style={{marginTop: '-1.5rem'}}>
                       <p className="switchText">Own a shelter? Login<Button variant = "authLink" className="changeAuthMode" onClick={() => this.props.goToShelterLogin()}>here</Button></p>
                     </Row>
                     </Col>

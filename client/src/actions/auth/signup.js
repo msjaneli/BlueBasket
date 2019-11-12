@@ -1,4 +1,4 @@
-import { SIGNUP_FAILURE, SIGNUP_SUCCESS, RESET_AUTH_STATUS, START_LOADING, END_LOADING } from './actionTypes';
+import { SIGNUP_FAILURE, SIGNUP_SUCCESS, RESET_AUTH_STATUS, START_LOADING, END_LOADING } from '../actionTypes';
 import axios from 'axios';
 
 export const signup = (payload) => async dispatch => {
@@ -7,13 +7,13 @@ export const signup = (payload) => async dispatch => {
     })
 
     dispatch({
-        type: START_LOADING
+        type: START_LOADING + "_AUTH"
     })
 
     await signUpPromise(payload, dispatch)
 
     dispatch({
-        type: END_LOADING
+        type: END_LOADING + "_AUTH"
     })
 
     dispatch({
@@ -38,7 +38,7 @@ const signUpPromise = (payload, dispatch) => {
                 resolve("success");
             } catch (err) {
                 dispatch({
-                    type: END_LOADING
+                    type: END_LOADING + "_AUTH"
                 })
 
                 return dispatch({

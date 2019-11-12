@@ -1,4 +1,4 @@
-import { RESET_AUTH_STATUS } from "./actionTypes"
+import { RESET_AUTH_STATUS } from "../actionTypes"
 
 export const resetAuthStatus = () => dispatch => {
     dispatch({

@@ -8,6 +8,8 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 
 export const RESET_AUTH_STATUS = 'RESET_AUTH_STATUS';
 
+export const RESET_CHECKOUT_STATUS = 'RESET_CHECKOUT_STATUS';
+
 export const LOGOUT = 'LOGOUT';
 
 export const SET_AUTH_REDIRECT = 'SET_AUTH_REDIRECT';
@@ -15,3 +17,9 @@ export const SET_AUTH_REDIRECT = 'SET_AUTH_REDIRECT';
 export const START_LOADING = 'START_LOADING';
 
 export const END_LOADING = 'END_LOADING';
+
+export const ADD_TO_CART = 'ADD_TO_CART';
+
+export const ADD_CART_FAILURE = 'ADD_CART_FAILURE';
+
+export const REMOVE_FROM_CART = 'REMOVE_FROM_CART';

@@ -17,6 +17,10 @@ const initialState = {
         signupStatus: '',
         loginStatus: '',
         isLoading: false,
+    },
+    checkout: {
+        cart: [],
+        isLoading: false,
     }
 }
 
