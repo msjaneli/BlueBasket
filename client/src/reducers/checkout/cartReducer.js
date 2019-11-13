@@ -1,4 +1,4 @@
-import { START_LOADING, END_LOADING, ADD_TO_CART, REMOVE_FROM_CART } from '../../actions/actionTypes'
+import { ADD_TO_CART } from '../../actions/actionTypes'
 
 const cartReducer = (state = [], action) => {
     switch (action.type) {

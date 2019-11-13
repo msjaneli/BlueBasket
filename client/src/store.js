@@ -20,6 +20,7 @@ const initialState = {
     },
     checkout: {
         cart: [],
+        cartStatus: '',
         isLoading: false,
     }
 }

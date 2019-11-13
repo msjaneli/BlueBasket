@@ -43,23 +43,31 @@ exports.submitOrder = async (req, res) => {
     .toString(36)
     .substr(2, 20);
 
-  var lids, quantities, notes, oid;
+  var orders = {}
 
-  cart.forEach(async restaurant => {
-    lids = [];
-    quantities = [];
-    notes = [];
-    restaurant.orders.forEach(order => {
-      lids.push(order.lid)
-      quantities.push(order.quantity);
-      notes.push(order.note);
-    })
+  cart.forEach(async item => {
+    if (!orders[item.rid]) {
+        orders = {
+          ...orders, 
+          [item.rid]: {
+            lids: [],
+            quantities: [],
+            notes: []
+          }
+      }
+    }
+    orders[item.rid].lids.push(item.lid);
+    orders[item.rid].quantities.push(item.quantity);
+    orders[item.rid].notes.push(item.note)
+  })
+
+  for (var rid in orders) {
     const postOrder = {
       text: "INSERT INTO orders VALUES($1, $2, $3, $4, $5, $6, $7)",
-      values: [oid, uid, restaurant.rid, lids, quantities, notes, pending]
+      values: [oid, uid, rid, orders[rid].lids, orders[rid].quantities, orders[rid].notes, pending]
     }
     await db.query(postOrder);
-  })
+  }
   return res.status(200).send({ success: "Successfully submitted order" });
 };
 
