@@ -5,7 +5,9 @@ var listingController = require("../controllers/listingController");
 
 module.exports = router;
 
-router.get('/:rid', listingController.getListingsByRestaurant);
+router.get('/:lid', listingController.getListingById)
+
+router.get('/all/:rid', listingController.getListingsByRestaurant);
 
 router.post('/:rid/create', listingController.createListing)
 

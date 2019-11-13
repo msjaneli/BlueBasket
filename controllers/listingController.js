@@ -1,6 +1,17 @@
 const isEmpty = require('../validation/isEmpty');
 const db = require('../db');
 
+exports.getListingById = async(req, res) => {
+    var lid = req.params.lid
+
+    const getListings = {
+        text: 'SELECT * FROM live_listing where lid = $1',
+        values: [lid]
+    }
+    const { rows } = await db.query(getListings);
+    res.status(200).send(rows[0]);
+}
+
 exports.getListingsByRestaurant = async (req, res) => {
     var rid = req.params.rid
 

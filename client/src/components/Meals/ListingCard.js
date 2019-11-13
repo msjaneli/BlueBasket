@@ -47,7 +47,7 @@ class ListingCard extends Component {
                     <Col md={3}>
                         <Row>
                             <Col>
-                                <Button variant="cart">Add to Cart</Button>
+                                <Button onClick={() => this.props.showModal(this.props.keyId)} variant="cart">Add to Cart</Button>
                                 <style type="text/css">
                                     {`
                                         .btn-cart {

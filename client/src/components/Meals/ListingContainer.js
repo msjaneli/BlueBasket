@@ -4,6 +4,7 @@ import '../../styles/meals.css';
 // Components
 import { Container, Row, Col, Alert } from 'react-bootstrap'
 import ListingCard from './ListingCard'
+import CartModal from './CartModal'
 
 // Tools 
 import axios from 'axios'
@@ -18,13 +19,16 @@ class ListingContainer extends Component {
 
         this.state = {
             noListingsFound: false,
-            liveListings: []
+            liveListings: [],
+            shownModal: {
+                key: null,
+            }
         }
     }
 
     componentDidMount = async () => {
         setTimeout(async () => {
-            const { data } = await axios.get('/listing/' + this.props.rid)
+            const { data } = await axios.get('/listing/all/' + this.props.rid)
             if (isEmpty(data)) {
                 this.setState({
                     noListingsFound: true
@@ -36,6 +40,22 @@ class ListingContainer extends Component {
             }
         }, 600)
 
+    }
+
+    showModal = (key) => {
+        this.setState({
+            shownModal: {
+                key: key
+            }
+        })
+    }
+
+    hideModal = () => {
+        this.setState({
+            shownModal: {
+                key: null
+            }
+        })
     }
 
     render() {
@@ -75,10 +95,14 @@ class ListingContainer extends Component {
             return (
                 <Container> 
                     {this.state.liveListings.map((listing, i) => {
+                        return <CartModal key={i} listing={listing} show={this.state.shownModal.key===i} onHide={() => this.hideModal()}/>
+                    })}
+                    {this.state.liveListings.map((listing, i) => {
+
                         return(
-                            <Row>
-                                <Col>
-                                    <ListingCard listing = {listing}/>
+                            <Row key ={i}>
+                                <Col key = {i}>
+                                    <ListingCard key={i} keyId = {i} listing = {listing} showModal={(keyId) => this.showModal(keyId)}/>
                                 </Col>
                             </Row>
                         );

@@ -12,27 +12,30 @@ export const addToCart = (payload) => async dispatch => {
         type: START_LOADING + "_CHECKOUT"
     })
 
-    try {
-        // When user adds to cart, we want to decrsease the listing quantity
-        axios.post('/listing/' + payload.lid + '/update', {
-            quantityChange: payload.quantityChange
+    setTimeout(async () => {
+        try {
+            // When user adds to cart, we want to decrsease the listing quantity
+            await axios.put('/listing/' + payload.lid + '/update', {
+                quantityChange: payload.quantityChange
+            })
+        } catch (err) {
+            dispatch({
+                type: END_LOADING + "_CHECKOUT"
+            })
+    
+            return dispatch({
+                type: ADD_CART_FAILURE,
+                payload: err.response.data.error
+            })
+        }
+    
+        dispatch({
+            type: ADD_TO_CART,
+            payload: payload.cartItem
         })
-    } catch (err) {
+    
         dispatch({
             type: END_LOADING + "_CHECKOUT"
         })
-
-        return dispatch({
-            type: ADD_CART_FAILURE,
-            payload: err.response.data.err
-        })
-    }
-
-    dispatch({
-        type: ADD_TO_CART
-    })
-
-    dispatch({
-        type: STOP_LOADING + "_CHECKOUT"
-    })
+    }, 500)
 }
