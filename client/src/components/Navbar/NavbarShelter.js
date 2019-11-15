@@ -34,6 +34,7 @@ class NavbarShelter extends Component {
                     <Nav.Link href="/meals" id="meals-menu-item">Meals</Nav.Link>
                 </Nav>
                 <Nav className = "ml-auto">
+                    <Nav.Link href="/cart">Cart</Nav.Link>
                     <NavDropdown title={welcomeText} alignRight>
                         <NavDropdown.Item href="/profile/shelter">Profile</NavDropdown.Item>
                         <NavDropdown.Item href="/orders">Orders</NavDropdown.Item>
