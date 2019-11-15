@@ -20,6 +20,7 @@ class NavbarStandard extends Component {
                         <Nav.Link href="/donate" id="donate-menu-item">Donate</Nav.Link>
                     </Nav>
                     <Nav>
+                        <Nav.Link href="/cart">Cart</Nav.Link>
                         <Nav.Link href="/login/user">
                             <Button  variant = "login-nav" >Log in</Button>
                             <style type="text/css">
