@@ -32,6 +32,7 @@ import { history } from './store';
 
 // Selectors
 import * as sessionSelectors from './selectors/sessionSelectors'
+import Cart from './pages/Checkout/Cart';
 
 const mapStateToProps = (state) => ({
   checked: sessionSelectors.isChecked(state),
@@ -55,6 +56,7 @@ const App = ({ authenticated, checked, type }) => {
               <Route exact path = '/meals' component = { Meals } />
               <Route exact path = '/meals/:rid' component = {ListingPage} />
               <Route exact path = '/thankyou' component = { ThankYou } />
+              <Route exact path = '/cart' component = { Cart } />
               <PrivateRouteUser exact path = '/profile/user' component = { UserProfile } authenticated = { authenticated } type = { type }/>
               <PrivateRouteUser exact path = '/protected/user' component = { TestProtected } authenticated = { authenticated } type = { type } />
               <PrivateRouteRestaurant exact path = '/profile/restaurant' component = { RestaurantProfile } authenticated = { authenticated } type = { type }/>
