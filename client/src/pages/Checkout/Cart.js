@@ -7,6 +7,7 @@ import NumericInput from 'react-numeric-input';
 
 // Selectors
 import * as checkoutSelectors from '../../selectors/checkoutSelectors'
+import * as sessionSelectors from '../../selectors/sessionSelectors'
 
 // Actions
 import resetCheckoutStatus  from '../../actions/checkout/resetStatus'
@@ -22,6 +23,7 @@ import { push } from 'connected-react-router'
 
 
 const mapStateToProps = (state) => ({
+    type: sessionSelectors.getType(state),
     orders: checkoutSelectors.getCartByRestaurant(state),
     subtotal: checkoutSelectors.getSubTotal(state),
     cartStatus: checkoutSelectors.getCartStatus(state),
@@ -32,6 +34,15 @@ const mapDispatchToProps = (dispatch) => ({
     goToMeals: () => {
         dispatch(resetCheckoutStatus());
         dispatch(push('/meals'))
+    },
+    goToCheckoutUser: () => {
+        dispatch(resetCheckoutStatus());
+        dispatch(push('/checkout/user'))
+        
+    },
+    goToCheckoutShelter: () => {
+        dispatch(resetCheckoutStatus());
+        dispatch(push('/checkout/shelter'))
     },
     updateCart: (payload) => dispatch(updateCart(payload)),
     removeFromCart: (payload) => dispatch(removeFromCart(payload))
@@ -50,6 +61,10 @@ class Cart extends Component {
                 isRemove: false,
             },
         }
+    }
+
+    componentDidMount() {
+        window.scrollTo(0, 0)
     }
 
     changeQuantity = async (valueAsNumber, rid, index, restaurantIndex, isRemove) => {
@@ -83,6 +98,14 @@ class Cart extends Component {
         }
     }
 
+    goToCheckout = () => {
+        if (this.props.type === 'SHELTER') {
+            this.props.goToCheckoutShelter();
+        } else {
+            this.props.goToCheckoutUser();
+        }
+    }
+
     render() {
 
         const animationOptionsLoading = {
@@ -90,6 +113,14 @@ class Cart extends Component {
             autoplay: true,
             animationData: loadingAnimationData,
         }
+
+        let checkoutButtons = isEmpty(this.props.type) ? 
+            (<div>
+                <Button onClick ={() => this.props.goToCheckoutShelter()}>Shelter Checkout</Button> 
+                or 
+                <Button onClick={() => this.props.goToCheckoutUser()}>User Checkout</Button>
+            </div>) :
+            <div><Button onClick={() => this.goToCheckout()}>Checkout</Button></div>
          
         let cartList = isEmpty(this.props.orders) ? (
               <Container>
@@ -178,7 +209,7 @@ class Cart extends Component {
                         <p>Subtotal: ${this.props.subtotal}</p>
                         <p>Tax: ${(this.props.subtotal * 0.0675).toFixed(2)}</p>
                         <p>Total: ${(this.props.subtotal * 1.0675).toFixed(2)}</p>
-                        <Button>Checkout</Button>
+                        {checkoutButtons}
                     </Col>
                 </Row>
             </Container>

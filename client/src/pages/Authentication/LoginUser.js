@@ -101,6 +101,7 @@ class LoginScreen extends Component {
   }
 
   componentDidMount = () => {
+    window.scrollTo(0, 0)
     var loginscreen=[];
     this.setRedirectUrl();
     loginscreen.push(<Login parentContext={this} appContext={this.props.parentContext} loginHeader="Login to continue" type={this.state.type}/>);
