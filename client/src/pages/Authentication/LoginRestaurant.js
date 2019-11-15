@@ -28,7 +28,6 @@ const mapDispatchToProps = dispatch => ({
 class LoginRestaurant extends Component {
     constructor(props) {
         super(props);
-        this.type='RESTAURANT';
 
     }
 
@@ -69,7 +68,7 @@ class LoginRestaurant extends Component {
                                         <Lottie options = {animationOptionsFood} width = {225} height = {225} />
                                     </Col>
                                     <Col md={7}>
-                                        <Login loginHeader="Restaurant login" type={this.type}/>
+                                        <Login loginHeader="Restaurant login" type={"RESTAURANT"}/>
                                     </Col>
                                 </Row>
                                 </Card.Body>

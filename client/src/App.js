@@ -13,6 +13,7 @@ import LoginShelter from './pages/Authentication/LoginShelter';
 import Donate from '../src/pages/Donate/Donate'
 import ThankYou from '../src/pages/Donate/ThankYou'
 import Meals from '../src/pages/Meals/Meals'
+import UserCheckout from '../src/pages/Checkout/UserCheckout'
 import ListingPage from './pages/Meals/ListingPage';
 import UserProfile from './pages/Profiles/UserProfile';
 import RestaurantProfile from './pages/Profiles/RestaurantProfile';
@@ -59,6 +60,7 @@ const App = ({ authenticated, checked, type }) => {
               <Route exact path = '/cart' component = { Cart } />
               <PrivateRouteUser exact path = '/profile/user' component = { UserProfile } authenticated = { authenticated } type = { type }/>
               <PrivateRouteUser exact path = '/protected/user' component = { TestProtected } authenticated = { authenticated } type = { type } />
+              <PrivateRouteUser exact path = '/checkout/user' component = { UserCheckout } authenticated = { authenticated } type = {type} />
               <PrivateRouteRestaurant exact path = '/profile/restaurant' component = { RestaurantProfile } authenticated = { authenticated } type = { type }/>
               <PrivateRouteRestaurant exact path = '/protected/restaurant' component = { TestProtected } authenticated = { authenticated } type = { type } />
               <PrivateRouteShelter exact path = '/profile/shelter' component = { ShelterProfile } authenticated = { authenticated } type = { type }/>

@@ -50,8 +50,7 @@ class CartModal extends Component {
     }
 
     changeQuantity = (valueAsNumber) => {
-        console.log(valueAsNumber)
-        if (valueAsNumber === 0 || valueAsNumber === null) {
+        if (isEmpty(valueAsNumber)) {
             this.setState({
                 quantity: 1,
             })
