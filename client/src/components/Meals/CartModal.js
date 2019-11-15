@@ -6,8 +6,8 @@ import { Modal, Button, InputGroup, FormControl, Alert } from 'react-bootstrap';
 import NumericInput from 'react-numeric-input';
 
 // Actions
-import { addToCart } from '../../actions/checkout/addToCart'
-import { resetCheckoutStatus } from '../../actions/checkout/resetStatus'
+import addToCart from '../../actions/checkout/addToCart'
+import resetCheckoutStatus from '../../actions/checkout/resetStatus'
 
 // Selectors 
 import * as checkoutSelectors from '../../selectors/checkoutSelectors'
@@ -34,7 +34,7 @@ class CartModal extends Component {
 
         this.state = {
             listing: this.props.listing,
-            quantity: 0,
+            quantity: 1,
             note: '',
         }
 
@@ -50,7 +50,6 @@ class CartModal extends Component {
     }
 
     changeQuantity = (valueAsNumber) => {
-        console.log(valueAsNumber);
         this.setState({
             quantity: valueAsNumber
         })
@@ -61,9 +60,15 @@ class CartModal extends Component {
             lid: this.props.listing.lid,
             quantityChange: -this.state.quantity,
             cartItem: {
+                cartId: Math.random()
+                .toString(36)
+                .substr(2, 9),
                 rid: this.props.listing.rid,
+                restaurant: this.props.restaurant,
                 lid: this.props.listing.lid,
+                name: this.props.listing.name,
                 quantity: this.state.quantity,
+                price: this.props.listing.price,
                 note: this.state.note,
             }
         }
@@ -107,7 +112,7 @@ class CartModal extends Component {
                     <p>
                     Quantity Remaining: {this.props.listing.quantity}
                     </p>
-                    <NumericInput name="quantity" value={this.state.quantity}  onChange={(valueAsNumber) => this.changeQuantity(valueAsNumber)}/>
+                    <NumericInput name="quantity" min = {1} value={this.state.quantity}  onChange={(valueAsNumber) => this.changeQuantity(valueAsNumber)}/>
                     <br/>
                     <label>Add a note:</label>
                     <InputGroup>

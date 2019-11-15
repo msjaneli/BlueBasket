@@ -68,7 +68,7 @@ class ListingContainer extends Component {
                   preserveAspectRatio: 'xMidYMid slice'
                 }
             }
-            return(<Lottie options={animationOptionsLoading} width ={200} height ={200}/>)
+            return(<Lottie options={animationOptionsLoading} width ={100} height ={100}/>)
         } else if (this.state.noListingsFound) {
             const animationOptionsError = {
                 loop: false,
@@ -95,14 +95,16 @@ class ListingContainer extends Component {
             return (
                 <Container> 
                     {this.state.liveListings.map((listing, i) => {
-                        return <CartModal key={i} listing={listing} show={this.state.shownModal.key===i} onHide={() => this.hideModal()}/>
+                        return <CartModal key={i} restaurant = {this.props.name} listing={listing} show={this.state.shownModal.key===i} onHide={() => this.hideModal()}/>
                     })}
                     {this.state.liveListings.map((listing, i) => {
-
                         return(
                             <Row key ={i}>
                                 <Col key = {i}>
-                                    <ListingCard key={i} keyId = {i} listing = {listing} showModal={(keyId) => this.showModal(keyId)}/>
+                                    {
+                                        listing.quantity === 0 ? null :                                     
+                                        <ListingCard key={i} keyId = {i} listing = {listing} showModal={(keyId) => this.showModal(keyId)}/>
+                                    }
                                 </Col>
                             </Row>
                         );

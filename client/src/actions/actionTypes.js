@@ -20,6 +20,10 @@ export const END_LOADING = 'END_LOADING';
 
 export const ADD_TO_CART = 'ADD_TO_CART';
 
+export const UPDATE_CART = 'UPDATE_CART';
+
+export const UPDATE_CART_SUCCESS = 'UPDATE_CART_SUCCESS'
+
 export const ADD_CART_FAILURE = 'ADD_CART_FAILURE';
 
 export const REMOVE_FROM_CART = 'REMOVE_FROM_CART';

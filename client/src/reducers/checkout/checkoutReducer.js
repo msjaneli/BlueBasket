@@ -1,6 +1,6 @@
 // Reducers
 import cart from './cartReducer'
-import cartStatus from './addCartStatusReducer'
+import cartStatus from './cartStatusReducer'
 import createLoadingWithNamedType from '../isLoadingReducer'
 
 // Tools

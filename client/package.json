@@ -27,6 +27,7 @@
     "redux-persist": "^6.0.0",
     "redux-react-session": "^2.6.0",
     "redux-thunk": "^2.3.0",
+    "reselect": "^4.0.0",
     "validator": "^11.1.0"
   },
   "scripts": {
