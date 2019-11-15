@@ -50,9 +50,16 @@ class CartModal extends Component {
     }
 
     changeQuantity = (valueAsNumber) => {
-        this.setState({
-            quantity: valueAsNumber
-        })
+        console.log(valueAsNumber)
+        if (valueAsNumber === 0 || valueAsNumber === null) {
+            this.setState({
+                quantity: 1,
+            })
+        } else {
+            this.setState({
+                quantity: valueAsNumber
+            })
+        }
     }
 
     attemptCartAdd = async () => {
@@ -112,7 +119,7 @@ class CartModal extends Component {
                     <p>
                     Quantity Remaining: {this.props.listing.quantity}
                     </p>
-                    <NumericInput name="quantity" min = {1} value={this.state.quantity}  onChange={(valueAsNumber) => this.changeQuantity(valueAsNumber)}/>
+                    <NumericInput name="quantity" min = {1} precision={0} value={this.state.quantity}  onChange={(valueAsNumber) => this.changeQuantity(valueAsNumber)}/>
                     <br/>
                     <label>Add a note:</label>
                     <InputGroup>
