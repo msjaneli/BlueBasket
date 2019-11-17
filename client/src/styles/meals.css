@@ -38,7 +38,6 @@
   font-size: 1.3vw;
 }
 
-
 .listing-card :hover {
     transition: 0.5s;
     background: whitesmoke;
@@ -47,6 +46,7 @@
 .listing-name {
     font-family: 'Muli' sans-serif;
     font-size: 1.2rem;
+    margin-top: 1vh;
     font-weight: bold;
 }
 
@@ -58,6 +58,7 @@
 }
 
 .listing-description {
+  margin-top: 1.7vh;
     font-size: 1rem;
 }
 
@@ -74,7 +75,7 @@
 }
 
 .price {
-    margin-top: 0.3rem;
+    margin-top: 2vh;
     font-family: 'Nunito';
     font-size: 1rem;
 }

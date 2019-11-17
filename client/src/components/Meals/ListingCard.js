@@ -46,29 +46,29 @@ class ListingCard extends Component {
                     </Col>
                     <Col md={3}>
                         <Row>
-                            <Col>
-                                <Button onClick={() => this.props.showModal(this.props.keyId)} variant="cart">Add to Cart</Button>
-                                <style type="text/css">
-                                    {`
-                                        .btn-cart {
-                                            background-color: cornflowerblue;
-                                            color: white;
-                                            font-weight: 400;
-                                            width: 8rem;
-                                        }
-
-                                        .btn-cart:hover {
-                                            background-color: cornflowerblue;
-                                            color: white;
-                                        }
-                                    `}
-                                </style>
-                            </Col>
+                        <Col>
+                            <p className = "price">Price: ${this.props.listing.price}</p>
+                        </Col>
                         </Row>
                         <Row>
-                            <Col>
-                                <p className = "price">Price: ${this.props.listing.price}</p>
-                            </Col>
+                        <Col>
+                            <Button onClick={() => this.props.showModal(this.props.keyId)} variant="cart">Add to Cart</Button>
+                            <style type="text/css">
+                                {`
+                                    .btn-cart {
+                                        background-color: cornflowerblue;
+                                        color: white;
+                                        font-weight: 400;
+                                        width: 8rem;
+                                    }
+
+                                    .btn-cart:hover {
+                                        background-color: cornflowerblue;
+                                        color: white;
+                                    }
+                                `}
+                            </style>
+                        </Col>
                         </Row>
                     </Col>
                 </Row>
