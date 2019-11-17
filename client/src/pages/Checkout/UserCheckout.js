@@ -3,6 +3,7 @@ import '../../styles/checkout.css'
 
 // Component 
 import { Container, Row, Col, Card, Button, Alert } from 'react-bootstrap';
+import CardCheckout from '../../components/Checkout/CardCheckout'
 
 // Actions
 import resetCheckoutStatus  from '../../actions/checkout/resetStatus'
@@ -20,8 +21,6 @@ import { push } from 'connected-react-router'
 const mapStateToProps = (state) => ({
     orders: checkoutSelectors.getCartByRestaurant(state),
     subtotal: checkoutSelectors.getSubTotal(state),
-    cartStatus: checkoutSelectors.getCartStatus(state),
-    isLoading: checkoutSelectors.isLoading(state),
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -55,7 +54,52 @@ class UserCheckout extends Component {
             </Card>
         )
 
-        if (isEmpty(this.state.paymentType)) {
+        let cartDetails = (
+            <Container>
+                {Object.keys(this.props.orders).map((rid, restaurantIndex) => {
+                            return(
+                                <Row key={restaurantIndex}>
+                                    <Col className = "text-left">
+                                        <Row>
+                                            <Col>
+                                                <h5>{this.props.orders[rid].restaurant}</h5>
+                                            </Col>
+                                        </Row>
+                                        {
+                                            this.props.orders[rid].lids.map((lid, index) => {
+                                                return (
+                                                    <Row key = {index}>
+                                                        <Col>
+                                                        <li>{this.props.orders[rid].names[index]}</li>
+                                                        <ul>
+                                                            <li>Quantity: {this.props.orders[rid].quantities[index]}</li>
+                                                            <li>Price: {this.props.orders[rid].prices[index]}</li>
+                                                            <li>Note: {this.props.orders[rid].notes[index]}</li>
+                                                        </ul>
+                                                        </Col>
+                                                    </Row>
+                                                )
+                                            })
+                                        }
+                                    </Col>
+                                </Row>
+                            )
+                        })}
+            </Container>
+        )
+
+        if (isEmpty(this.props.orders)) {
+            return (
+                <Container>
+                    <Row className="justify-content-md-center">
+                        <Col md={6}>
+                            <h2>Looks like your cart is empty!</h2>
+                        </Col>
+                    </Row>
+                </Container>
+            )
+
+        } else if (isEmpty(this.state.paymentType)) {
             return (
                 <Container>
                     <Row className="justify-content-md-center" style={{marginTop: '20vh'}}>
@@ -67,11 +111,28 @@ class UserCheckout extends Component {
             );
         } else if (this.state.paymentType === 'CARD') {
             return (
-                <div>Card</div>
+                <Container>
+                    <Row style={{marginTop: '5vh'}}>
+                        <Col md={6}>
+                            {cartDetails}
+                        </Col>
+                        <Col md={6}>
+                        </Col>
+                    </Row>
+                </Container>
             )
         } else {
             return (
-                <div>Food Points</div>
+                <Container>
+                    <Row style={{marginTop: '5vh'}}>
+                        <Col md={6}>
+                            {cartDetails}
+                        </Col>
+                        <Col md={6}>
+
+                        </Col>
+                    </Row>
+                </Container>
             )
         }
         

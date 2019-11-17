@@ -144,7 +144,7 @@ class Cart extends Component {
                                     </Col>
                                 </Row>
                                 {
-                                    this.props.orders[rid]["lids"].map((lid, index) => {
+                                    this.props.orders[rid].lids.map((lid, index) => {
                                         return (
                                             <Row key = {index}>
                                                 <Col>
