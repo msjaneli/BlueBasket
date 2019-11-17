@@ -21,7 +21,8 @@ export const getCartByRestaurant = createSelector(
                     names: [],
                     quantities: [],
                     prices: [],
-                    notes: []
+                    notes: [],
+                    total: 0
                   }
               }
             }
@@ -31,7 +32,8 @@ export const getCartByRestaurant = createSelector(
             orders[item.rid].names.push(item.name);
             orders[item.rid].quantities.push(item.quantity);
             orders[item.rid].prices.push(item.price);
-            orders[item.rid].notes.push(item.note)
+            orders[item.rid].notes.push(item.note);
+            orders[item.rid].total += item.price;
         })
 
         return orders;

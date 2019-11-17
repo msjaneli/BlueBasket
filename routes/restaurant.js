@@ -11,6 +11,8 @@ router.get('/available-now', restaurantController.getRestaurantsAvailableNow);
 
 router.get('/available-later', restaurantController.getRestaurantsAvailableLater);
 
+router.get('/:rid/stripe-account', restaurantController.getStripeAccountByRid);
+
 router.get('/:rid', restaurantController.getRestaurantById);
 
 router.post('/:rid/image/update', restaurantController.updateImage);
