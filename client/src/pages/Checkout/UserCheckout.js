@@ -13,10 +13,8 @@ import * as checkoutSelectors from '../../selectors/checkoutSelectors'
 
 // Tools
 import isEmpty from '../../validation/isEmpty'
-import Lottie from 'react-lottie'
-import loadingAnimationData from '../../resources/lotties/loading/10564-loading-animation.json'
 import { connect } from 'react-redux'
-import { push } from 'connected-react-router'
+import { Elements } from 'react-stripe-elements'
 
 const mapStateToProps = (state) => ({
     orders: checkoutSelectors.getCartByRestaurant(state),
@@ -54,6 +52,8 @@ class UserCheckout extends Component {
             </Card>
         )
 
+        console.log(this.props.orders);
+
         let cartDetails = (
             <Container>
                 {Object.keys(this.props.orders).map((rid, restaurantIndex) => {
@@ -85,6 +85,19 @@ class UserCheckout extends Component {
                                 </Row>
                             )
                         })}
+                <Row>
+                    <Col className="text-left">
+                            <Row>
+                                <Col className ="text-left">
+                                <p>Subtotal: ${this.props.subtotal}</p>
+                                <p>Tax: ${(this.props.subtotal * 0.0675).toFixed(2)}</p>
+                                <p>Total: ${(this.props.subtotal * 1.0675).toFixed(2)}</p>                                    
+                                </Col>
+                            </Row>
+                    </Col>
+
+                </Row>
+
             </Container>
         )
 
@@ -113,10 +126,13 @@ class UserCheckout extends Component {
             return (
                 <Container>
                     <Row style={{marginTop: '5vh'}}>
-                        <Col md={6}>
+                        <Col md={5}>
                             {cartDetails}
                         </Col>
-                        <Col md={6}>
+                        <Col md={7}>
+                            <Elements>
+                                <CardCheckout/>
+                            </Elements>
                         </Col>
                     </Row>
                 </Container>
@@ -125,10 +141,10 @@ class UserCheckout extends Component {
             return (
                 <Container>
                     <Row style={{marginTop: '5vh'}}>
-                        <Col md={6}>
+                        <Col md={4}>
                             {cartDetails}
                         </Col>
-                        <Col md={6}>
+                        <Col md={8}>
 
                         </Col>
                     </Row>

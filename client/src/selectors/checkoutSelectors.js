@@ -4,6 +4,8 @@ export const isLoading = (state) => state.checkout.isLoading
 
 export const getCartStatus = (state) => state.checkout.cartStatus
 
+export const getCheckoutStatus = (state) => state.checkout.checkoutStatus
+
 export const getCart = (state) => state.checkout.cart
 
 export const getCartByRestaurant = createSelector(
