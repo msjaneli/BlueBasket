@@ -28,7 +28,9 @@ const submitOrderPromise = (payload, dispatch) => {
             try {
                 const { data } = await axios.post('/order/' + payload.uid + '/submit', {
                     name: payload.name,
-                    stripeTokens: payload.stripeTokens,
+                    email: payload.email,
+                    tokenGenResults: payload.tokenGenResults,
+                    error: payload.error,
                     orders: payload.orders
                 })
                 resolve(data)

@@ -145,7 +145,7 @@ class UserCheckout extends Component {
                             {cartDetails}
                         </Col>
                         <Col md={8}>
-
+                            
                         </Col>
                     </Row>
                 </Container>
