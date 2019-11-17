@@ -40,12 +40,20 @@ exports.getAllOrdersByUser = async (req, res) => {
 
 exports.submitOrder = async (req, res) => {
   var uid = req.params.uid;
+  var name = req.body.name;
+  const tokens = req.body.stripeTokens;
   var orders = req.body.orders;
-  const token = req.body.stripeToken;
   var oid = Math.random()
     .toString(36)
     .substr(2, 20);
   var postOrders = [];
+
+  if (isEmpty(tokens)) {
+    return res.status(400).send({error: "Something went wrong! Please check your card details"})
+  }
+
+  var index = 0;
+  
   for (var rid in orders) {
     try {
       // Create stripe charge for this rid
@@ -54,22 +62,25 @@ exports.submitOrder = async (req, res) => {
         values: [rid]
       };
       const { rows } = await db.query(getStripeAcc);
+      const stripe_acc = rows[0].stripe_acc;
+
+
       await stripe.charges.create(
         {
-          amount: orders[rid].total,
+          amount: Math.round(orders[rid].total * 1.0675 * 100),
           currency: "usd",
-          description: "Order for user " + str(uid),
-          source: token
+          description: "Order for user " + uid + ", " + name,
+          source: tokens[index].id
         },
         {
-          stripe_account: rows[0]
+          stripe_account: stripe_acc
         }
       );
     } catch (err) {
       // Card invalid
       return res
         .status(400)
-        .send({ error: "Order was not processed successfully" });
+        .send({ error: "Something went wrong! Please check your card details" });
     }
 
     const postOrder = {
@@ -86,11 +97,13 @@ exports.submitOrder = async (req, res) => {
       ]
     };
     postOrders.push(postOrder);
+
+    index++;
   }
-  for (var post in postOrders) {
-    await db.query(post);
-  }
-  return res.status(200).send({ success: "Order was processed successfully" });
+  postOrders.forEach(async (post) => {
+    await db.query(post)
+  })
+  return res.status(200).send({ success: "Order submitted successfully!" });
 };
 
 exports.acceptOrder = async (req, res) => {
