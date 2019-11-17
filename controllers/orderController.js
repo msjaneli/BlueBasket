@@ -37,34 +37,21 @@ exports.getAllOrdersByUser = async (req, res) => {
 
 exports.submitOrder = async (req, res) => {
   var uid = req.params.uid;
-  var cart = req.body.cart;
+  var orders = req.body.orders;
 
   var oid = Math.random()
     .toString(36)
     .substr(2, 20);
 
-  var orders = {}
-
-  cart.forEach(async item => {
-    if (!orders[item.rid]) {
-        orders = {
-          ...orders, 
-          [item.rid]: {
-            lids: [],
-            quantities: [],
-            notes: []
-          }
-      }
-    }
-    orders[item.rid].lids.push(item.lid);
-    orders[item.rid].quantities.push(item.quantity);
-    orders[item.rid].notes.push(item.note)
-  })
-
   for (var rid in orders) {
+    try {
+        // Create stripe charge for this rid 
+    } catch (err) {
+        // Card invalid
+    }
     const postOrder = {
-      text: "INSERT INTO orders VALUES($1, $2, $3, $4, $5, $6, $7)",
-      values: [oid, uid, rid, orders[rid].lids, orders[rid].quantities, orders[rid].notes, pending]
+      text: "INSERT INTO orders VALUES($1, $2, $3, $4, $5, $6, $7, $8)",
+      values: [oid, uid, rid, orders[rid].lids, orders[rid].quantities, orders[rid].notes, pending, orders[rid].total]
     }
     await db.query(postOrder);
   }
