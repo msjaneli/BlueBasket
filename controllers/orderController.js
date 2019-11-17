@@ -3,6 +3,9 @@ const db = require("../db");
 const pending = "pending",
   accepted = "accepted",
   cancelled = "cancelled";
+require("dotenv").config();
+const stripe_key = process.env.STRIPE_SKEY;
+const stripe = require("stripe")(stripe_key);
 
 exports.getAllCompletedOrders = async (req, res) => {
   const query = {
@@ -38,24 +41,56 @@ exports.getAllOrdersByUser = async (req, res) => {
 exports.submitOrder = async (req, res) => {
   var uid = req.params.uid;
   var orders = req.body.orders;
-
+  const token = req.body.stripeToken;
   var oid = Math.random()
     .toString(36)
     .substr(2, 20);
-
+  var postOrders = [];
   for (var rid in orders) {
     try {
-        // Create stripe charge for this rid 
+      // Create stripe charge for this rid
+      const getStripeAcc = {
+        text: "SELECT stripe_acc FROM restaurant_account WHERE rid = $1",
+        values: [rid]
+      };
+      const { rows } = await db.query(getStripeAcc);
+      await stripe.charges.create(
+        {
+          amount: orders[rid].total,
+          currency: "usd",
+          description: "Order for user " + str(uid),
+          source: token
+        },
+        {
+          stripe_account: rows[0]
+        }
+      );
     } catch (err) {
-        // Card invalid
+      // Card invalid
+      return res
+        .status(400)
+        .send({ error: "Order was not processed successfully" });
     }
+
     const postOrder = {
       text: "INSERT INTO orders VALUES($1, $2, $3, $4, $5, $6, $7, $8)",
-      values: [oid, uid, rid, orders[rid].lids, orders[rid].quantities, orders[rid].notes, pending, orders[rid].total]
-    }
-    await db.query(postOrder);
+      values: [
+        oid,
+        uid,
+        rid,
+        orders[rid].lids,
+        orders[rid].quantities,
+        orders[rid].notes,
+        pending,
+        orders[rid].total
+      ]
+    };
+    postOrders.push(postOrder);
   }
-  return res.status(200).send({ success: "Successfully submitted order" });
+  for (var post in postOrders) {
+    await db.query(post);
+  }
+  return res.status(200).send({ success: "Order was processed successfully" });
 };
 
 exports.acceptOrder = async (req, res) => {
