@@ -30,7 +30,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     submitOrder: (payload) => dispatch(submitOrder(payload)),
-    goToThankYou: () => dispatch(push('/checkout/thank-you')),
+    goToThankYou: () => dispatch(push('/checkout/thankyou')),
     clearCart: () => dispatch(clearCart())
 })
 
@@ -41,16 +41,17 @@ class CardCheckout extends Component {
     }
 
     submitOrder = async () => {
-        let tokens = []
+        let tokenGenResults = []
         for (var rid in this.props.orders) {
-            let { token } = await this.props.stripe.createToken();
-            tokens.push(token);
+            let result = await this.props.stripe.createToken();
+            console.log(result);
+            tokenGenResults.push(result);
         }
-        console.log(tokens);
         const payload = {
             uid: this.props.getUser.id,
             name: this.props.getUser.name,
-            stripeTokens: tokens,
+            email: this.props.getUser.email,
+            tokenGenResults: tokenGenResults,
             orders: this.props.orders
         }
 
@@ -64,6 +65,24 @@ class CardCheckout extends Component {
     }
 
     render () {
+
+        var style = {
+            base: {
+              color: '#303238',
+              fontSize: '16px',
+              fontFamily: '"Open Sans", sans-serif',
+              fontSmoothing: 'antialiased',
+              '::placeholder': {
+                color: '#CFD7DF',
+              },
+            },
+            invalid: {
+              color: '#e5424d',
+              ':focus': {
+                color: '#303238',
+              },
+            },
+          };
         
         const animationOptionsLoading = {
             loop: true,
@@ -89,7 +108,7 @@ class CardCheckout extends Component {
                         <Row className="checkout-card-form">
                             <Col>
                                 <label>Card Number</label>
-                                <CardNumberElement/>
+                                <CardNumberElement style={style} />
                             </Col>
                         </Row>
                         <Row className="checkout-card-form">

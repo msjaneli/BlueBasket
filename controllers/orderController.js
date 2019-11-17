@@ -39,18 +39,24 @@ exports.getAllOrdersByUser = async (req, res) => {
 };
 
 exports.submitOrder = async (req, res) => {
+  var initialError = false
+  req.body.tokenGenResults.forEach((result) => {
+    if (!isEmpty(result.error)) { 
+      initialError = true;
+      return res.status(400).send({error: result.error.message});
+    }
+  })
+  if (initialError) {
+    return;
+  }
   var uid = req.params.uid;
   var name = req.body.name;
-  const tokens = req.body.stripeTokens;
+  const tokens = req.body.tokenGenResults
   var orders = req.body.orders;
   var oid = Math.random()
     .toString(36)
     .substr(2, 20);
   var postOrders = [];
-
-  if (isEmpty(tokens)) {
-    return res.status(400).send({error: "Something went wrong! Please check your card details"})
-  }
 
   var index = 0;
   
@@ -70,7 +76,8 @@ exports.submitOrder = async (req, res) => {
           amount: Math.round(orders[rid].total * 1.0675 * 100),
           currency: "usd",
           description: "Order for user " + uid + ", " + name,
-          source: tokens[index].id
+          source: tokens[index].token.id,
+          receipt_email: req.body.email,
         },
         {
           stripe_account: stripe_acc
@@ -78,9 +85,10 @@ exports.submitOrder = async (req, res) => {
       );
     } catch (err) {
       // Card invalid
+      console.log(err);
       return res
         .status(400)
-        .send({ error: "Something went wrong! Please check your card details" });
+        .send({ error: err.code + ": " + err.message });
     }
 
     const postOrder = {
