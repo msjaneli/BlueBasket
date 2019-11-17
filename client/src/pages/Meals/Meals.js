@@ -45,7 +45,7 @@ class Meals extends Component {
       }
   }
 
-    let availableNow = isEmpty(this.state.restaurantListNow) ? <Lottie options={animationOptionsLoading} width={100} height={100}/>  
+    let availableNow = isEmpty(this.state.restaurantListNow) ? <Lottie options={animationOptionsLoading} width={100} height={100}/>
       : <Row>
           {this.state.restaurantListNow.map((restaurant, i) =>  {
             return (
@@ -55,7 +55,7 @@ class Meals extends Component {
           })}
         </Row>
 
-    let availableLater = isEmpty(this.state.restaurantListLater) ? <Lottie options={animationOptionsLoading} width={100} height={100}/>  
+    let availableLater = isEmpty(this.state.restaurantListLater) ? <Lottie options={animationOptionsLoading} width={100} height={100}/>
       : <Row>
           {this.state.restaurantListLater.map((restaurant, i) =>  {
             return (
@@ -68,7 +68,6 @@ class Meals extends Component {
     return (
       <Container>
         <Row>
-          <h1 id="title-available">Participating Restaurants</h1>
         </Row>
         <Row>
           <h2 id="subtitle-restaurant">Available Now</h2>
@@ -79,7 +78,7 @@ class Meals extends Component {
         </Row>
         {availableLater}
         <Row>
-          
+
         </Row>
       </Container>
     );

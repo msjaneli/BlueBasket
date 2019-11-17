@@ -4,7 +4,7 @@ import React, { Component } from "react";
 import { Button } from "react-bootstrap";
 
 // Actions
-import { logoutUser } from "../../actions/logout";
+import { logoutUser } from "../../actions/auth/logout";
 
 // Selectors
 import * as sessionSelectors from "../../selectors/sessionSelectors";

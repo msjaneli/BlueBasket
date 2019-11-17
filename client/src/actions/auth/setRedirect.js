@@ -1,4 +1,4 @@
-import { SET_AUTH_REDIRECT } from './actionTypes';
+import { SET_AUTH_REDIRECT } from '../actionTypes';
 
 export const setAuthRedirect = redirectUrl => dispatch => {
     dispatch({

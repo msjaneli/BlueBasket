@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import {Navbar, Nav, NavDropdown} from 'react-bootstrap';
 
 // Actions
-import { logoutUser } from '../../actions/logout';
+import { logoutUser } from '../../actions/auth/logout';
 
 // Tools
 import { connect } from 'react-redux';
@@ -33,7 +33,7 @@ class NavbarRestaurant extends Component {
                     <Nav.Link href="/meals" id="meals-menu-item">Meals</Nav.Link>
                 </Nav>
                 <Nav className = "ml-auto">
-                    <NavDropdown title={welcomeText} >
+                    <NavDropdown title={welcomeText} alignRight>
                         <NavDropdown.Item href="/profile/restaurant">Profile</NavDropdown.Item>
                         <NavDropdown.Divider />
                         <NavDropdown.Item onClick={() => this.props.logout()}>Logout</NavDropdown.Item>

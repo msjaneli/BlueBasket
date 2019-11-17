@@ -4,6 +4,7 @@ import '../../styles/meals.css';
 // Components
 import { Container, Row, Col, Alert } from 'react-bootstrap'
 import ListingCard from './ListingCard'
+import CartModal from './CartModal'
 
 // Tools 
 import axios from 'axios'
@@ -18,13 +19,16 @@ class ListingContainer extends Component {
 
         this.state = {
             noListingsFound: false,
-            liveListings: []
+            liveListings: [],
+            shownModal: {
+                key: null,
+            }
         }
     }
 
     componentDidMount = async () => {
         setTimeout(async () => {
-            const { data } = await axios.get('/listing/' + this.props.rid)
+            const { data } = await axios.get('/listing/all/' + this.props.rid)
             if (isEmpty(data)) {
                 this.setState({
                     noListingsFound: true
@@ -38,6 +42,22 @@ class ListingContainer extends Component {
 
     }
 
+    showModal = (key) => {
+        this.setState({
+            shownModal: {
+                key: key
+            }
+        })
+    }
+
+    hideModal = () => {
+        this.setState({
+            shownModal: {
+                key: null
+            }
+        })
+    }
+
     render() {
         if (isEmpty(this.state.liveListings) && !this.state.noListingsFound) {
             const animationOptionsLoading = {
@@ -48,7 +68,7 @@ class ListingContainer extends Component {
                   preserveAspectRatio: 'xMidYMid slice'
                 }
             }
-            return(<Lottie options={animationOptionsLoading} width ={200} height ={200}/>)
+            return(<Lottie options={animationOptionsLoading} width ={100} height ={100}/>)
         } else if (this.state.noListingsFound) {
             const animationOptionsError = {
                 loop: false,
@@ -75,10 +95,16 @@ class ListingContainer extends Component {
             return (
                 <Container> 
                     {this.state.liveListings.map((listing, i) => {
+                        return <CartModal key={i} restaurant = {this.props.name} listing={listing} show={this.state.shownModal.key===i} onHide={() => this.hideModal()}/>
+                    })}
+                    {this.state.liveListings.map((listing, i) => {
                         return(
-                            <Row>
-                                <Col>
-                                    <ListingCard listing = {listing}/>
+                            <Row key ={i}>
+                                <Col key = {i}>
+                                    {
+                                        listing.quantity === 0 ? null :                                     
+                                        <ListingCard key={i} keyId = {i} listing = {listing} showModal={(keyId) => this.showModal(keyId)}/>
+                                    }
                                 </Col>
                             </Row>
                         );

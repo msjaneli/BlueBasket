@@ -37,27 +37,22 @@ exports.getAllOrdersByUser = async (req, res) => {
 
 exports.submitOrder = async (req, res) => {
   var uid = req.params.uid;
-  var cart = req.params.cart;
+  var orders = req.body.orders;
 
   var oid = Math.random()
     .toString(36)
     .substr(2, 20);
 
-  var lids, quantities, notes, oid;
-
-  for (var rID in cart) {
-    lids = [];
-    quantities = [];
-    notes = [];
-    for (var listingOrder in rID.orders) {
-      lids.push(listingOrder.lid);
-      quantities.push(listingOrder.quantity);
-      notes.push(listingOrder.note);
+  for (var rid in orders) {
+    try {
+        // Create stripe charge for this rid 
+    } catch (err) {
+        // Card invalid
     }
     const postOrder = {
-      text: "INSERT INTO orders VALUES($1, $2, $3, $4, $5, $6, $7)",
-      values: [oid, uid, rID, lids, quantities, notes, pending]
-    };
+      text: "INSERT INTO orders VALUES($1, $2, $3, $4, $5, $6, $7, $8)",
+      values: [oid, uid, rid, orders[rid].lids, orders[rid].quantities, orders[rid].notes, pending, orders[rid].total]
+    }
     await db.query(postOrder);
   }
   return res.status(200).send({ success: "Successfully submitted order" });

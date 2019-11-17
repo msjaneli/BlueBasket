@@ -1,4 +1,4 @@
-import { LOGIN_FAILURE, RESET_AUTH_STATUS } from '../actions/actionTypes';
+import { LOGIN_FAILURE, RESET_AUTH_STATUS } from '../../actions/actionTypes';
 
 const loginStatusReducer = (state = '', action) => {
     switch (action.type) {

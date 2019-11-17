@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import '../../styles/navbar.css';
 
-// Components 
+// Components
 import {Navbar, Nav, NavDropdown} from 'react-bootstrap';
 
 // Actions
-import { logoutUser } from '../../actions/logout';
+import { logoutUser } from '../../actions/auth/logout';
 
 // Tools
 import { connect } from 'react-redux';
@@ -35,7 +35,8 @@ class NavbarUser extends Component {
                     <Nav.Link href="/donate" id="donate-menu-item">Donate</Nav.Link>
                 </Nav>
                 <Nav className = "ml-auto">
-                    <NavDropdown title={welcomeText} >
+                    <Nav.Link href="/cart">Cart</Nav.Link>
+                    <NavDropdown title={welcomeText} alignRight>
                         <NavDropdown.Item href="/profile/user">Profile</NavDropdown.Item>
                         <NavDropdown.Item href="/orders">Orders</NavDropdown.Item>
                         <NavDropdown.Divider />

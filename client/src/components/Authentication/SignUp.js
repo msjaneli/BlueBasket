@@ -5,7 +5,7 @@ import '../../styles/auth.css';
 import { Alert, Button, Form, Col} from 'react-bootstrap';
 
 // Actions
-import { signup } from '../../actions/signup';
+import { signup } from '../../actions/auth/signup';
 
 // Selectors
 import * as authSelectors from '../../selectors/authSelectors'

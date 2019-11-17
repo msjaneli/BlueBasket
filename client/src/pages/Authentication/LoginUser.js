@@ -1,21 +1,21 @@
 import React, { Component } from 'react';
+import '../../styles/auth.css';
 
 // Components
 import { Button, Card, Col, Row, Nav } from 'react-bootstrap';
 import FacebookLogin from '../../components/Authentication/Facebook';
-import '../../styles/auth.css';
-
-// Actions
 import Login from '../../components/Authentication/Login';
 import SignUp from '../../components/Authentication/SignUp';
-import { setAuthRedirect } from '../../actions/setRedirect'
-import { resetAuthStatus } from '../../actions/resetStatus';
+
+// Actions
+import { setAuthRedirect } from '../../actions/auth/setRedirect'
+import { resetAuthStatus } from '../../actions/auth/resetStatus';
 
 // Selectors
 import * as authSelectors from '../../selectors/authSelectors'
 import * as sessionSelectors from '../../selectors/sessionSelectors'
 
-// Tools 
+// Tools
 import isEmpty from '../../validation/isEmpty';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router'
@@ -31,7 +31,14 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   setAuthRedirect: redirectUrl => dispatch(setAuthRedirect(redirectUrl)),
   resetAuthStatus: () => dispatch(resetAuthStatus()),
-  goToRestaurantLogin: () => dispatch(push('/login/restaurant'))
+  goToRestaurantLogin: () => {
+    dispatch(resetAuthStatus());
+    dispatch(push('/login/restaurant'));
+  },
+  goToShelterLogin: () => {
+    dispatch(resetAuthStatus());
+    dispatch(push('/login/shelter'))
+  }
 })
 
 class LoginScreen extends Component {
@@ -42,9 +49,10 @@ class LoginScreen extends Component {
       username:'',
       password:'',
       loginscreen:[],
-      questionLabel: 'Don\'t have an account?', 
+      questionLabel: 'Don\'t have an account?',
       buttonLabel:'Sign up',
-      isLogin:true
+      isLogin:true,
+      type:'USER'
     }
   }
 
@@ -62,10 +70,10 @@ class LoginScreen extends Component {
     }
     else{
       var loginscreen=[];
-      loginscreen.push(<Login parentContext={this} loginHeader="Login to continue" isUser={true}/>);
+      loginscreen.push(<Login parentContext={this} loginHeader="Login to continue" type={this.state.type}/>);
       this.setState({
         loginscreen:loginscreen,
-        questionLabel: 'Don\'t have an account?', 
+        questionLabel: 'Don\'t have an account?',
         buttonLabel:"Sign Up",
         isLogin:true
       })
@@ -74,10 +82,10 @@ class LoginScreen extends Component {
 
   goToLogin = () => {
     var loginscreen=[];
-      loginscreen.push(<Login parentContext={this} loginHeader="Login to continue" isUser={true}/>);
+      loginscreen.push(<Login parentContext={this} loginHeader="Login to continue" type={this.state.type}/>);
       this.setState({
         loginscreen:loginscreen,
-        questionLabel: 'Don\'t have an account?', 
+        questionLabel: 'Don\'t have an account?',
         buttonLabel:"Sign Up",
         isLogin:true
       })
@@ -93,9 +101,10 @@ class LoginScreen extends Component {
   }
 
   componentDidMount = () => {
+    window.scrollTo(0, 0)
     var loginscreen=[];
     this.setRedirectUrl();
-    loginscreen.push(<Login parentContext={this} appContext={this.props.parentContext} loginHeader="Login to continue" isUser={true}/>);
+    loginscreen.push(<Login parentContext={this} appContext={this.props.parentContext} loginHeader="Login to continue" type={this.state.type}/>);
     this.setState({
       loginscreen:loginscreen,
     })
@@ -125,6 +134,9 @@ class LoginScreen extends Component {
                     <Row className = "justify-content-center" style={{marginTop: '2.2rem'}}>
                       <p className="switchText">Own a restaurant? Login<Button variant = "authLink" className="changeAuthMode" onClick={() => this.props.goToRestaurantLogin()}>here</Button></p>
                     </Row>
+                    <Row className="justify-content-center" style={{marginTop: '-1.5rem'}}>
+                      <p className="switchText">Own a shelter? Login<Button variant = "authLink" className="changeAuthMode" onClick={() => this.props.goToShelterLogin()}>here</Button></p>
+                    </Row>
                     </Col>
                     <Col md={7}>
                     {this.state.loginscreen}
@@ -141,8 +153,8 @@ class LoginScreen extends Component {
                           </div>
                       </div>
                         <FacebookLogin />
-                        <p className = "switchText">{this.state.questionLabel}<Button variant = "authLink" className="changeAuthMode" onClick={() => this.handleClick()}> { this.state.buttonLabel } </Button> </p>  
-            
+                        <p className = "switchText">{this.state.questionLabel}<Button variant = "authLink" className="changeAuthMode" onClick={() => this.handleClick()}> { this.state.buttonLabel } </Button> </p>
+
                         <style type="text/css">
                         {`
                           .btn-authLink {
@@ -154,17 +166,17 @@ class LoginScreen extends Component {
                             border-decoration: none;
                             margin-top: 1px;
                           }
-            
+
                           .btn:focus,.btn:active {
                             outline: none !important;
                             box-shadow: none;
                           }
-            
+
                           .btn-authLink:hover {
                             color: cornflowerblue;
                           }
                         `}
-                    </style>             
+                    </style>
                     </Col>
                     </Col>
                   </Row>

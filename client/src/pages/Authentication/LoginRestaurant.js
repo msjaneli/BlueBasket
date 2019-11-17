@@ -6,7 +6,7 @@ import Login from '../../components/Authentication/Login';
 import { Card, Col, Row } from 'react-bootstrap';
 
 // Actions
-import { setAuthRedirect } from '../../actions/setRedirect'
+import { setAuthRedirect } from '../../actions/auth/setRedirect'
 import * as sessionSelectors from '../../selectors/sessionSelectors'
 
 // Tools
@@ -53,7 +53,7 @@ class LoginRestaurant extends Component {
               preserveAspectRatio: 'xMidYMid slice'
         }
 
-        return (       
+        return (
             <div>
                     <div className = "authContainer" >
                         <Row className ="justify-content-center">
@@ -68,7 +68,7 @@ class LoginRestaurant extends Component {
                                         <Lottie options = {animationOptionsFood} width = {225} height = {225} />
                                     </Col>
                                     <Col md={7}>
-                                        <Login loginHeader="Restaurant login" isUser={false}/>
+                                        <Login loginHeader="Restaurant login" type={"RESTAURANT"}/>
                                     </Col>
                                 </Row>
                                 </Card.Body>

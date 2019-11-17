@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 // Components
-import { logoutUser } from '../actions/logout'
+import { logoutUser } from '../actions/auth/logout'
 import { Button } from 'react-bootstrap'
 
 // Selectors
