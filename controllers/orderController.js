@@ -3,6 +3,9 @@ const db = require("../db");
 const pending = "pending",
   accepted = "accepted",
   cancelled = "cancelled";
+require("dotenv").config();
+const stripe_key = process.env.STRIPE_SKEY;
+const stripe = require("stripe")(stripe_key);
 
 exports.getAllCompletedOrders = async (req, res) => {
   const query = {
@@ -36,39 +39,79 @@ exports.getAllOrdersByUser = async (req, res) => {
 };
 
 exports.submitOrder = async (req, res) => {
+  var initialError = false
+  req.body.tokenGenResults.forEach((result) => {
+    if (!isEmpty(result.error)) { 
+      initialError = true;
+      return res.status(400).send({error: result.error.message});
+    }
+  })
+  if (initialError) {
+    return;
+  }
   var uid = req.params.uid;
-  var cart = req.body.cart;
-
+  var name = req.body.name;
+  const tokens = req.body.tokenGenResults
+  var orders = req.body.orders;
   var oid = Math.random()
     .toString(36)
     .substr(2, 20);
+  var postOrders = [];
 
-  var orders = {}
-
-  cart.forEach(async item => {
-    if (!orders[item.rid]) {
-        orders = {
-          ...orders, 
-          [item.rid]: {
-            lids: [],
-            quantities: [],
-            notes: []
-          }
-      }
-    }
-    orders[item.rid].lids.push(item.lid);
-    orders[item.rid].quantities.push(item.quantity);
-    orders[item.rid].notes.push(item.note)
-  })
-
+  var index = 0;
+  
   for (var rid in orders) {
-    const postOrder = {
-      text: "INSERT INTO orders VALUES($1, $2, $3, $4, $5, $6, $7)",
-      values: [oid, uid, rid, orders[rid].lids, orders[rid].quantities, orders[rid].notes, pending]
+    try {
+      // Create stripe charge for this rid
+      const getStripeAcc = {
+        text: "SELECT stripe_acc FROM restaurant_account WHERE rid = $1",
+        values: [rid]
+      };
+      const { rows } = await db.query(getStripeAcc);
+      const stripe_acc = rows[0].stripe_acc;
+
+
+      await stripe.charges.create(
+        {
+          amount: Math.round(orders[rid].total * 1.0675 * 100),
+          currency: "usd",
+          description: "Order for user " + uid + ", " + name,
+          source: tokens[index].token.id,
+          receipt_email: req.body.email,
+        },
+        {
+          stripe_account: stripe_acc
+        }
+      );
+    } catch (err) {
+      // Card invalid
+      console.log(err);
+      return res
+        .status(400)
+        .send({ error: err.code + ": " + err.message });
     }
-    await db.query(postOrder);
+
+    const postOrder = {
+      text: "INSERT INTO orders VALUES($1, $2, $3, $4, $5, $6, $7, $8)",
+      values: [
+        oid,
+        uid,
+        rid,
+        orders[rid].lids,
+        orders[rid].quantities,
+        orders[rid].notes,
+        pending,
+        orders[rid].total
+      ]
+    };
+    postOrders.push(postOrder);
+
+    index++;
   }
-  return res.status(200).send({ success: "Successfully submitted order" });
+  postOrders.forEach(async (post) => {
+    await db.query(post)
+  })
+  return res.status(200).send({ success: "Order submitted successfully!" });
 };
 
 exports.acceptOrder = async (req, res) => {

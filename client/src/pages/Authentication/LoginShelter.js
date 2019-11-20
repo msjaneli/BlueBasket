@@ -69,7 +69,7 @@ class LoginShelter extends Component {
                                         <Lottie options = {animationOptionsFood} width = {225} height = {225} />
                                     </Col>
                                     <Col md={7}>
-                                        <Login loginHeader="Shelter login" type={this.type}/>
+                                        <Login loginHeader="Shelter login" type={"SHELTER"}/>
                                     </Col>
                                 </Row>
                                 </Card.Body>

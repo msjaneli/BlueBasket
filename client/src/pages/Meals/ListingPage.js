@@ -8,7 +8,7 @@ import ListingContainer from '../../components/Meals/ListingContainer'
 // Tools
 import axios from 'axios'
 import Lottie from 'react-lottie'
-import loadingAnimationData from '../../resources/lotties/loading/10912-loading.json'
+import loadingAnimationData from '../../resources/lotties/loading/117-progress-bar.json'
 import isEmpty from '../../validation/isEmpty'
 
 class ListingPage extends Component {

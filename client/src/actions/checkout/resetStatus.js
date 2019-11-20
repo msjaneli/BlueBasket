@@ -1,6 +1,6 @@
 import { RESET_CHECKOUT_STATUS } from '../actionTypes'
 
-export const resetCheckoutStatus = () => dispatch => {
+export default () => dispatch => {
     dispatch({
         type: RESET_CHECKOUT_STATUS
     })

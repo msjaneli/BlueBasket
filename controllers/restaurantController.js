@@ -150,7 +150,7 @@ exports.login = async (req, res) => {
     rid = rows[0].rid;
   }
 
-  // Facebook user has no stored password or no user found, so this authentication route should not let them log in.
+  // No email found 
   if (isEmpty(rows)) {
     return res.status(400).json({ error: "Email or Password is Invalid" });
   }

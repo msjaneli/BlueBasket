@@ -34,6 +34,10 @@
   display: inline;
 }
 
+.nav-link {
+  margin: auto;
+}
+
 .btn-login-nav {
   height: 44px;
   font-weight: bold;

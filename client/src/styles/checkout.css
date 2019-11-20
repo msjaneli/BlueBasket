@@ -1,0 +1,24 @@
+.cart-page-card {
+    margin: 0.25rem;
+}
+
+.option-button {
+    margin: 20px;
+}
+
+.checkout-card-form {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.cart-title {
+  font-family: 'Muli', sans-serif;
+  font-size: 4vh;
+  font-weight: 700;
+}
+
+.cart-restauraunt-name {
+  font-family: 'Muli', sans-serif;
+  font-size: 3vh;
+  color: #5282FF;
+}
