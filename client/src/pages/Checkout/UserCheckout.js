@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../../styles/checkout.css'
 
-// Component 
+// Component
 import { Container, Row, Col, Card, Button, Alert } from 'react-bootstrap';
 import CardCheckout from '../../components/Checkout/CardCheckout'
 
@@ -19,7 +19,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-   
+
 })
 
 class UserCheckout extends Component {
@@ -38,14 +38,41 @@ class UserCheckout extends Component {
             <Card body>
                 <Row>
                     <Col>
-                        <Button onClick={() => this.setState({paymentType: 'CARD'})}className="option-button" >Debit/Credit Card</Button>
+                        <Button onClick={() => this.setState({paymentType: 'CARD'})} className="option-button" variant="debitcredit">Debit/Credit Card</Button>
                     </Col>
                 </Row>
                 <Row>
                     <Col>
-                        <Button onClick={() => this.setState({paymentType: 'FOOD_POINTS'})} className="option-button">Food Points (Duke Student)</Button>
+                        <Button onClick={() => this.setState({paymentType: 'FOOD_POINTS'})} className="option-button" variant="foodpoints">Food Points (Duke Student)</Button>
                     </Col>
                 </Row>
+                <style type="text/css">
+                    {`
+                        .btn-debitcredit {
+                            background-color: #a3bdff;
+                            color: white;
+                            font-weight: 400;
+                            margin-top: 2vh;
+                        }
+
+                        .btn-debitcredit:hover {
+                            background-color: #a3bdff;
+                            color: white;
+                        }
+
+                        .btn-foodpoints {
+                            background-color: #5282FF;
+                            color: white;
+                            font-weight: 400;
+                            margin-top: 2vh;
+                        }
+
+                        .btn-foodpoints:hover {
+                            background-color: #5282FF;
+                            color: white;
+                        }
+                    `}
+                    </style>
             </Card>
         )
 
@@ -88,7 +115,7 @@ class UserCheckout extends Component {
                                 <Col className ="text-left">
                                 <p>Subtotal: ${this.props.subtotal}</p>
                                 <p>Tax: ${(this.props.subtotal * 0.0675).toFixed(2)}</p>
-                                <p>Total: ${(this.props.subtotal * 1.0675).toFixed(2)}</p>                                    
+                                <p>Total: ${(this.props.subtotal * 1.0675).toFixed(2)}</p>
                                 </Col>
                             </Row>
                     </Col>
@@ -148,7 +175,7 @@ class UserCheckout extends Component {
                 </Container>
             )
         }
-        
+
     }
 }
 
