@@ -5,9 +5,6 @@ import '../../styles/checkout.css'
 import { Container, Row, Col, Card, Button, Alert } from 'react-bootstrap';
 import CardCheckout from '../../components/Checkout/CardCheckout'
 
-// Actions
-import resetCheckoutStatus  from '../../actions/checkout/resetStatus'
-
 // Selectors
 import * as checkoutSelectors from '../../selectors/checkoutSelectors'
 
