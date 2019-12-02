@@ -5,7 +5,7 @@ import '../../styles/checkout.css'
 import { Container, Row, Col, Card, Button, Alert } from 'react-bootstrap';
 import { CardNumberElement, CardCVCElement, CardExpiryElement} from 'react-stripe-elements'
 
-// Selectors 
+// Selectors
 import * as sessionSelectors from '../../selectors/sessionSelectors'
 import * as checkoutSelectors from '../../selectors/checkoutSelectors'
 
@@ -83,7 +83,7 @@ class CardCheckout extends Component {
               },
             },
           };
-        
+
         const animationOptionsLoading = {
             loop: true,
             autoplay: true,
@@ -95,12 +95,13 @@ class CardCheckout extends Component {
         let loadingAnimation = this.props.isLoading ? <Lottie options={animationOptionsLoading} width={50} height={50}/> : null
 
         return (
-            <Container>
+          <Card>
+            <Container className="card-checkout">
                 <Row>
                     <Col className="text-left">
                         <Row>
                             <Col>
-                            <h3>Checkout with Card</h3>
+                            <h3 className='card-checkout-title'>Checkout with Card</h3>
                             </Col>
                         </Row>
                         {loadingAnimation}
@@ -127,13 +128,29 @@ class CardCheckout extends Component {
                 </Row>
                 <Row>
                     <Col className="text-left">
-                        <Button onClick={() => this.submitOrder()}>
+                        <Button onClick={() => this.submitOrder()} variant="submit-order">
                             Confirm Order
                         </Button>
+                        <style type="text/css">
+                            {`
+                              .btn-submit-order {
+                                  background-color: #5282FF;
+                                  color: white;
+                                  font-weight: 400;
+                                  margin-top: 2vh;
+                              }
+
+                              .btn-submit-order:hover {
+                                  background-color: #a3bdff;
+                                  color: white;
+                              }
+                            `}
+                        </style>
                     </Col>
                 </Row>
 
             </Container>
+            </Card>
         )
     }
 
