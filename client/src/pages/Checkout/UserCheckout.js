@@ -5,9 +5,6 @@ import '../../styles/checkout.css'
 import { Container, Row, Col, Card, Button, Alert } from 'react-bootstrap';
 import CardCheckout from '../../components/Checkout/CardCheckout'
 
-// Actions
-import resetCheckoutStatus  from '../../actions/checkout/resetStatus'
-
 // Selectors
 import * as checkoutSelectors from '../../selectors/checkoutSelectors'
 
@@ -52,7 +49,7 @@ class UserCheckout extends Component {
                 <style type="text/css">
                     {`
                         .btn-debitcredit {
-                            background-color: #a3bdff;
+                            background-color: #5282FF;
                             color: white;
                             font-weight: 400;
                             margin-top: 2vh;
@@ -71,7 +68,7 @@ class UserCheckout extends Component {
                         }
 
                         .btn-foodpoints:hover {
-                            background-color: #5282FF;
+                            background-color: #a3bdff;
                             color: white;
                         }
                     `}
@@ -89,22 +86,23 @@ class UserCheckout extends Component {
                                     <Col className = "text-left">
                                         <Row>
                                             <Col>
-                                                <h5>{this.props.orders[rid].restaurant}</h5>
+                                                <h5 className="checkout-restauraunt-title">{this.props.orders[rid].restaurant}</h5>
                                             </Col>
                                         </Row>
                                         {
                                             this.props.orders[rid].lids.map((lid, index) => {
                                                 return (
+                                                  <Card className="checkout-item-card">
                                                     <Row key = {index}>
                                                         <Col>
-                                                        <li>{this.props.orders[rid].names[index]}</li>
-                                                        <ul>
-                                                            <li>Quantity: {this.props.orders[rid].quantities[index]}</li>
-                                                            <li>Price: {this.props.orders[rid].prices[index]}</li>
-                                                            <li>Note: {this.props.orders[rid].notes[index]}</li>
-                                                        </ul>
+                                                        <h3 className="checkout-item-title">{this.props.orders[rid].names[index]}</h3>
+                                                        <h4 className="checkout-item-details">Quantity: {this.props.orders[rid].quantities[index]} |
+                                                            Price: ${this.props.orders[rid].prices[index]}</h4>
+                                                        <h4 className="checkout-item-note">Note: {this.props.orders[rid].notes[index]}</h4>
+
                                                         </Col>
                                                     </Row>
+                                                    </Card>
                                                 )
                                             })
                                         }
@@ -115,7 +113,7 @@ class UserCheckout extends Component {
                 <Row>
                     <Col className="text-left">
                             <Row>
-                                <Col className ="text-left">
+                                <Col className ="text-left checkout-total">
                                 <p>Subtotal: ${this.props.subtotal}</p>
                                 <p>Tax: ${(this.props.subtotal * 0.0675).toFixed(2)}</p>
                                 <p>Total: ${(this.props.subtotal * 1.0675).toFixed(2)}</p>
