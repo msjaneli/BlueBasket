@@ -1,7 +1,10 @@
 import React, { Component } from "react";
+import '../../styles/profile.css'
 
 // Components
 import { Button } from "react-bootstrap";
+import { Alert } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 
 // Actions
 import { logoutUser } from "../../actions/auth/logout";
@@ -28,18 +31,27 @@ class Profile extends Component {
 
   render() {
     return (
-      <div>
-        <h3>Welcome {this.props.user.name} !</h3>
-        <h4> RestaurantID: {this.props.user.id}</h4>
-        <h5>{this.props.authenticated ? "You are authenticated" : "Error"}</h5>
-        <p>
-          Thank you for joining our movement to fight food waste and serve the
-          community!{" "}
-        </p>
-        <Button variant="outline-primary" onClick={() => this.props.logout()}>
-          Logout
-        </Button>
-      </div>
+      <Card className="profile-card">
+          <h3 className="profile-hello">Welcome {this.props.user.name}</h3>
+          <h4 className="profile-userID"> RestaurauntID: {this.props.user.id}</h4>
+          <div className="profile-auth">{this.props.authenticated ? <Alert variant='success'>You are authenticated.</Alert>: <Alert variant='error'>Your account has not been authenticated.</Alert>}</div>
+          <Button className="profile-logout" variant="profile-logout" onClick={() => this.props.logout()}>Logout</Button>
+          <style type="text/css">
+              {`
+                  .btn-profile-logout {
+                      background-color: #5282FF;
+                      color: white;
+                      font-weight: 400;
+                      margin-top: 2vh;
+                  }
+
+                  .btn-profile-logout:hover {
+                      background-color: #a3bdff;
+                      color: white;
+                  }
+              `}
+              </style>
+      </Card>
     );
   }
 }
