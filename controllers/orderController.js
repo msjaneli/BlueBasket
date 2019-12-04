@@ -38,10 +38,32 @@ exports.getAllOrdersByUser = async (req, res) => {
   return res.status(200).send(rows);
 };
 
+exports.getCurrentOrdersByUser = async (req, res) => {
+  var uid = req.params.uid;
+
+  const query = {
+    text: "SELECT * FROM orders WHERE uid = $1 AND status='pending'",
+    values: [uid]
+  };
+  const { rows } = await db.query(query);
+  return res.status(200).send(rows);
+};
+
+exports.getPastOrdersByUser = async (req, res) => {
+  var uid = req.params.uid;
+
+  const query = {
+    text: "SELECT * FROM orders WHERE uid = $1 AND NOT(status='pending')",
+    values: [uid]
+  };
+  const { rows } = await db.query(query);
+  return res.status(200).send(rows);
+};
+
 exports.submitOrder = async (req, res) => {
   var initialError = false
   req.body.tokenGenResults.forEach((result) => {
-    if (!isEmpty(result.error)) { 
+    if (!isEmpty(result.error)) {
       initialError = true;
       return res.status(400).send({error: result.error.message});
     }
@@ -59,7 +81,7 @@ exports.submitOrder = async (req, res) => {
   var postOrders = [];
 
   var index = 0;
-  
+
   for (var rid in orders) {
     try {
       // Create stripe charge for this rid
