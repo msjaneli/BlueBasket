@@ -1,0 +1,28 @@
+.order-card{
+  width: 80vw;
+  margin: auto;
+  font-family: 'Muli', sans-serif;
+  font-size: 1.2vw;
+  padding: 1.3vw;
+}
+
+.user-order-card-restaurant {
+  font-weight: 700;
+  font-size: 1.5vw;
+  color: #5282FF;
+}
+
+.user-order-card-name {
+  font-weight: 700;
+  font-size: 1.3vw;
+}
+
+.user-order-card-details {
+  color: #AFAFAF;
+  font-size: 1.2vw;
+}
+
+.user-order-card-note {
+  color: #C9D8FE;
+  font-size: 1.2vw;
+}

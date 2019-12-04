@@ -11,6 +11,10 @@ router.get("/restaurant/:rid/completed", orderController.getCompletedOrdersByRes
 
 router.get("/user/:uid", orderController.getAllOrdersByUser);
 
+router.get("/user/current/:uid", orderController.getCurrentOrdersByUser);
+
+router.get("/user/past/:uid", orderController.getPastOrdersByUser);
+
 router.post("/:uid/submit", orderController.submitOrder);
 
 router.put("/:oid/:rid/accept", orderController.acceptOrder);

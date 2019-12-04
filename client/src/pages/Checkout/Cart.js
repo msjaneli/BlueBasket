@@ -220,17 +220,17 @@ class Cart extends Component {
                 <Col><Button onClick={() => this.props.goToMeals()} variant="checkout-add">+ Add more meals</Button></Col>
                 <style type="text/css">
                     {`
-                        .btn-checkout-add {
-                            background-color: cornflowerblue;
-                            color: white;
-                            font-weight: 400;
-                            margin-top: 2vh;
-                        }
+                      .btn-checkout-add {
+                          background-color: #5282FF;
+                          color: white;
+                          font-weight: 400;
+                          margin-top: 2vh;
+                      }
 
-                        .btn-checkout-add:hover {
-                            background-color: cornflowerblue;
-                            color: white;
-                        }
+                      .btn-checkout-add:hover {
+                          background-color: #a3bdff;
+                          color: white;
+                      }
                     `}
                     </style>
                 </Row>
@@ -243,17 +243,17 @@ class Cart extends Component {
                         {checkoutButtons}
                         <style type="text/css">
                             {`
-                                .btn-checkout {
-                                    background-color: cornflowerblue;
-                                    color: white;
-                                    font-weight: 400;
-                                    margin-top: 2vh;
-                                }
+                              .btn-checkout {
+                                  background-color: #5282FF;
+                                  color: white;
+                                  font-weight: 400;
+                                  margin-top: 2vh;
+                              }
 
-                                .btn-checkout:hover {
-                                    background-color: cornflowerblue;
-                                    color: white;
-                                }
+                              .btn-checkout:hover {
+                                  background-color: #a3bdff;
+                                  color: white;
+                              }
                             `}
                             </style>
                     </Col>
