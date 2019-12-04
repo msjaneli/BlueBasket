@@ -34,6 +34,63 @@
   margin-left: 38vw;
 }
 
+#checkout-thankyou-container {
+  margin-top: 8vh;
+  margin-left: 4vw;
+}
+
+#thankyou-caption {
+  font-family: 'Muli', sans-serif;
+  font-size: 1.3vw;
+  padding-top: 8vh;
+  z-index: 1;
+  position: absolute;
+  float: left;
+  width: 53vw;
+  text-align: left;
+}
+
+#pickup-title {
+  z-index: 1;
+  position: absolute;
+  float: left;
+  font-family: 'Muli', sans-serif;
+  font-weight: 700;
+  font-size: 1.7vw;
+  padding-top: 30vh;
+  color: #414141;
+}
+
+#pickup-location {
+  z-index: 1;
+  position: absolute;
+  float: left;
+  font-family: 'Muli', sans-serif;
+  font-size: 1.3vw;
+  padding-top: 44vh;
+  color: #414141;
+}
+
+#pickup-time {
+  z-index: 1;
+  position: absolute;
+  float: left;
+  font-family: 'Muli', sans-serif;
+  font-size: 1.3vw;
+  padding-top: 40vh;
+  color: #414141;
+}
+
+#pickup-map {
+  z-index: 3;
+  height: 50vh;
+  position: absolute;
+  margin-top: 0vh;
+  margin-left: 0vw;
+  margin-right: 100vw;
+  border-radius: 2vh;
+}
+
 .highlight {
   display: inline;
   color: #89BBFE;
