@@ -6,6 +6,7 @@ const restaurant = require("./restaurant");
 const listing = require("./listing");
 const order = require("./order");
 const shelter = require("./shelter");
+const donation = require("./donation");
 
 module.exports = app => {
   app.use("/test", test);
@@ -14,4 +15,5 @@ module.exports = app => {
   app.use("/listing", listing);
   app.use("/order", order);
   app.use("/shelter", shelter);
+  app.use("/donation", donation);
 };

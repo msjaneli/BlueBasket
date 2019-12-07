@@ -70,10 +70,13 @@ exports.updateDescription = async (req, res) => {
     text: "UPDATE shelters SET description = $1 WHERE sid = $2",
     values: [description, sid]
   };
-  const { rows } = await db.query(updateDesc);
-  if (isEmpty(rows))
+  try {
+    await db.query(updateDesc);
+  } catch (err) {
+    console.log(err);
     return res
       .status(400)
-      .send({ error: "Unsuccessful in updating description" });
+      .send({ error: "Unsucessful in updating description" });
+  }
   return res.status(200).send({ success: "Successfully updated description" });
 };
