@@ -28,67 +28,34 @@ exports.getCompletedOrdersByRestaurantId = async (req, res) => {
   return res.status(200).send(rows);
 };
 
-exports.getAllOrdersByUser = async (req, res) => {
-  var uid = req.params.uid;
+exports.getAllOrdersByID = async (req, res) => {
+  var id = req.params.id;
 
   const query = {
     text: "SELECT * FROM orders WHERE uid = $1",
-    values: [uid]
+    values: [id]
   };
   const { rows } = await db.query(query);
   return res.status(200).send(rows);
 };
 
-exports.getAllOrdersByShelter = async (req, res) => {
-  var sid = req.params.sid;
-
-  const query = {
-    text: "SELECT * FROM orders WHERE uid = $1",
-    values: [sid]
-  };
-  const { rows } = await db.query(query);
-  return res.status(200).send(rows);
-};
-
-exports.getCurrentOrdersByUser = async (req, res) => {
-  var uid = req.params.uid;
+exports.getCurrentOrdersByID = async (req, res) => {
+  var id = req.params.id;
 
   const query = {
     text: "SELECT * FROM orders WHERE uid = $1 AND status='pending'",
-    values: [uid]
+    values: [id]
   };
   const { rows } = await db.query(query);
   return res.status(200).send(rows);
 };
 
-exports.getCurrentOrdersByShelter = async (req, res) => {
-  var sid = req.params.sid;
-
-  const query = {
-    text: "SELECT * FROM orders WHERE uid = $1 AND status='pending'",
-    values: [sid]
-  };
-  const { rows } = await db.query(query);
-  return res.status(200).send(rows);
-};
-
-exports.getPastOrdersByUser = async (req, res) => {
-  var uid = req.params.uid;
+exports.getPastOrdersByID = async (req, res) => {
+  var id = req.params.id;
 
   const query = {
     text: "SELECT * FROM orders WHERE uid = $1 AND NOT(status='pending')",
-    values: [uid]
-  };
-  const { rows } = await db.query(query);
-  return res.status(200).send(rows);
-};
-
-exports.getPastOrdersByShelter = async (req, res) => {
-  var sid = req.params.sid;
-
-  const query = {
-    text: "SELECT * FROM orders WHERE uid = $1 AND NOT(status='pending')",
-    values: [sid]
+    values: [id]
   };
   const { rows } = await db.query(query);
   return res.status(200).send(rows);
