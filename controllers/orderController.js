@@ -115,7 +115,7 @@ exports.submitOrderUser = async (req, res) => {
   var postOrders = [];
 
   var index = 0;
-  const timestamp = Date.parse(moment().format("YYYY/MM/D hh:mm:ss"));
+  const timestamp = moment().format("YYYY/MM/D hh:mm:ss A");
   for (var rid in orders) {
     try {
       // Create stripe charge for this rid
@@ -145,7 +145,7 @@ exports.submitOrderUser = async (req, res) => {
     }
 
     const postOrder = {
-      text: "INSERT INTO orders VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)",
+      text: "INSERT INTO orders VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)",
       values: [
         oid,
         uid,
@@ -155,7 +155,8 @@ exports.submitOrderUser = async (req, res) => {
         orders[rid].notes,
         pending,
         orders[rid].total,
-        timestamp
+        timestamp,
+        'CARD',
       ]
     };
     postOrders.push(postOrder);
