@@ -1,0 +1,29 @@
+.profile-hello {
+  margin-top: 10vh;
+  font-family: 'Muli', sans-serif;
+  font-size: 2vw;
+  font-weight: 700;
+}
+
+.profile-card{
+  width: 50vw;
+  margin: auto;
+  margin-top: 10vh;
+}
+
+.profile-auth {
+  width: 30vw;
+  margin:auto;
+}
+
+.profile-userID {
+  font-family: 'Muli', sans-serif;
+  font-size: 1.3vw;
+  color: #AFAFAF;
+}
+
+.profile-logout {
+  width: 10vw;
+  margin: auto;
+  margin-bottom: 10vh;
+}

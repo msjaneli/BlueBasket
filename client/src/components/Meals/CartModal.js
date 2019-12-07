@@ -9,10 +9,10 @@ import NumericInput from 'react-numeric-input';
 import addToCart from '../../actions/checkout/addToCart'
 import resetCheckoutStatus from '../../actions/checkout/resetStatus'
 
-// Selectors 
+// Selectors
 import * as checkoutSelectors from '../../selectors/checkoutSelectors'
 
-// Tools 
+// Tools
 import isEmpty from '../../validation/isEmpty'
 import Lottie from 'react-lottie'
 import loadingAnimationData from '../../resources/lotties/loading/117-progress-bar.json'
@@ -95,7 +95,7 @@ class CartModal extends Component {
         let cartErrorMessage = !isEmpty(this.props.cartStatus) ? <Alert variant = 'danger'>{this.props.cartStatus}</Alert> : null
 
         let loading = this.props.isLoading ? <Lottie options = {animationOptionsLoading} width={200} height={200} style={{marginTop: '-60px', marginBottom: '-60px'}}/> : null
-           
+
         return (
             <Modal
             {...this.props}
@@ -105,20 +105,20 @@ class CartModal extends Component {
             >
                 <Modal.Header closeButton>
                     <Modal.Title id="contained-modal-title-vcenter">
-                    {this.props.listing.name}
+                    Add to Cart
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     {cartErrorMessage}
                     {loading}
-                    <h4>{this.props.listing.type}</h4>
+                    <p className="listing-name">{this.props.listing.name}</p>
+                    <p className="listing-type">{this.props.listing.type}</p><p className="allergens">Allergens/Restrictions: {this.props.listing.allergens}</p>
+                    <p className="listing-quantity"> Remaining: {this.props.listing.quantity}</p>
                     <p>
                     {this.props.listing.description}
                     </p>
-                    <p>
-                    Quantity Remaining: {this.props.listing.quantity}
-                    </p>
-                    <NumericInput name="quantity" min = {1} precision={0} value={this.state.quantity}  onChange={(valueAsNumber) => this.changeQuantity(valueAsNumber)}/>
+                    Quantity: <NumericInput name="quantity" min = {1} precision={0} value={this.state.quantity}  onChange={(valueAsNumber) => this.changeQuantity(valueAsNumber)}/>
+                    <br/>
                     <br/>
                     <label>Add a note:</label>
                     <InputGroup>
@@ -126,8 +126,27 @@ class CartModal extends Component {
                     </InputGroup>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button onClick={() => this.hideAndReset()}>Cancel</Button>
-                    <Button onClick={() => this.attemptCartAdd()}>Add to Cart</Button>
+                    <Button className="cart-modal-cancel" onClick={() => this.hideAndReset()} variant="cancel">Cancel</Button>
+                    <Button className="cart-modal-submit" onClick={() => this.attemptCartAdd()} variant="cart">Add to Cart</Button>
+                    <style type="text/css">
+                        {`
+                            .btn-cart {
+                                background-color: cornflowerblue;
+                                color: white;
+                                font-weight: 400;
+                                width: 8rem;
+                            }
+
+                            .btn-cart:hover {
+                                background-color: cornflowerblue;
+                                color: white;
+                            }
+
+                            .btn-cancel:hover {
+                              color: #ff8a75;
+                            }
+                        `}
+                        </style>
                 </Modal.Footer>
             </Modal>
         )

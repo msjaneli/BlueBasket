@@ -5,3 +5,72 @@
 .option-button {
     margin: 20px;
 }
+
+.checkout-card-form {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.cart-title {
+  font-family: 'Muli', sans-serif;
+  font-size: 4vh;
+  font-weight: 700;
+}
+
+.cart-restauraunt-name {
+  font-family: 'Muli', sans-serif;
+  font-size: 3vh;
+  color: #5282FF;
+}
+body {
+  font-family: 'Muli', sans-serif;
+}
+
+.card-checkout-title {
+  font-family: 'Muli', sans-serif;
+  font-size: 2vw;
+  font-weight: 700;
+}
+
+.card-checkout {
+  margin: 5vh;
+}
+
+.checkout-item-card {
+  margin-bottom: 3vh;
+}
+
+.checkout-item-title {
+  font-family: 'Muli', sans-serif;
+  font-size: 1.3vw;
+  margin: 3vh;
+  font-weight: 700;
+}
+
+.checkout-item-details {
+  font-family: 'Muli', sans-serif;
+  font-size: 1.2vw;
+  margin-left: 3vh;
+
+}
+
+.checkout-item-note {
+  font-family: 'Muli', sans-serif;
+  font-size: 1.2vw;
+  margin-left: 3vh;
+  margin-bottom: 3vh;
+  color: #C9D8FE;
+}
+
+.checkout-total {
+  font-family: 'Muli', sans-serif;
+  font-size: 1.2vw;
+  font-weight: 700;
+}
+
+.checkout-restauraunt-title {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.8vw;
+  font-weight: 700;
+  color: #5282FF;
+}

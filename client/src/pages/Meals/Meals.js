@@ -49,8 +49,8 @@ class Meals extends Component {
       : <Row>
           {this.state.restaurantListNow.map((restaurant, i) =>  {
             return (
-              <Col md={3} style = {{margin: 'auto'}}>
-                <RestaurantCard restaurant = {restaurant} key = {i} />
+              <Col key={i} md={3} style = {{margin: 'auto'}}>
+                <RestaurantCard restaurant = {restaurant} />
               </Col>);
           })}
         </Row>
@@ -59,8 +59,8 @@ class Meals extends Component {
       : <Row>
           {this.state.restaurantListLater.map((restaurant, i) =>  {
             return (
-              <Col md={3} style = {{margin: 'auto'}}>
-                <RestaurantCard restaurant = {restaurant} key = {i} />
+              <Col key={i} md={3} style = {{margin: 'auto'}}>
+                <RestaurantCard restaurant = {restaurant} />
               </Col>);
           })}
         </Row>

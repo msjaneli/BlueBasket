@@ -4,6 +4,8 @@ export const isLoading = (state) => state.checkout.isLoading
 
 export const getCartStatus = (state) => state.checkout.cartStatus
 
+export const getCheckoutStatus = (state) => state.checkout.checkoutStatus
+
 export const getCart = (state) => state.checkout.cart
 
 export const getCartByRestaurant = createSelector(
@@ -33,7 +35,7 @@ export const getCartByRestaurant = createSelector(
             orders[item.rid].quantities.push(item.quantity);
             orders[item.rid].prices.push(item.price);
             orders[item.rid].notes.push(item.note);
-            orders[item.rid].total += item.price;
+            orders[item.rid].total += item.price * item.quantity;
         })
 
         return orders;

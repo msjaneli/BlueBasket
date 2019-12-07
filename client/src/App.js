@@ -11,13 +11,15 @@ import LoginUser from './pages/Authentication/LoginUser';
 import LoginRestaurant from './pages/Authentication/LoginRestaurant'
 import LoginShelter from './pages/Authentication/LoginShelter';
 import Donate from '../src/pages/Donate/Donate'
-import ThankYou from '../src/pages/Donate/ThankYou'
+import DonateThankYou from '../src/pages/Donate/ThankYou'
 import Meals from '../src/pages/Meals/Meals'
 import UserCheckout from '../src/pages/Checkout/UserCheckout'
+import CheckoutThankYou from '../src/pages/Checkout/ThankYou'
 import ListingPage from './pages/Meals/ListingPage';
 import UserProfile from './pages/Profiles/UserProfile';
 import RestaurantProfile from './pages/Profiles/RestaurantProfile';
 import ShelterProfile from './pages/Profiles/ShelterProfile';
+import UserOrder from './pages/Orders/UserOrder';
 import TestProtected from './pages/TestProtected'
 import NotFound from './pages/NotFound'
 
@@ -56,9 +58,11 @@ const App = ({ authenticated, checked, type }) => {
               <Route exact path = '/donate' component = { Donate } />
               <Route exact path = '/meals' component = { Meals } />
               <Route exact path = '/meals/:rid' component = {ListingPage} />
-              <Route exact path = '/thankyou' component = { ThankYou } />
+              <Route exact path = '/donate/thankyou' component = { DonateThankYou } />
+              <Route exact path = '/checkout/thankyou' component = {CheckoutThankYou} />
               <Route exact path = '/cart' component = { Cart } />
               <PrivateRouteUser exact path = '/profile/user' component = { UserProfile } authenticated = { authenticated } type = { type }/>
+              <PrivateRouteUser exact path = '/orders/user' component = { UserOrder } authenticated = { authenticated } type = { type }/>
               <PrivateRouteUser exact path = '/protected/user' component = { TestProtected } authenticated = { authenticated } type = { type } />
               <PrivateRouteUser exact path = '/checkout/user' component = { UserCheckout } authenticated = { authenticated } type = {type} />
               <PrivateRouteRestaurant exact path = '/profile/restaurant' component = { RestaurantProfile } authenticated = { authenticated } type = { type }/>
