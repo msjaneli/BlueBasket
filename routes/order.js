@@ -7,10 +7,7 @@ module.exports = router;
 
 router.get("/", orderController.getAllCompletedOrders);
 
-router.get(
-  "/restaurant/:rid/completed",
-  orderController.getCompletedOrdersByRestaurantId
-);
+router.get("/restaurant/:rid/completed", orderController.getCompletedOrdersByRestaurantId);
 
 router.get("/user/:uid", orderController.getAllOrdersByUser);
 
@@ -20,7 +17,7 @@ router.post("/user/:uid/submit", orderController.submitOrderUser);
 
 router.post("/shelter/:sid/submit", orderController.submitOrderShelter);
 
-router.get("/shelter/current/:sid".orderController.getCurrentOrdersByShelter);
+router.get("/shelter/current/:sid", orderController.getCurrentOrdersByShelter);
 
 router.get("/user/current/:uid", orderController.getCurrentOrdersByUser);
 
