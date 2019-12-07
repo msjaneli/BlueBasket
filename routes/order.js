@@ -11,8 +11,10 @@ router.get("/restaurant/:rid/completed", orderController.getCompletedOrdersByRes
 
 router.get("/user/:uid", orderController.getAllOrdersByUser);
 
-router.post("/:uid/submit", orderController.submitOrder);
+router.post("/user/:uid/submit", orderController.submitOrderUser);
 
 router.put("/:oid/:rid/accept", orderController.acceptOrder);
 
 router.put("/:oid/:rid/cancel", orderController.cancelOrder);
+
+router.post("/shelter/:sid/submit", orderController.submitOrderShelter);
