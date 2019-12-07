@@ -18,4 +18,3 @@ router.post('/:rid/image/update', restaurantController.updateImage);
 router.post('/register', restaurantController.register);
 
 router.post('/login', restaurantController.login);
-
