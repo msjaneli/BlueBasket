@@ -80,6 +80,7 @@ class Order extends Component {
         currentOrders = 
           <div>
             {this.state.currentOrders.map((order, i) =>  {
+              console.log(this.state.currentOrders);
               return(
                 <Row key={i}>
                   <Col>
