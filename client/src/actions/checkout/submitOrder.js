@@ -26,7 +26,7 @@ const submitOrderPromise = (payload, dispatch) => {
     return new Promise((resolve, reject) => {
         setTimeout(async () => {
             try {
-                const { data } = await axios.post('/order/' + payload.uid + '/submit', {
+                const { data } = await axios.post('/order/user/' + payload.uid + '/submit', {
                     name: payload.name,
                     email: payload.email,
                     tokenGenResults: payload.tokenGenResults,

@@ -4,13 +4,8 @@ import '../../styles/orders.css'
 
 // Components
 import UserOrderCard from '../../components/Profile/UserOrderCard'
-import { Button } from 'react-bootstrap';
 import { Alert } from 'react-bootstrap';
-import { Card } from 'react-bootstrap';
 import { Container, Row, Col} from 'react-bootstrap';
-
-// Actions
-import { logoutUser } from '../../actions/auth/logout';
 
 // Selectors
 import * as sessionSelectors from '../../selectors/sessionSelectors'
@@ -32,21 +27,35 @@ class Order extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          curr_orders: [],
-          past_orders: []
+          currentOrders: [],
+          noCurrentOrders: false,
+          pastOrders: [],
+          noPastOrders: false,
         }
     }
 
     componentDidMount = async () => {
      setTimeout(async () => {
        var { data } = await axios.get('/order/user/current/'+this.props.user.id);
-       this.setState({
-         curr_orders: data
-       })
+       if (isEmpty(data)) {
+         this.setState({
+           noCurrentOrders: true
+         })
+       } else {
+        this.setState({
+          currentOrders: data
+        })
+       }
        var { data } = await axios.get('/order/user/past/'+this.props.user.id);
-       this.setState({
-         past_orders: data
-       })
+       if(isEmpty(data)) {
+         this.setState({
+           noPastOrders: true
+         })
+       } else {
+         this.setState({
+          pastOrders: data
+         })
+       }
      }, 750);
    }
 
@@ -58,40 +67,84 @@ class Order extends Component {
         renderSettings: {
           preserveAspectRatio: 'xMidYMid slice'
         }
-    }
+      }
 
-      let currentOrders = isEmpty(this.state.curr_orders) ? <Lottie options={animationOptionsLoading} width={100} height={100}/>
-        : <Row>
-            {this.state.curr_orders.map((order, i) =>  {
-              return (
-                <Col key={i}>
-                  <UserOrderCard order = {order}/>
-                </Col>);
+      let currentOrders;
+      let pastOrders;
+
+      if (isEmpty(this.state.currentOrders) && !(this.state.noCurrentOrders)) {
+        currentOrders = <Lottie options={animationOptionsLoading} width={100} height={100}/>
+      } else if ((this.state.noCurrentOrders)) {
+        currentOrders = <Alert variant='danger'> Oops! Looks like you don't have any live orders at this time </Alert>
+      } else {
+        currentOrders = 
+          <div>
+            {this.state.currentOrders.map((order, i) =>  {
+              console.log(this.state.currentOrders);
+              return(
+                <Row key={i}>
+                  <Col>
+                    <p style={{textAlign:'left'}}> Order on: {order.timestamp} </p>
+                    {
+                      order.lids.map((lid, j) => {
+                        return(
+                          <Row>
+                            <Col key={j}>
+                              <UserOrderCard order = {order} orderIndex = {j}/>
+                            </Col>
+                          </Row>
+                        )
+                      })
+                    }
+                  </Col>
+                </Row>
+              );
             })}
+          </div>
+      }
+
+      if (isEmpty(this.state.pastOrders) && !(this.state.noPastOrders)) {
+        pastOrders = <Lottie options={animationOptionsLoading} width={100} height={100}/>
+      } else if ((this.state.noPastOrders)) {
+        pastOrders = <Alert variant='danger'> Oops! Looks like you don't have any past or completed at this time </Alert>
+      } else {
+        pastOrders = 
+          <div>
+            {this.state.pastOrders.map((order, i) =>  {
+              return(
+                <Row key={i}>
+                  <Col>
+                    <p style={{textAlign:'left'}}> Order on: {order.timestamp} </p>
+                    {
+                      order.lids.map((lid, j) => {
+                        return(
+                          <Row>
+                            <Col key={j}>
+                              <UserOrderCard order = {order} orderIndex = {j}/>
+                            </Col>
+                          </Row>
+                        )
+                      })
+                    }
+                  </Col>
+                </Row>
+              );
+            })}
+          </div>
+      }
+
+      return (
+        <Container>
+          <Row>
+          <h2 id="subtitle-restaurant" style={{marginBottom: '2rem'}}>Current Orders</h2>
           </Row>
-
-          let pastOrders = isEmpty(this.state.past_orders) ? <Lottie options={animationOptionsLoading} width={100} height={100}/>
-            : <Row>
-                {this.state.past_orders.map((order, i) =>  {
-                  return (
-                    <Col key={i}>
-                      <UserOrderCard order = {order}/>
-                    </Col>);
-                })}
-              </Row>
-
-          return (
-            <Container>
-              <Row>
-              <h2 id="subtitle-restaurant" style={{marginBottom: '2rem'}}>Current Orders</h2>
-              </Row>
-              {currentOrders}
-              <Row>
-                <h2 id="subtitle-restaurant" style={{marginBottom: '2rem'}}>Past Orders</h2>
-              </Row>
-              {pastOrders}
-            </Container>
-          );
+          {currentOrders}
+          <Row>
+            <h2 id="subtitle-restaurant" style={{marginBottom: '2rem'}}>Past Orders</h2>
+          </Row>
+          {pastOrders}
+        </Container>
+      );
     }
 }
 
