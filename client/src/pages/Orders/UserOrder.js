@@ -5,13 +5,14 @@ import '../../styles/orders.css'
 // Components
 import UserOrderCard from '../../components/Profile/UserOrderCard'
 import { Alert } from 'react-bootstrap';
-import { Container, Row, Col} from 'react-bootstrap';
+import { Container, Row, Col, Card} from 'react-bootstrap';
 
 // Selectors
 import * as sessionSelectors from '../../selectors/sessionSelectors'
 
 // Tools
 import { connect } from 'react-redux';
+import classnames from 'classnames';
 import axios from 'axios';
 import Lottie from 'react-lottie';
 import loadingAnimationData from '../../resources/lotties/loading/117-progress-bar.json';
@@ -35,13 +36,17 @@ class Order extends Component {
     }
 
     componentDidMount = async () => {
-     setTimeout(async () => {
        var { data } = await axios.get('/order/user/current/'+this.props.user.id);
        if (isEmpty(data)) {
-         this.setState({
-           noCurrentOrders: true
-         })
+          this.setState({
+            noCurrentOrders: true
+          })
        } else {
+          data.sort((a, b) => {
+            a = Date.parse(a.timestamp)
+            b = Date.parse(b.timestamp)
+            return b - a;
+          })
         this.setState({
           currentOrders: data
         })
@@ -52,11 +57,15 @@ class Order extends Component {
            noPastOrders: true
          })
        } else {
-         this.setState({
-          pastOrders: data
-         })
+          data.sort((a, b) => {
+            a = Date.parse(a.timestamp)
+            b = Date.parse(b.timestamp)
+            return b - a;
+          })
+          this.setState({
+            pastOrders: data
+          })
        }
-     }, 750);
    }
 
     render() {
@@ -80,23 +89,37 @@ class Order extends Component {
         currentOrders = 
           <div>
             {this.state.currentOrders.map((order, i) =>  {
-              console.log(this.state.currentOrders);
               return(
                 <Row key={i}>
-                  <Col>
-                    <p style={{textAlign:'left'}}> Order on: {order.timestamp} </p>
-                    {
-                      order.lids.map((lid, j) => {
-                        return(
-                          <Row>
-                            <Col key={j}>
-                              <UserOrderCard order = {order} orderIndex = {j}/>
-                            </Col>
-                          </Row>
-                        )
-                      })
-                    }
-                  </Col>
+                  <Card body className = "wrapper-card">
+                    <Row>
+                      <Col>
+                        <p className='timestamp' style={{textAlign:'left'}}> Order on: {order.timestamp} </p>
+                      </Col>
+                      <Col className='text-right'>
+                        <p style={{display: 'inline-block'}}>Status: </p>
+                        <p className={classnames({
+                        "pending" : order.status === 'Pending',
+                        "accepted" : order.status === 'Accepted'
+                      })} style={{display: 'inline-block'}}> &nbsp;{order.status} </p>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col>
+                        {
+                          order.lids.map((lid, j) => {
+                            return(
+                              <Row>
+                                <Col key={j}>
+                                  <UserOrderCard order = {order} orderIndex = {j}/>
+                                </Col>
+                              </Row>
+                            )
+                          })
+                        }
+                      </Col>
+                    </Row>
+                  </Card>
                 </Row>
               );
             })}
@@ -109,12 +132,25 @@ class Order extends Component {
         pastOrders = <Alert variant='danger'> Oops! Looks like you don't have any past or completed at this time </Alert>
       } else {
         pastOrders = 
-          <div>
-            {this.state.pastOrders.map((order, i) =>  {
-              return(
-                <Row key={i}>
+        <div>
+        {this.state.pastOrders.map((order, i) =>  {
+          return(
+            <Row key={i}>
+              <Card body className = "wrapper-card">
+                <Row>
                   <Col>
-                    <p style={{textAlign:'left'}}> Order on: {order.timestamp} </p>
+                    <p className='timestamp' style={{textAlign:'left'}}> Order on: {order.timestamp} </p>
+                  </Col>
+                  <Col className='text-right'>
+                    <p style={{display: 'inline-block'}}>Status: </p>
+                    <p className={classnames({
+                      "completed" : order.status === 'Completed',
+                      "cancelled" : order.status === 'Cancelled'
+                    })} style={{display: 'inline-block'}}> &nbsp;{order.status} </p>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col>
                     {
                       order.lids.map((lid, j) => {
                         return(
@@ -128,19 +164,25 @@ class Order extends Component {
                     }
                   </Col>
                 </Row>
-              );
-            })}
-          </div>
+              </Card>
+            </Row>
+          );
+        })}
+      </div>
       }
 
       return (
         <Container>
           <Row>
-          <h2 id="subtitle-restaurant" style={{marginBottom: '2rem'}}>Current Orders</h2>
+            <Col className="text-left">
+              <h2 id="order-subtitle" style={{marginBottom: '2rem'}}>Current Orders</h2>
+            </Col>
           </Row>
           {currentOrders}
           <Row>
-            <h2 id="subtitle-restaurant" style={{marginBottom: '2rem'}}>Past Orders</h2>
+            <Col className="text-left">
+              <h2 id="order-subtitle" style={{marginBottom: '2rem'}}>Past Orders</h2>
+            </Col>
           </Row>
           {pastOrders}
         </Container>
