@@ -36,7 +36,7 @@ class Order extends Component {
     }
 
     componentDidMount = async () => {
-       var { data } = await axios.get('/order/user/current/'+this.props.user.id);
+       var { data } = await axios.get('/order/current/'+this.props.user.id);
        if (isEmpty(data)) {
           this.setState({
             noCurrentOrders: true
@@ -51,7 +51,7 @@ class Order extends Component {
           currentOrders: data
         })
        }
-       var { data } = await axios.get('/order/user/past/'+this.props.user.id);
+       var { data } = await axios.get('/order/past/'+this.props.user.id);
        if(isEmpty(data)) {
          this.setState({
            noPastOrders: true
