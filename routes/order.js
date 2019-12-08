@@ -15,10 +15,12 @@ router.post("/user/:uid/submit", orderController.submitOrderUser);
 
 router.post("/shelter/:sid/submit", orderController.submitOrderShelter);
 
-router.get("/current/id", orderController.getCurrentOrdersByID);
+router.get("/current/:uid", orderController.getCurrentOrdersById);
 
-router.get("/past/:id", orderController.getPastOrdersByID);
+router.get("/past/:id", orderController.getPastOrdersById);
 
 router.put("/:oid/:rid/accept", orderController.acceptOrder);
 
 router.put("/:oid/:rid/cancel", orderController.cancelOrder);
+
+router.put("/:oid/:rid/complete", orderController.completeOrder);
