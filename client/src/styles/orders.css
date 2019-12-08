@@ -1,7 +1,14 @@
 .order-card{
-  width: 80vw;
   margin: auto;
   font-family: 'Muli', sans-serif;
+  font-size: 1.2vw;
+  padding: 1.3vw;
+  margin-bottom: 2vh;
+}
+
+.wrapper-card {
+  width: 80vw;
+  margin:auto;
   font-size: 1.2vw;
   padding: 1.3vw;
   margin-bottom: 2vh;
@@ -26,4 +33,41 @@
 .user-order-card-note {
   color: #C9D8FE;
   font-size: 1.2vw;
+}
+
+#order-subtitle {
+  font-family: 'Muli', sans-serif;
+  font-weight: 700;
+  font-size: 2vw;
+  margin-top: 5vh;
+}
+
+.timestamp {
+  font-family: 'Muli', sans-serif;
+  font-weight: 600;
+  font-size: 1.3vw
+}
+
+.pending {
+  font-family: 'Muli', sans-serif;
+  color: orange;
+  font-weight: 600;
+}
+
+.accepted {
+  font-family: 'Muli', sans-serif;
+  color: green;
+  font-weight: 600;
+}
+
+.completed {
+  font-family: 'Muli', sans-serif;
+  color: #5282FF;
+  font-weight: 600;
+}
+
+.cancelled {
+  font-family: 'Muli', sans-serif;
+  color: red;
+  font-weight: 600;
 }
