@@ -29,8 +29,8 @@ exports.getCompletedOrdersByRestaurantId = async (req, res) => {
   return res.status(200).send(rows);
 };
 
-exports.getAllOrdersByUser = async (req, res) => {
-  var uid = req.params.uid;
+exports.getAllOrdersByID = async (req, res) => {
+  var id = req.params.id;
 
   const query = {
     text: "SELECT * FROM orders WHERE uid = $1",
@@ -57,17 +57,19 @@ exports.getCurrentOrdersByUser = async (req, res) => {
   const query = {
     text: "SELECT * FROM orders WHERE uid = $1 AND status=$2 OR status=$3",
     values: [uid, pending, accepted]
+
   };
   const { rows } = await db.query(query);
   return res.status(200).send(rows);
 };
 
-exports.getCurrentOrdersByShelter = async (req, res) => {
-  var sid = req.params.sid;
+exports.getCurrentOrdersByID = async (req, res) => {
+  var id = req.params.id;
 
   const query = {
     text: "SELECT * FROM orders WHERE uid = $1 AND status=$2 OR status=$3",
     values: [sid, pending, accepted]
+
   };
   const { rows } = await db.query(query);
   return res.status(200).send(rows);
@@ -90,6 +92,7 @@ exports.getPastOrdersByShelter = async (req, res) => {
   const query = {
     text: "SELECT * FROM orders WHERE uid = $1 AND NOT status=$2 AND NOT status=$3",
     values: [sid, pending, accepted]
+
   };
   const { rows } = await db.query(query);
   return res.status(200).send(rows);
