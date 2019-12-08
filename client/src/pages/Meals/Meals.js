@@ -3,7 +3,7 @@ import '../../styles/meals.css';
 
 // Components
 import RestaurantCard from '../../components/Meals/RestaurantCard'
-import { Container, Row, Col} from 'react-bootstrap'
+import { Container, Row, Col, Alert} from 'react-bootstrap'
 
 // Tools
 import axios from 'axios'
@@ -17,7 +17,9 @@ class Meals extends Component {
     super(props);
     this.state = {
       restaurantListNow: [],
+      nowEmpty: false,
       restaurantListlater: [],
+      laterEmpty: false,
     }
   }
 
@@ -27,10 +29,20 @@ class Meals extends Component {
       this.setState({
         restaurantListNow: data
       })
+      if(isEmpty(data)) {
+        this.setState({
+          nowEmpty: true
+        })
+      }
       var { data } = await axios.get('/restaurant/available-later');
       this.setState({
         restaurantListLater: data
       })
+      if(isEmpty(data)) {
+        this.setState({
+          laterEmpty: true
+        })
+      }
     }, 750);
   }
 
@@ -45,25 +57,39 @@ class Meals extends Component {
       }
   }
 
-    let availableNow = isEmpty(this.state.restaurantListNow) ? <Lottie options={animationOptionsLoading} width={100} height={100}/>
-      : <Row>
-          {this.state.restaurantListNow.map((restaurant, i) =>  {
-            return (
-              <Col key={i} md={3} style = {{margin: 'auto'}}>
-                <RestaurantCard restaurant = {restaurant} />
-              </Col>);
-          })}
-        </Row>
+  let availableNow;
+  if (isEmpty(this.state.restaurantListNow) && !this.state.nowEmpty) {
+    availableNow = <Lottie options={animationOptionsLoading} width={100} height={100}/>
+  } else if (this.state.nowEmpty) {
+    availableNow = <Alert variant = "danger" style={{marginTop: '2rem'}}>No Live Listings! Please check back later</Alert>
+  } else {
+    availableNow = 
+    <Row>
+      {this.state.restaurantListNow.map((restaurant, i) =>  {
+        return (
+          <Col key={i} md={3} style = {{margin: 'auto'}}>
+            <RestaurantCard restaurant = {restaurant} />
+          </Col>);
+      })}
+    </Row>
+  }
 
-    let availableLater = isEmpty(this.state.restaurantListLater) ? <Lottie options={animationOptionsLoading} width={100} height={100}/>
-      : <Row>
-          {this.state.restaurantListLater.map((restaurant, i) =>  {
-            return (
-              <Col key={i} md={3} style = {{margin: 'auto'}}>
-                <RestaurantCard restaurant = {restaurant} />
-              </Col>);
-          })}
-        </Row>
+  let availableLater;
+  if (isEmpty(this.state.restaurantListLater) && !this.state.laterEmpty) {
+    availableLater = <Lottie options={animationOptionsLoading} width={100} height={100}/>
+  } else if (this.state.laterEmpty) {
+    availableLater = <Alert variant = "danger" style={{marginTop: '2rem'}}>Looks live all listings are live!</Alert>
+  } else {
+    availableLater = 
+    <Row>
+      {this.state.restaurantListLater.map((restaurant, i) =>  {
+        return (
+          <Col key={i} md={3} style = {{margin: 'auto'}}>
+            <RestaurantCard restaurant = {restaurant} />
+          </Col>);
+      })}
+    </Row>
+  }
 
     return (
       <Container>
