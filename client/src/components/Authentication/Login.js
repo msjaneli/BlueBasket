@@ -156,7 +156,7 @@ class Login extends Component {
     } else if (this.props.type === "SHELTER"){
       console.log("HERE")
       console.log(this.props.authRedirect);
-      await this.props.loginUser(payload, this.props.authRedirect);
+      await this.props.loginShelter(payload, this.props.authRedirect);
     }else {
       await this.props.loginRestaurant(payload, this.props.authRedirect);
     }

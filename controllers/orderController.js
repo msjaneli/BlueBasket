@@ -112,7 +112,8 @@ exports.submitOrderUser = async (req, res) => {
     }
 
     const postOrder = {
-      text: "INSERT INTO orders VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)",
+      text:
+        "INSERT INTO orders VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)",
       values: [
         oid,
         uid,
@@ -123,7 +124,7 @@ exports.submitOrderUser = async (req, res) => {
         pending,
         orders[rid].total,
         timestamp,
-        'CARD',
+        "CARD"
       ]
     };
     postOrders.push(postOrder);
@@ -220,7 +221,7 @@ exports.submitOrderShelter = async (req, res) => {
       text: "INSERT INTO orders VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)",
       values: [
         oid,
-        uid,
+        sid,
         rid,
         orders[rid].lids,
         orders[rid].quantities,
