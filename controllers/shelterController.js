@@ -1,7 +1,6 @@
 const isEmpty = require("../validation/isEmpty");
 const db = require("../db");
 const bcrypt = require("bcrypt");
-const saltRounds = 10;
 require("dotenv").config();
 
 exports.getShelters = async (req, res) => {
