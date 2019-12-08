@@ -1,9 +1,10 @@
 const isEmpty = require("../validation/isEmpty");
 const moment = require("moment");
 const db = require("../db");
-const pending = "pending",
-  accepted = "accepted",
-  cancelled = "cancelled";
+const pending = "Pending",
+  accepted = "Accepted",
+  cancelled = "Cancelled",
+  completed = "Completed";
 require("dotenv").config();
 const stripe_key = process.env.STRIPE_SKEY;
 const stripe = require("stripe")(stripe_key);
@@ -29,33 +30,45 @@ exports.getCompletedOrdersByRestaurantId = async (req, res) => {
 };
 
 exports.getAllOrdersByID = async (req, res) => {
-  var id = req.params.id;
+  var uid = req.params.id;
 
   const query = {
     text: "SELECT * FROM orders WHERE uid = $1",
-    values: [id]
+    values: [uid]
   };
   const { rows } = await db.query(query);
   return res.status(200).send(rows);
 };
 
-exports.getCurrentOrdersByID = async (req, res) => {
-  var id = req.params.id;
+exports.getAllOrdersByShelter = async (req, res) => {
+  var sid = req.params.sid;
 
   const query = {
-    text: "SELECT * FROM orders WHERE uid = $1 AND status='pending'",
-    values: [id]
+    text: "SELECT * FROM orders WHERE uid = $1",
+    values: [sid]
   };
   const { rows } = await db.query(query);
   return res.status(200).send(rows);
 };
 
-exports.getPastOrdersByID = async (req, res) => {
-  var id = req.params.id;
+exports.getCurrentOrdersById = async (req, res) => {
+  var uid = req.params.uid;
 
   const query = {
-    text: "SELECT * FROM orders WHERE uid = $1 AND NOT(status='pending')",
-    values: [id]
+    text: "SELECT * FROM orders WHERE uid = $1 AND status=$2 OR status=$3",
+    values: [uid, pending, accepted]
+
+  };
+  const { rows } = await db.query(query);
+  return res.status(200).send(rows);
+};
+
+exports.getPastOrdersById = async (req, res) => {
+  var uid = req.params.uid;
+
+  const query = {
+    text: "SELECT * FROM orders WHERE uid = $1 AND NOT status=$2 AND NOT status=$3",
+    values: [uid, pending, accepted]
   };
   const { rows } = await db.query(query);
   return res.status(200).send(rows);
@@ -143,16 +156,17 @@ exports.acceptOrder = async (req, res) => {
 
   const updateOrder = {
     text:
-      "UPDATE orders SET status = $1 WHERE id = $2 AND rid = $3 AND status = $4",
+      "UPDATE orders SET status = $1 WHERE oid = $2 AND rid = $3 AND status = $4",
     values: [accepted, oid, rid, pending]
   };
 
-  const { rows } = await db.query(updateOrder);
-  if (isEmpty(rows))
-    return res
-      .status(400)
-      .send({ error: "Tried accepting an order that is not pending" });
-  return res.status(200).send({ success: "Successfully accepted order" });
+  try {
+    await db.query(updateOrder);
+    return res.status(200).send({success: "Successfully accepted order"})
+
+  } catch (err) {
+    return res.status(400).send({error: "Unable to accept order"})
+  }
 };
 
 exports.cancelOrder = async (req, res) => {
@@ -161,17 +175,36 @@ exports.cancelOrder = async (req, res) => {
 
   const cancelOrder = {
     text:
-      "UPDATE orders SET status = $1 WHERE id = $2 AND rid = $3 AND status = $4",
+      "UPDATE orders SET status = $1 WHERE oid = $2 AND rid = $3 AND status = $4",
     values: [cancelled, oid, rid, pending]
   };
-  await db.query(cancelOrder);
-  const { rows } = await db.query(cancelOrder);
-  if (isEmpty(rows))
-    return res
-      .status(400)
-      .send({ error: "Tried cancelling an order that is not pending" });
-  return res.status(200).send({ sucess: "Successfully cancelled order" });
+  
+  try {
+    await db.query(cancelOrder);
+    return res.status(200).send({success: "Successfully cancelled order"})
+
+  } catch (err) {
+    return res.status(400).send({error: "Unable to cancel order"})
+  }
 };
+
+exports.completeOrder = async (req, res) => {
+  var oid = req.params.oid;
+  var rid  = req.params.rid; 
+
+  const completeOrder = {
+    text: "UPDATE orders SET status = $1 WHERE oid = $2 AND rid=$3 AND status=$4",
+    values: [completed, oid, rid, accepted]
+  }
+
+  try {
+    await db.query(completeOrder);
+    return res.status(200).send({success: "Successfully completed order"})
+
+  } catch (err) {
+    return res.status(400).send({error: "Unable to complete order"})
+  }
+}
 
 exports.submitOrderShelter = async (req, res) => {
   var initialError = false;

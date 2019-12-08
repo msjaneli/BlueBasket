@@ -7,9 +7,6 @@ import ListingContainer from '../../components/Meals/ListingContainer'
 
 // Tools
 import axios from 'axios'
-import Lottie from 'react-lottie'
-import loadingAnimationData from '../../resources/lotties/loading/117-progress-bar.json'
-import isEmpty from '../../validation/isEmpty'
 
 class ListingPage extends Component {
 
@@ -22,27 +19,13 @@ class ListingPage extends Component {
   }
 
   componentDidMount = async () => {
-    setTimeout(async () => {
       const { data } = await axios.get('/restaurant/' + this.props.match.params.rid)
       this.setState({
         restaurant: data
       })
-    }, 500)
-
-  }
+    }
 
   render() {
-    if (isEmpty(this.state.restaurant)) {
-      const animationOptionsLoading = {
-          loop: true,
-          autoplay: true,
-          animationData: loadingAnimationData,
-          renderSettings: {
-            preserveAspectRatio: 'xMidYMid slice'
-          }
-      }
-      return(<Lottie style= {{marginTop: '12rem'}}options={animationOptionsLoading} width={100} height={100}/>)
-    }
     return (
       <div style={{marginBottom: '5rem'}}>
         <Container>
