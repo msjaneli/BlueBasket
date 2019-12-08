@@ -30,7 +30,7 @@ exports.getCompletedOrdersByRestaurantId = async (req, res) => {
 };
 
 exports.getAllOrdersByID = async (req, res) => {
-  var id = req.params.id;
+  var uid = req.params.id;
 
   const query = {
     text: "SELECT * FROM orders WHERE uid = $1",
@@ -51,7 +51,7 @@ exports.getAllOrdersByShelter = async (req, res) => {
   return res.status(200).send(rows);
 };
 
-exports.getCurrentOrdersByUser = async (req, res) => {
+exports.getCurrentOrdersById = async (req, res) => {
   var uid = req.params.uid;
 
   const query = {
@@ -63,36 +63,12 @@ exports.getCurrentOrdersByUser = async (req, res) => {
   return res.status(200).send(rows);
 };
 
-exports.getCurrentOrdersByID = async (req, res) => {
-  var id = req.params.id;
-
-  const query = {
-    text: "SELECT * FROM orders WHERE uid = $1 AND status=$2 OR status=$3",
-    values: [sid, pending, accepted]
-
-  };
-  const { rows } = await db.query(query);
-  return res.status(200).send(rows);
-};
-
-exports.getPastOrdersByUser = async (req, res) => {
+exports.getPastOrdersById = async (req, res) => {
   var uid = req.params.uid;
 
   const query = {
     text: "SELECT * FROM orders WHERE uid = $1 AND NOT status=$2 AND NOT status=$3",
     values: [uid, pending, accepted]
-  };
-  const { rows } = await db.query(query);
-  return res.status(200).send(rows);
-};
-
-exports.getPastOrdersByShelter = async (req, res) => {
-  var sid = req.params.sid;
-
-  const query = {
-    text: "SELECT * FROM orders WHERE uid = $1 AND NOT status=$2 AND NOT status=$3",
-    values: [sid, pending, accepted]
-
   };
   const { rows } = await db.query(query);
   return res.status(200).send(rows);
