@@ -24,6 +24,17 @@ exports.getListingsByRestaurant = async (req, res) => {
     res.status(200).send(rows);
 }
 
+exports.getListingTypesByRestaurant = async (req, res) => {
+    var rid = req.params.rid
+    const getListingType = { 
+        text: 'SELECT * FROM listing_type WHERE rid = $1',
+        values: [rid]
+    }
+
+    const { rows } = await db.query(getListingType);
+    res.status(200).send(rows);
+}
+
 exports.createListing = async (req, res) => {
     var rid = req.params.rid
     var name = req.body.name;
