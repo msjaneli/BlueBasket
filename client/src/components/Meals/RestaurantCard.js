@@ -18,7 +18,6 @@ class RestaurantCard extends Component {
   constructor(props) {
     super(props);
   }
-
   render () {
     return (
       <Card className="unselectable-card" onClick={() => this.props.goToRestaurantPage('/meals/' + this.props.restaurant.rid)}>
