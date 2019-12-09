@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../../styles/checkout.css'
 
 // Components
-import { Container, Row, Col, Card, Button, Alert } from 'react-bootstrap';
+import { Container, Row, Col, Card, Button, Alert, Form} from 'react-bootstrap';
 import { CardNumberElement, CardCVCElement, CardExpiryElement} from 'react-stripe-elements'
 
 // Selectors
@@ -41,13 +41,11 @@ class CardCheckout extends Component {
     }
 
     submitOrder = async () => {
-        let cardvals = []
 
         const payload = {
             uid: this.props.getUser.id,
             name: this.props.getUser.name,
             email: this.props.getUser.email,
-            foodpoints_details: cardvals,
             orders: this.props.orders
         }
 
@@ -111,14 +109,14 @@ class CardCheckout extends Component {
                         <Row className="checkout-card-form">
                             <Col>
                                 <label>PIN</label>
-                                <CardCVCElement />
+                                 <Form.Control type="password" placeholder="PIN" />
                             </Col>
                         </Row>
                     </Col>
                 </Row>
                 <Row>
                     <Col className="text-left">
-                        <Button onClick={() => this.submitOrder()} variant="submit-order">
+                        <Button variant="submit-order">
                             Confirm Order
                         </Button>
                         <style type="text/css">
