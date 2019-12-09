@@ -4,6 +4,7 @@ import '../../styles/checkout.css'
 // Component
 import { Container, Row, Col, Card, Button, Alert } from 'react-bootstrap';
 import CardCheckout from '../../components/Checkout/CardCheckout'
+import FoodPointsCheckout from '../../components/Checkout/FoodPointsCheckout'
 
 // Selectors
 import * as checkoutSelectors from '../../selectors/checkoutSelectors'
@@ -170,7 +171,9 @@ class UserCheckout extends Component {
                             {cartDetails}
                         </Col>
                         <Col md={8}>
-
+                            <Elements>
+                              <FoodPointsCheckout/>
+                            </Elements>
                         </Col>
                     </Row>
                 </Container>

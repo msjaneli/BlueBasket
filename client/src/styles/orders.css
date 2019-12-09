@@ -71,6 +71,10 @@
   font-weight: 600;
 }
 
+.no-highlight{
+  color: black;
+}
+
 .snack-bar {
   display: inline-block;
   margin-right: 1rem;
@@ -81,4 +85,7 @@
   padding: 0.5rem
 }
 
-
+.no-highlight:hover{
+  text-decoration: none;
+  color: black;
+}
