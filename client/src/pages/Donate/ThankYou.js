@@ -44,7 +44,7 @@ class ThankYou extends Component {
       <div id="thankyou-descr">
       <div id="txt">Thank you for joining us in delivering positive change to the world.
       We appreciate your contribution, and you can be rest assured your money is going to a great cause.
-      As a token of our appreciation, <div className="highlight">enjoy 10% off your next meal.</div></div></div></div>
+    </div></div></div>
       <div id = "lottie">
       { heartAnimation }
       </div>
