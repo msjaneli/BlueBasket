@@ -14,6 +14,7 @@ import Donate from '../src/pages/Donate/Donate'
 import DonateThankYou from '../src/pages/Donate/ThankYou'
 import Meals from '../src/pages/Meals/Meals'
 import UserCheckout from '../src/pages/Checkout/UserCheckout'
+import ShelterCheckout from '../src/pages/Checkout/ShelterCheckout'
 import CheckoutThankYou from '../src/pages/Checkout/ThankYou'
 import ListingPage from './pages/Meals/ListingPage';
 import UserProfile from './pages/Profiles/UserProfile';
@@ -71,6 +72,7 @@ const App = ({ authenticated, checked, user }) => {
               <PrivateRouteRestaurant exact path = '/protected/restaurant' component = { TestProtected } authenticated = { authenticated } type = { user.type } />
               <PrivateRouteShelter exact path = '/profile/shelter' component = { ShelterProfile } authenticated = { authenticated } type = { user.type } />
               <PrivateRouteShelter exact path = '/protected/shelter' component = { TestProtected } authenticated = { authenticated } type = { user.type } />
+              <PrivateRouteShelter exact path = '/checkout/shelter' component = { ShelterCheckout } authenticated = { authenticated } type = { user.type } />
               {/* <PrivateRouteRestaurant exact path = '/meals/restaurant' component={ Meals } authenticated = { authenticated } type = { type } /> */}
 
               <Route component = {NotFound} />
