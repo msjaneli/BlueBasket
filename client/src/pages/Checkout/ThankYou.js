@@ -12,7 +12,7 @@ class ThankYou extends Component {
         return(
           <div id="checkout-thankyou-container">
             <p id="thankyou-header">Good things are on their way...</p><br/>
-            <p id="thankyou-caption">Thanks for your order! You should receive an email confirmation soon. In the meantime, you can check your current and previous orders under your profile.
+            <p id="thankyou-caption">Thanks for your order! You should receive a text confirmation soon. In the meantime, you can check your current and previous orders under your profile.
             We appreciate your dedication in making the world a happier and less hungry place! 😋</p>
 
             <p id="pickup-title">Pickup Instructions</p>

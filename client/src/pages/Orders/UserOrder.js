@@ -180,7 +180,7 @@ class Order extends Component {
       }
 
       let currentSection = this.state.view === 'current' ?
-        (<Container>
+        (
           <Row>
             <Col>
                 <p><b>Current Orders</b></p>
@@ -189,11 +189,7 @@ class Order extends Component {
                 </a>
             </Col>
             </Row>
-            <Row>
-            <Col className="text-left">
-              <h2 id="order-subtitle" style={{marginBottom: '2rem'}}>Past Orders</h2>
-              </Col>
-        </Row></Container> ) : null
+    ) : null
 
         let pastSection = this.state.view === 'past' ?
         (<Row>
