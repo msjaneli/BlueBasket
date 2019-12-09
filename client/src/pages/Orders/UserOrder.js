@@ -179,22 +179,23 @@ class Order extends Component {
       </div>
       }
 
-      let currentSection = this.state.view === 'current' ? 
-        (<Row>
+      let currentSection = this.state.view === 'current' ?
+        (<Container>
+          <Row>
             <Col>
                 <p><b>Current Orders</b></p>
+                  <a class="no-highlight" href="/checkout/thankyou">
                 {currentOrders}
+                </a>
             </Col>
-          </Row>
-          <a class="no-highlight" href="/checkout/thankyou">
-          {currentOrders}
-          </a>
-          <Row>
+            </Row>
+            <Row>
             <Col className="text-left">
               <h2 id="order-subtitle" style={{marginBottom: '2rem'}}>Past Orders</h2>
-        </Row> ) : null
+              </Col>
+        </Row></Container> ) : null
 
-        let pastSection = this.state.view === 'past' ? 
+        let pastSection = this.state.view === 'past' ?
         (<Row>
             <Col>
                 <p><b>Past Orders</b></p>
