@@ -89,12 +89,35 @@ exports.getCurrentOrdersById = async (req, res) => {
   return res.status(200).send(rows);
 };
 
+exports.getCurrentOrdersByIdShelter = async (req, res) => {
+  var sid = req.params.sid;
+
+  const query = {
+    text: "SELECT * FROM orders WHERE sid = $1 AND status=$2 OR status=$3",
+    values: [sid, pending, accepted]
+
+  };
+  const { rows } = await db.query(query);
+  return res.status(200).send(rows);
+};
+
 exports.getPastOrdersById = async (req, res) => {
   var uid = req.params.uid;
 
   const query = {
     text: "SELECT * FROM orders WHERE uid = $1 AND status = $2 OR status = $3",
     values: [uid, completed, cancelled]
+  };
+  const { rows } = await db.query(query);
+  return res.status(200).send(rows);
+};
+
+exports.getPastOrdersByIdShelter = async (req, res) => {
+  var sid = req.params.sid;
+
+  const query = {
+    text: "SELECT * FROM orders WHERE sid = $1 AND status = $2 OR status = $3",
+    values: [sid, completed, cancelled]
   };
   const { rows } = await db.query(query);
   return res.status(200).send(rows);
@@ -229,7 +252,7 @@ exports.cancelOrder = async (req, res) => {
       "UPDATE orders SET status = $1 WHERE oid = $2 AND rid = $3 AND status = $4",
     values: [cancelled, oid, rid, pending]
   };
-  
+
   try {
     await db.query(cancelOrder);
     return res.status(200).send({success: "Successfully cancelled order"})
@@ -241,7 +264,7 @@ exports.cancelOrder = async (req, res) => {
 
 exports.completeOrder = async (req, res) => {
   var oid = req.params.oid;
-  var rid  = req.params.rid; 
+  var rid  = req.params.rid;
   var phoneNumber = req.body.phoneNumber
 
 

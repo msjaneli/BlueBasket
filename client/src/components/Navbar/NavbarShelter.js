@@ -37,8 +37,8 @@ class NavbarShelter extends Component {
                     <Nav.Link href="/cart">Cart</Nav.Link>
                     <NavDropdown title={welcomeText} alignRight>
                         <NavDropdown.Item href="/profile/shelter">Profile</NavDropdown.Item>
-                        <NavDropdown.Item href="/orders">Orders</NavDropdown.Item>
-                        <NavDropdown.Item href="/balance">Balance</NavDropdown.Item>
+                        <NavDropdown.Item href="/orders/shelter">Orders</NavDropdown.Item>
+                        <NavDropdown.Item >Balance</NavDropdown.Item>
                         <NavDropdown.Divider />
                         <NavDropdown.Item onClick={() => this.props.logout()}>Logout</NavDropdown.Item>
                     </NavDropdown>

@@ -21,6 +21,7 @@ import UserProfile from './pages/Profiles/UserProfile';
 import RestaurantProfile from './pages/Profiles/RestaurantProfile';
 import ShelterProfile from './pages/Profiles/ShelterProfile';
 import UserOrder from './pages/Orders/UserOrder';
+import ShelterOrder from './pages/Orders/ShelterOrder'
 import RestaurantOrder from './pages/Orders/RestaurantOrder';
 import TestProtected from './pages/TestProtected'
 import NotFound from './pages/NotFound'
@@ -71,8 +72,10 @@ const App = ({ authenticated, checked, user }) => {
               <PrivateRouteRestaurant exact path = '/orders/restaurant' component = { RestaurantOrder } authenticated = { authenticated } type = { user.type } />
               <PrivateRouteRestaurant exact path = '/protected/restaurant' component = { TestProtected } authenticated = { authenticated } type = { user.type } />
               <PrivateRouteShelter exact path = '/profile/shelter' component = { ShelterProfile } authenticated = { authenticated } type = { user.type } />
+              <PrivateRouteShelter exact path = '/orders/shelter' component = { ShelterOrder } authenticated = { authenticated } type = { user.type }/>
               <PrivateRouteShelter exact path = '/protected/shelter' component = { TestProtected } authenticated = { authenticated } type = { user.type } />
               <PrivateRouteShelter exact path = '/checkout/shelter' component = { ShelterCheckout } authenticated = { authenticated } type = { user.type } />
+
               {/* <PrivateRouteRestaurant exact path = '/meals/restaurant' component={ Meals } authenticated = { authenticated } type = { type } /> */}
 
               <Route component = {NotFound} />

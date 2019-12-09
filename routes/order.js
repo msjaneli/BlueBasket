@@ -21,7 +21,11 @@ router.post("/shelter/:sid/submit", orderController.submitOrderShelter);
 
 router.get("/current/:uid", orderController.getCurrentOrdersById);
 
+router.get("/current/:sid", orderController.getCurrentOrdersByIdShelter);
+
 router.get("/past/:uid", orderController.getPastOrdersById);
+
+router.get("/past/:sid", orderController.getPastOrdersByIdShelter);
 
 router.put("/:oid/:rid/accept", orderController.acceptOrder);
 

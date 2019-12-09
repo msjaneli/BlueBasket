@@ -22,7 +22,7 @@ const mapStateToProps = (state) => ({
   authenticated: sessionSelectors.isAuthenticated(state)
 })
 
-class UserOrder extends Component {
+class ShelterOrder extends Component {
 
     constructor(props) {
         super(props);
@@ -223,4 +223,4 @@ class UserOrder extends Component {
     }
 }
 
-export default connect(mapStateToProps)(UserOrder);
+export default connect(mapStateToProps)(ShelterOrder);
