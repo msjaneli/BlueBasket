@@ -63,7 +63,7 @@ class Facebook extends Component {
   };
 
   responseFacebook = async response => {
-    if (!response.status==='unknown') {
+    if (!isEmpty(response.userID)) {
       this.setState({
         isLoggedIn: true,
         userID: response.userID,
