@@ -8,8 +8,8 @@ const pending = "Pending",
 require("dotenv").config();
 const stripe_key = process.env.STRIPE_SKEY;
 const stripe = require("stripe")(stripe_key);
-const accountSid = 'ACe6525892df0dc3d33f56dfe8b725525c'
-const authToken = '661fa4f934e01953db6c57677d503015'
+const accountSid = process.env.TWILIO_ACCOUNT
+const authToken = process.env.TWILIO_AUTH
 const twilioNumber = '+12568418199'
 const client = require('twilio')(accountSid, authToken);
 
