@@ -91,6 +91,11 @@ class RestaurantOrder extends Component {
     
        var {data} =  await axios.get('/order/restaurant/' + this.props.user.id + '/pending');
        if (!isEmpty(data)) {
+        data.sort((a, b) => {
+            a = Date.parse(a.timestamp)
+            b = Date.parse(b.timestamp)
+            return b - a;
+          })
         this.setState({
             pendingOrders: data,
             noPendingOrders: false
