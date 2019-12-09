@@ -45,7 +45,7 @@ class ListingCard extends Component {
             <Row>
               <Col className="text-left"> <p className="user-order-card-name">{this.state.listing.name}</p></Col>
               <Col><p className="user-order-card-quantity">Quantity: {this.props.order.quantities[this.props.orderIndex]}</p></Col>
-              <Col className="text-right"><p className="user-order-card-total">Price: ${(this.state.listing.price * this.props.order.quantities[this.props.orderIndex]).toFixed(2)}</p></Col>
+              <Col className="text-right"><p className="user-order-card-total">Price: ${(this.state.listing.price)}</p></Col>
             </Row>
             <Row>
               <Col className="text-left"><p className="user-order-card-details">Type: {this.state.listing.type} | Allergens: {this.state.listing.allergens}</p></Col>
