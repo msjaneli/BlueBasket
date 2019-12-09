@@ -86,7 +86,7 @@ class Order extends Component {
       } else if ((this.state.noCurrentOrders)) {
         currentOrders = <Alert variant='danger'> Oops! Looks like you don't have any live orders at this time </Alert>
       } else {
-        currentOrders = 
+        currentOrders =
           <div>
             {this.state.currentOrders.map((order, i) =>  {
               return(
@@ -131,7 +131,7 @@ class Order extends Component {
       } else if ((this.state.noPastOrders)) {
         pastOrders = <Alert variant='danger'> Oops! Looks like you don't have any past or completed at this time </Alert>
       } else {
-        pastOrders = 
+        pastOrders =
         <div>
         {this.state.pastOrders.map((order, i) =>  {
           return(
@@ -178,7 +178,9 @@ class Order extends Component {
               <h2 id="order-subtitle" style={{marginBottom: '2rem'}}>Current Orders</h2>
             </Col>
           </Row>
+          <a class="no-highlight" href="/checkout/thankyou">
           {currentOrders}
+          </a>
           <Row>
             <Col className="text-left">
               <h2 id="order-subtitle" style={{marginBottom: '2rem'}}>Past Orders</h2>

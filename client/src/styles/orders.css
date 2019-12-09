@@ -72,4 +72,11 @@
   font-weight: 600;
 }
 
+.no-highlight{
+  color: black;
+}
 
+.no-highlight:hover{
+  text-decoration: none;
+  color: black;
+}

@@ -38,13 +38,14 @@ class Profile extends Component {
         type: '',
         quantity: 1,
         price: 1,
-        error: ''
+        error: '',
+        success: false
     };
   }
 
   componentDidMount = async () => {
     const { data } = await axios.get('/listing/types/' + this.props.user.id)
-    this.setState({presetTypes: data})    
+    this.setState({presetTypes: data})
 
   }
 
@@ -133,6 +134,12 @@ class Profile extends Component {
         error: err.response.data.error
       })
     }
+
+    if(isEmpty(this.state.error)){
+      this.setState({
+        success: true
+      })
+    }
   };
 
   clearForm = () => {
@@ -167,7 +174,7 @@ class Profile extends Component {
     var optionsPresets = [];
 
     this.state.presetTypes.forEach((listing => {
-        var count = 0; 
+        var count = 0;
         var selectionString ='';
         for (var key in listing) {
           if (count != 0) {
@@ -183,6 +190,8 @@ class Profile extends Component {
     )
 
     let errorAlert = !isEmpty(this.state.error) ? <Alert variant="danger">{this.state.error}</Alert> : null
+
+    let successAlert = this.state.success ? <Alert variant="success">Listing successfully created.</Alert> : null
 
     return (
       <Container style={{marginBottom: '3rem'}}>
@@ -207,9 +216,10 @@ class Profile extends Component {
               `}
           </style>
         </Card>
-        <Row style={{marginTop: '3rem'}}> 
+        <Row style={{marginTop: '3rem'}}>
           <Col className='text-center'>
             {errorAlert}
+            {successAlert}
           </Col>
         </Row>
         <Row>
@@ -217,7 +227,7 @@ class Profile extends Component {
             <p id="title-restaurant-profile">Create a Listing</p>
             <Form onSubmit={this.handleSubmit}>
               <Form.Label>Create From Previous Listing</Form.Label>
-                <Select 
+                <Select
                   value={this.state.preset}
                   onChange={this.changePreset}
                   options={optionsPresets}
@@ -233,30 +243,30 @@ class Profile extends Component {
               </Form.Group>
 
               <Form.Label>Choose Meal Type</Form.Label>
-              <Select 
+              <Select
                 value={this.state.type}
                 onChange={this.changeType}
                 options={optionsType}
               />
 
               <Form.Label style={{marginTop: '1rem'}}>Select Allergens</Form.Label>
-              <Select 
+              <Select
                 value={this.state.allergens}
                 onChange={this.changeAllergens}
                 options={optionsAllergens}
                 isMulti={true}
               />
-              <div style={{marginTop: '1rem'}}>          
+              <div style={{marginTop: '1rem'}}>
                 <Form.Label style={{marginRight: '1rem'}}>Quantity</Form.Label>
                 <NumericInput name="quantity" min = {1} precision={0} value={this.state.quantity} onChange={(valueAsNumber) => this.changeQuantity(valueAsNumber)} />
                 <Form.Label style={{marginLeft: '1rem', marginRight: '1rem'}}>Price ($)</Form.Label>
-                <NumericInput name="price" min={1} precision={2} value={this.state.price} onChange={(valueAsNumber) => this.changePrice(valueAsNumber)}/> 
+                <NumericInput name="price" min={1} precision={2} value={this.state.price} onChange={(valueAsNumber) => this.changePrice(valueAsNumber)}/>
 
                 <Button variant="primary" onClick={() => this.createListing()} disabled={this.validateInputs()} style={{marginLeft: '1rem', marginRight: '1rem'}}>
                   Submit
                 </Button>
                 <Button variant ='secondary' onClick={() => this.clearForm()}>Clear Form</Button>
-              </div>    
+              </div>
             </Form>
           </Col>
         </Row>
