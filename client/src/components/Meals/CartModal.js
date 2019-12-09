@@ -11,6 +11,7 @@ import resetCheckoutStatus from '../../actions/checkout/resetStatus'
 
 // Selectors
 import * as checkoutSelectors from '../../selectors/checkoutSelectors'
+import * as sessionSelectors from '../../selectors/sessionSelectors'
 
 // Tools
 import isEmpty from '../../validation/isEmpty'
@@ -19,6 +20,7 @@ import loadingAnimationData from '../../resources/lotties/loading/117-progress-b
 import { connect } from 'react-redux';
 
 const mapStateToProps = (state) => ({
+    user: sessionSelectors.getUser(state),
     isLoading: checkoutSelectors.isLoading(state),
     cartStatus: checkoutSelectors.getCartStatus(state)
 })
@@ -127,7 +129,7 @@ class CartModal extends Component {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button className="cart-modal-cancel" onClick={() => this.hideAndReset()} variant="cancel">Cancel</Button>
-                    <Button className="cart-modal-submit" onClick={() => this.attemptCartAdd()} variant="cart">Add to Cart</Button>
+                    <Button className="cart-modal-submit" onClick={() => this.attemptCartAdd()} variant="cart" disabled={this.props.user.type === 'RESTAURANT'}>Add to Cart</Button>
                     <style type="text/css">
                         {`
                             .btn-cart {

@@ -16,14 +16,17 @@ import * as sessionSelectors from "../../selectors/sessionSelectors";
 import { connect } from "react-redux";
 import axios from "axios";
 import isEmpty from "../../validation/isEmpty";
+import { push } from 'connected-react-router';
 
 const mapStateToProps = state => ({
   user: sessionSelectors.getUser(state),
-  authenticated: sessionSelectors.isAuthenticated(state)
+  authenticated: sessionSelectors.isAuthenticated(state),
 });
 
 const mapDispatchToProps = dispatch => ({
-  logout: () => dispatch(logoutUser())
+  logout: () => dispatch(logoutUser()),
+  goToListing: (rid) => dispatch(push('/meals/' + rid))
+
 });
 
 class Profile extends Component {
@@ -107,7 +110,6 @@ class Profile extends Component {
   }
 
   createListing = async () => {
-
     this.setState({
       error: ''
     })
@@ -129,6 +131,7 @@ class Profile extends Component {
 
     try {
       await axios.post('/listing/' + this.props.user.id + '/create/', payload);
+      this.props.goToListing(this.props.user.id)
     } catch (err) {
       this.setState({
         error: err.response.data.error

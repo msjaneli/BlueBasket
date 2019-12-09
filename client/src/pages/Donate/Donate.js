@@ -59,7 +59,7 @@ class Donate extends Component {
   aria-describedby="basic-addon1"
 />
  </InputGroup></div>
-  <Button id="donate-submit-button" href="/thankyou">Donate</Button>
+  <Button id="donate-submit-button" href="/donate/thankyou">Donate</Button>
   </div>
     )
   }

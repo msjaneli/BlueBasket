@@ -1,5 +1,4 @@
 .order-card{
-  margin: auto;
   font-family: 'Muli', sans-serif;
   font-size: 1.2vw;
   padding: 1.3vw;
@@ -31,7 +30,7 @@
 }
 
 .user-order-card-note {
-  color: #C9D8FE;
+  color: rgb(157, 183, 248);
   font-size: 1.2vw;
 }
 
@@ -74,6 +73,16 @@
 
 .no-highlight{
   color: black;
+}
+
+.snack-bar {
+  display: inline-block;
+  margin-right: 1rem;
+  font-weight: 600;
+  background: whitesmoke;
+  border: transparent;
+  border-radius: 3px;
+  padding: 0.5rem
 }
 
 .no-highlight:hover{
