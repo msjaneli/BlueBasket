@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import NavbarStandard from './NavbarStandard';
 import NavbarUser from './NavbarUser';
 import NavbarRestaurant from './NavbarRestaurant';
-
+import NavbarShelter from './NavbarShelter';
 // Selectors
 import * as sessionSelectors from '../../selectors/sessionSelectors';
 import * as routerSelectors from '../../selectors/routerSelectors';
@@ -36,7 +36,9 @@ class Navbar extends Component {
         } else {
             if (this.props.user.type === "USER") {
                 return(<NavbarUser name = {this.props.user.name.split(" ")[0]}/>);
-            } else {
+            }else if (this.props.user.type === "SHELTER") {
+              return (<NavbarShelter name = {this.props.user.name.split(" ")[0]}/>);
+            }else {
                 return(<NavbarRestaurant name = {this.props.user.name}/>);
             }
         }
