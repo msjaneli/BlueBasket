@@ -101,8 +101,7 @@ class ListingContainer extends Component {
                         return(
                             <Row key ={i}>
                                 <Col key = {i}>
-                                    {
-                                        listing.quantity === 0 ? null :                                     
+                                    {                                  
                                         <ListingCard key={i} keyId = {i} listing = {listing} showModal={(keyId) => this.showModal(keyId)}/>
                                     }
                                 </Col>

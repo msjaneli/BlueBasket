@@ -4,12 +4,31 @@ import '../../styles/meals.css';
 // Components
 import { Row, Col, Card, Button } from 'react-bootstrap'
 
+// Selectors 
+import * as sessionSelectors from '../../selectors/sessionSelectors'
+
+// Tools
+import axios from 'axios'
+import { connect } from 'react-redux';
+
+const mapStateToProps = (state) => ({
+    user: sessionSelectors.getUser(state),
+})
+
 class ListingCard extends Component {
     constructor(props) {
         super(props);
     }
 
+    deleteListing = async () => {
+        await axios.post('/listing/' + this.props.listing.lid + '/delete')
+        window.location.reload(true)
+    }
+
     render() {
+
+        let deleteListingButton = this.props.user.type === 'RESTAURANT' ? <Button variant="danger" style={{marginLeft: '0.5rem'}} onClick={() => this.deleteListing()}>Delete</Button> : null
+
         return(
             <Card body className = "listing-card" style={{margin: '0.25rem'}}>
                 <Row>
@@ -52,7 +71,7 @@ class ListingCard extends Component {
                         </Row>
                         <Row>
                         <Col>
-                            <Button onClick={() => this.props.showModal(this.props.keyId)} variant="cart">Add to Cart</Button>
+                            <Button onClick={() => this.props.showModal(this.props.keyId)} disabled={this.props.user.type === 'RESTAURANT'} variant="cart">Add to Cart</Button>
                             <style type="text/css">
                                 {`
                                     .btn-cart {
@@ -60,6 +79,7 @@ class ListingCard extends Component {
                                         color: white;
                                         font-weight: 400;
                                         width: 8rem;
+                                        margin
                                     }
 
                                     .btn-cart:hover {
@@ -68,6 +88,7 @@ class ListingCard extends Component {
                                     }
                                 `}
                             </style>
+                            {deleteListingButton}
                         </Col>
                         </Row>
                     </Col>
@@ -78,4 +99,4 @@ class ListingCard extends Component {
     }
 }
 
-export default ListingCard;
+export default connect(mapStateToProps)(ListingCard);
