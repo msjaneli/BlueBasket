@@ -35,6 +35,7 @@ class NavbarRestaurant extends Component {
                 <Nav className = "ml-auto">
                     <NavDropdown title={welcomeText} alignRight>
                         <NavDropdown.Item href="/profile/restaurant">Profile</NavDropdown.Item>
+                        <NavDropdown.Item href="/orders/restaurant">Handle Orders</NavDropdown.Item>
                         <NavDropdown.Divider />
                         <NavDropdown.Item onClick={() => this.props.logout()}>Logout</NavDropdown.Item>
                     </NavDropdown>
