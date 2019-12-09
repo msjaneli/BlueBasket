@@ -71,14 +71,11 @@
   font-weight: 600;
 }
 
-.snack-bar {
-  display: inline-block;
-  margin-right: 1rem;
-  font-weight: 600;
-  background: whitesmoke;
-  border: transparent;
-  border-radius: 3px;
-  padding: 0.5rem
+.no-highlight {
+  color: black;
 }
 
-
+.no-highlight:hover{
+  text-decoration: none;
+  color: black;
+}
