@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import '../../styles/orders.css'
 
-
 // Components
 import UserOrderCard from '../../components/Profile/UserOrderCard'
 import { Alert } from 'react-bootstrap';
@@ -28,6 +27,7 @@ class Order extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      view: 'current',
       currentOrders: [],
       noCurrentOrders: false,
       pastOrders: [],
@@ -68,6 +68,12 @@ class Order extends Component {
     }
   }
 
+  setView = (view) => {
+    this.setState({
+      view: view
+    })
+  }
+
   render() {
     const animationOptionsLoading = {
       loop: true,
@@ -84,7 +90,7 @@ class Order extends Component {
     if (isEmpty(this.state.currentOrders) && !(this.state.noCurrentOrders)) {
       currentOrders = <Lottie options={animationOptionsLoading} width={100} height={100}/>
     } else if ((this.state.noCurrentOrders)) {
-      currentOrders = <Alert variant='danger'> Oops! Looks like you don't have any live orders at this time </Alert>
+      currentOrders = <Alert variant='danger' style={{textAlign: 'center'}}> Oops! Looks like you don't have any live orders at this time </Alert>
     } else {
       currentOrders =
         <div>
@@ -95,6 +101,7 @@ class Order extends Component {
                   <Row>
                     <Col>
                       <p className='timestamp' style={{textAlign:'left'}}> Order on: {order.timestamp} </p>
+                      <p style={{textAlign:'left'}}>Total: ${order.total}</p>
                     </Col>
                     <Col className='text-right'>
                       <p style={{display: 'inline-block'}}>Status: </p>
@@ -128,7 +135,7 @@ class Order extends Component {
     if (isEmpty(this.state.pastOrders) && !(this.state.noPastOrders)) {
       pastOrders = <Lottie options={animationOptionsLoading} width={100} height={100}/>
     } else if ((this.state.noPastOrders)) {
-      pastOrders = <Alert variant='danger'> Oops! Looks like you don't have any past or completed at this time </Alert>
+      pastOrders = <Alert variant='danger' style={{textAlign: 'center'}}> Oops! Looks like you don't have any past or completed at this time </Alert>
     } else {
       pastOrders =
         <div>
@@ -170,22 +177,45 @@ class Order extends Component {
         </div>
     }
 
-    return (
-      <Container>
+    let currentSection = this.state.view === 'current' ?
+      (<Container>
         <Row>
-          <Col className="text-left">
-            <h2 id="order-subtitle" style={{marginBottom: '2rem'}}>Current Orders</h2>
+          <Col>
+            <p><b>Current Orders</b></p>
+            <a class="no-highlight" href="/checkout/thankyou">
+              {currentOrders}
+            </a>
           </Col>
         </Row>
-        <a class="no-highlight" href="/checkout/thankyou">
-          {currentOrders}
-        </a>
         <Row>
           <Col className="text-left">
             <h2 id="order-subtitle" style={{marginBottom: '2rem'}}>Past Orders</h2>
           </Col>
+        </Row></Container> ) : null
+
+    let pastSection = this.state.view === 'past' ?
+      (<Row>
+        <Col>
+          <p><b>Past Orders</b></p>
+          {pastOrders}
+        </Col>
+      </Row> ) : null
+
+    return (
+      <Container>
+        <Row style={{marginTop: '3rem'}}>
+          <Col className='text-left'>
+            <p className='user-order-card-restaurant'>View Orders</p>
+            <Row style={{marginBottom: '2rem'}}>
+              <Col>
+                <button className='snack-bar' onClick={() => this.setView('current')}>Current</button>
+                <button className='snack-bar' onClick={() => this.setView('past')}>Past</button>
+              </Col>
+            </Row>
+            {currentSection}
+            {pastSection}
+          </Col>
         </Row>
-        {pastOrders}
       </Container>
     );
   }
