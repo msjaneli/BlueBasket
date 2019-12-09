@@ -11,6 +11,17 @@ exports.getUsers = async (req, res) => {
     return res.send(rows);
 } 
 
+exports.getUserById = async(req, res) => {
+    var uid = req.params.uid
+
+    const query = {
+        text: 'SELECT * FROM user_account where uid = $1',
+        values: [uid]
+    }
+    const { rows } = await db.query(query);
+    return res.status(200).send(rows)
+}
+
 exports.getId = async (req, res) => {
     var email = req.params.email
 

@@ -11,6 +11,7 @@ import { loginUserFacebook } from '../../actions/auth/login';
 import * as authSelectors from '../../selectors/authSelectors'
 
 // Tools
+import isEmpty from '../../validation/isEmpty'
 import { connect } from 'react-redux';
 import axios from 'axios';
 
@@ -62,27 +63,28 @@ class Facebook extends Component {
   };
 
   responseFacebook = async response => {
-    this.setState({
-      isLoggedIn: true,
-      userID: response.userID,
-      name: response.name,
-      email: response.email,
-      picture: response.picture.data.url
-    });
-
-    await this.register();
-
-    var loginPayload = {
-      token: this.state.userID,
-      userData: {
-        id: this.state.userID,
-        email: this.state.email,
-        name: this.state.name,
-        type: "USER"
+    if (!response.status==='unknown') {
+      this.setState({
+        isLoggedIn: true,
+        userID: response.userID,
+        name: response.name,
+        email: response.email,
+        picture: response.picture.data.url
+      });
+  
+      await this.register();
+  
+      var loginPayload = {
+        token: this.state.userID,
+        userData: {
+          id: this.state.userID,
+          email: this.state.email,
+          name: this.state.name,
+          type: "USER"
+        }
       }
+      await this.props.login(loginPayload, this.props.authRedirect);
     }
-
-    await this.props.login(loginPayload, this.props.authRedirect);
   };
 
   componentClicked = () =>  {

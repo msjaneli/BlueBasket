@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import '../../styles/checkout.css'
 
 // Components
-import { Container, Row, Col, Card, Button, Alert } from 'react-bootstrap';
+import { Container, Row, Col, Card, Button, Alert, Form } from 'react-bootstrap';
 import { CardNumberElement, CardCVCElement, CardExpiryElement} from 'react-stripe-elements'
+import IntlTelInput from 'react-bootstrap-intl-tel-input'
 
 // Selectors
 import * as sessionSelectors from '../../selectors/sessionSelectors'
@@ -38,6 +39,10 @@ const mapDispatchToProps = (dispatch) => ({
 class CardCheckout extends Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            phoneNumber: ''
+        }
     }
 
     submitOrder = async () => {
@@ -51,6 +56,7 @@ class CardCheckout extends Component {
             uid: this.props.getUser.id,
             name: this.props.getUser.name,
             email: this.props.getUser.email,
+            phoneNumber: this.state.phoneNumber,
             tokenGenResults: tokenGenResults,
             orders: this.props.orders
         }
@@ -63,6 +69,10 @@ class CardCheckout extends Component {
             return
         }
     }
+
+    handleChange = e => {
+        this.setState({ [e.target.name]: e.target.value });
+      };
 
     render () {
 
@@ -122,6 +132,12 @@ class CardCheckout extends Component {
                             <Col>
                                 <label>Expiration Date</label>
                                 <CardExpiryElement />
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                <Form.Control placeholder="Phone Number" type='tel' name = "phoneNumber" onChange = {this.handleChange}>
+                                </Form.Control>
                             </Col>
                         </Row>
                     </Col>
