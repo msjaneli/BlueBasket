@@ -47,7 +47,6 @@ class Meals extends Component {
   }
 
   render () {
-
     const animationOptionsLoading = {
       loop: true,
       autoplay: true,
@@ -55,7 +54,7 @@ class Meals extends Component {
       renderSettings: {
         preserveAspectRatio: 'xMidYMid slice'
       }
-  }
+    }
 
   let availableNow;
   if (isEmpty(this.state.restaurantListNow) && !this.state.nowEmpty) {

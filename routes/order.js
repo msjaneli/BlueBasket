@@ -9,6 +9,10 @@ router.get("/", orderController.getAllCompletedOrders);
 
 router.get("/restaurant/:rid/completed", orderController.getCompletedOrdersByRestaurantId);
 
+router.get("/restaurant/:rid/pending", orderController.getPendingOrdersByRestaurantId);
+
+router.get("/restaurant/:rid/accepted", orderController.getAcceptedOrdersByRestaurantId);
+
 router.get("/id", orderController.getAllOrdersByID);
 
 router.post("/user/:uid/submit", orderController.submitOrderUser);
@@ -17,7 +21,7 @@ router.post("/shelter/:sid/submit", orderController.submitOrderShelter);
 
 router.get("/current/:uid", orderController.getCurrentOrdersById);
 
-router.get("/past/:id", orderController.getPastOrdersById);
+router.get("/past/:uid", orderController.getPastOrdersById);
 
 router.put("/:oid/:rid/accept", orderController.acceptOrder);
 

@@ -20,6 +20,7 @@ import UserProfile from './pages/Profiles/UserProfile';
 import RestaurantProfile from './pages/Profiles/RestaurantProfile';
 import ShelterProfile from './pages/Profiles/ShelterProfile';
 import UserOrder from './pages/Orders/UserOrder';
+import RestaurantOrder from './pages/Orders/RestaurantOrder';
 import TestProtected from './pages/TestProtected'
 import NotFound from './pages/NotFound'
 
@@ -40,10 +41,10 @@ import Cart from './pages/Checkout/Cart';
 const mapStateToProps = (state) => ({
   checked: sessionSelectors.isChecked(state),
   authenticated: sessionSelectors.isAuthenticated(state),
-  type: sessionSelectors.getType(state)
+  user: sessionSelectors.getUser(state)
 })
 
-const App = ({ authenticated, checked, type }) => {
+const App = ({ authenticated, checked, user }) => {
   return (
     <div>
       <ConnectedRouter history = { history }>
@@ -61,14 +62,15 @@ const App = ({ authenticated, checked, type }) => {
               <Route exact path = '/donate/thankyou' component = { DonateThankYou } />
               <Route exact path = '/checkout/thankyou' component = {CheckoutThankYou} />
               <Route exact path = '/cart' component = { Cart } />
-              <PrivateRouteUser exact path = '/profile/user' component = { UserProfile } authenticated = { authenticated } type = { type }/>
-              <PrivateRouteUser exact path = '/orders/user' component = { UserOrder } authenticated = { authenticated } type = { type }/>
-              <PrivateRouteUser exact path = '/protected/user' component = { TestProtected } authenticated = { authenticated } type = { type } />
-              <PrivateRouteUser exact path = '/checkout/user' component = { UserCheckout } authenticated = { authenticated } type = {type} />
-              <PrivateRouteRestaurant exact path = '/profile/restaurant' component = { RestaurantProfile } authenticated = { authenticated } type = { type }/>
-              <PrivateRouteRestaurant exact path = '/protected/restaurant' component = { TestProtected } authenticated = { authenticated } type = { type } />
-              <PrivateRouteShelter exact path = '/profile/shelter' component = { ShelterProfile } authenticated = { authenticated } type = { type }/>
-              <PrivateRouteShelter exact path = '/protected/shelter' component = { TestProtected } authenticated = { authenticated } type = { type } />
+              <PrivateRouteUser exact path = '/profile/user' component = { UserProfile } authenticated = { authenticated } type = { user.type }/>
+              <PrivateRouteUser exact path = '/orders/user' component = { UserOrder } authenticated = { authenticated } type = { user.type }/>
+              <PrivateRouteUser exact path = '/protected/user' component = { TestProtected } authenticated = { authenticated } type = { user.type } />
+              <PrivateRouteUser exact path = '/checkout/user' component = { UserCheckout } authenticated = { authenticated } type = {user.type} />
+              <PrivateRouteRestaurant exact path = '/profile/restaurant' component = { RestaurantProfile } authenticated = { authenticated } type = { user.type }/>
+              <PrivateRouteRestaurant exact path = '/orders/restaurant' component = { RestaurantOrder } authenticated = { authenticated } type = { user.type } />
+              <PrivateRouteRestaurant exact path = '/protected/restaurant' component = { TestProtected } authenticated = { authenticated } type = { user.type } />
+              <PrivateRouteShelter exact path = '/profile/shelter' component = { ShelterProfile } authenticated = { authenticated } type = { user.type } />
+              <PrivateRouteShelter exact path = '/protected/shelter' component = { TestProtected } authenticated = { authenticated } type = { user.type } />
               {/* <PrivateRouteRestaurant exact path = '/meals/restaurant' component={ Meals } authenticated = { authenticated } type = { type } /> */}
 
               <Route component = {NotFound} />

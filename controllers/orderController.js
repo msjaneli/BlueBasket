@@ -8,6 +8,10 @@ const pending = "Pending",
 require("dotenv").config();
 const stripe_key = process.env.STRIPE_SKEY;
 const stripe = require("stripe")(stripe_key);
+const accountSid = process.env.TWILIO_ACCOUNT
+const authToken = process.env.TWILIO_AUTH
+const twilioNumber = '+12568418199'
+const client = require('twilio')(accountSid, authToken);
 
 exports.getAllCompletedOrders = async (req, res) => {
   const query = {
@@ -18,12 +22,34 @@ exports.getAllCompletedOrders = async (req, res) => {
   return res.status(200).send(rows);
 };
 
-exports.getCompletedOrdersByRestaurantId = async (req, res) => {
+exports.getPendingOrdersByRestaurantId = async (req, res) => {
+  var rid = req.params.rid;
+
+  const query = {
+    text: "SELECT * FROM orders WHERE rid = $1 AND status = $2",
+    values: [rid, pending]
+  };
+  const { rows } = await db.query(query);
+  return res.status(200).send(rows);
+}
+
+exports.getAcceptedOrdersByRestaurantId = async (req, res) => {
   var rid = req.params.rid;
 
   const query = {
     text: "SELECT * FROM orders WHERE rid = $1 AND status = $2",
     values: [rid, accepted]
+  };
+  const { rows } = await db.query(query);
+  return res.status(200).send(rows);
+}
+
+exports.getCompletedOrdersByRestaurantId = async (req, res) => {
+  var rid = req.params.rid;
+
+  const query = {
+    text: "SELECT * FROM orders WHERE rid = $1 AND status = $2",
+    values: [rid, completed]
   };
   const { rows } = await db.query(query);
   return res.status(200).send(rows);
@@ -67,8 +93,8 @@ exports.getPastOrdersById = async (req, res) => {
   var uid = req.params.uid;
 
   const query = {
-    text: "SELECT * FROM orders WHERE uid = $1 AND NOT status=$2 AND NOT status=$3",
-    values: [uid, pending, accepted]
+    text: "SELECT * FROM orders WHERE uid = $1 AND status = $2 OR status = $3",
+    values: [uid, completed, cancelled]
   };
   const { rows } = await db.query(query);
   return res.status(200).send(rows);
@@ -87,6 +113,7 @@ exports.submitOrderUser = async (req, res) => {
   }
   var uid = req.params.uid;
   var name = req.body.name;
+  var phoneNumber = req.body.phoneNumber;
   const tokens = req.body.tokenGenResults;
   var orders = req.body.orders;
   var oid = Math.random()
@@ -125,7 +152,8 @@ exports.submitOrderUser = async (req, res) => {
     }
 
     const postOrder = {
-      text: "INSERT INTO orders VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)",
+      text:
+        "INSERT INTO orders VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)",
       values: [
         oid,
         uid,
@@ -136,6 +164,8 @@ exports.submitOrderUser = async (req, res) => {
         pending,
         orders[rid].total,
         timestamp,
+        [],
+        phoneNumber
       ]
     };
     postOrders.push(postOrder);
@@ -145,12 +175,20 @@ exports.submitOrderUser = async (req, res) => {
   postOrders.forEach(async post => {
     await db.query(post);
   });
+  if (!isEmpty(phoneNumber)) {
+    client.messages.create({
+      body: 'Hi, ' + name + '! Thank You for using Blue Basket. The vendors you have ordered from have been notifited. They will let you know when your order has both been accepted and completed.',
+      from: twilioNumber,
+      to: '+1' + phoneNumber
+    })
+  }
   return res.status(200).send({ success: "Order submitted successfully!" });
 };
 
 exports.acceptOrder = async (req, res) => {
   var oid = req.params.oid;
   var rid = req.params.rid;
+  var phoneNumber = req.body.phoneNumber
 
   const updateOrder = {
     text:
@@ -158,8 +196,23 @@ exports.acceptOrder = async (req, res) => {
     values: [accepted, oid, rid, pending]
   };
 
+  const getRestaurant = {
+    text: "SELECT name from restaurant_account WHERE rid = $1",
+    values: [rid]
+  }
+
+  const { rows } = await db.query(getRestaurant);
+  const restaurantName = rows[0].name
+
   try {
     await db.query(updateOrder);
+    if (!isEmpty(phoneNumber)) {
+      client.messages.create({
+        body: 'Hi! Looks like ' + restaurantName + ' has accepted your order. It will be ready for pickup at the BC circle shortly!',
+        from: twilioNumber,
+        to: '+1' + phoneNumber
+      })
+    }
     return res.status(200).send({success: "Successfully accepted order"})
 
   } catch (err) {
@@ -189,14 +242,31 @@ exports.cancelOrder = async (req, res) => {
 exports.completeOrder = async (req, res) => {
   var oid = req.params.oid;
   var rid  = req.params.rid; 
+  var phoneNumber = req.body.phoneNumber
+
 
   const completeOrder = {
     text: "UPDATE orders SET status = $1 WHERE oid = $2 AND rid=$3 AND status=$4",
     values: [completed, oid, rid, accepted]
   }
 
+  const getRestaurant = {
+    text: "SELECT name from restaurant_account WHERE rid = $1",
+    values: [rid]
+  }
+
+  const { rows } = await db.query(getRestaurant);
+  const restaurantName = rows[0].name
+
   try {
     await db.query(completeOrder);
+    if (!isEmpty(phoneNumber)) {
+      client.messages.create({
+        body: 'Hi! Looks like ' + restaurantName + ' has completed your order. It is ready for pickup at the BC cirle!',
+        from: twilioNumber,
+        to: '+1' + phoneNumber
+      })
+    }
     return res.status(200).send({success: "Successfully completed order"})
 
   } catch (err) {
@@ -252,7 +322,7 @@ exports.submitOrderShelter = async (req, res) => {
       text: "INSERT INTO orders VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)",
       values: [
         oid,
-        uid,
+        sid,
         rid,
         orders[rid].lids,
         orders[rid].quantities,

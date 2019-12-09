@@ -135,9 +135,9 @@ export const loginShelter = (payload, redirectUrl) => async dispatch => {
         }
 
         var token = resultData.data.token;
-        var userData = resultData.data.userData;
+        var shelterData = resultData.data.shelterData;
 
-        await sessionService.saveUser(userData);
+        await sessionService.saveUser(shelterData);
         await sessionService.saveSession(token);
 
         dispatch({
